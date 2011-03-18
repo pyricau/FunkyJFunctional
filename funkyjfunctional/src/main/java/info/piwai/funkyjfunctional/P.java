@@ -26,7 +26,7 @@ import com.google.common.base.Predicate;
 public abstract class P<T> {
 	private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
 
-	private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
+	private static Object ref;
 
 	private static class ClassPredicate<T> implements Predicate<T> {
 
@@ -40,7 +40,7 @@ public abstract class P<T> {
 
 		@Override
 		public boolean apply(T input) {
-			holder.set(input);
+			ref = input;
 			try {
 				P<T> instance = (P<T>) constructor.newInstance(constructorParameters);
 				return instance.r;
@@ -51,7 +51,7 @@ public abstract class P<T> {
 			} catch (InvocationTargetException e) {
 				throw new RuntimeException(e);
 			} finally {
-				holder.set(null);
+				ref = null;
 			}
 		}
 	}
@@ -90,7 +90,7 @@ public abstract class P<T> {
 
 	@SuppressWarnings("unchecked")
 	public P() {
-		t = (T) holder.get();
+		t = (T) ref;
 	}
 
 }

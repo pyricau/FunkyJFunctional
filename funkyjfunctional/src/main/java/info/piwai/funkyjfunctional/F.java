@@ -26,7 +26,7 @@ import com.google.common.base.Function;
 public abstract class F<FROM, TO> {
 	private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
 
-	private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
+	private static Object ref;
 
 	private static class ClassFunction<FROM, TO> implements Function<FROM, TO> {
 
@@ -40,7 +40,7 @@ public abstract class F<FROM, TO> {
 
 		@Override
 		public TO apply(FROM input) {
-			holder.set(input);
+			ref = input;
 			try {
 				F<FROM, TO> instance = (F<FROM, TO>) constructor.newInstance(constructorParameters);
 				return instance.t;
@@ -51,7 +51,7 @@ public abstract class F<FROM, TO> {
 			} catch (InvocationTargetException e) {
 				throw new RuntimeException(e);
 			} finally {
-				holder.set(null);
+				ref = null;
 			}
 		}
 	}
@@ -91,6 +91,6 @@ public abstract class F<FROM, TO> {
 
 	@SuppressWarnings("unchecked")
 	public F() {
-		f = (FROM) holder.get();
+		f = (FROM) ref;
 	}
 }
