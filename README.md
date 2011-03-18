@@ -19,7 +19,7 @@ With FunkyJFunctional our [predicates](https://github.com/pyricau/FunkyJFunction
 	class Adult extends P<Integer> {{r = t > 18;}};
 	Iterable<Integer> adults = Iterables.filter(values, Pred.with(Adult.class));
 	
-    ... with static imports it reads like this
+... with static imports it reads like this
 	
 	Iterable<Integer> adults = filter(values, with(Adult.class));
 	
@@ -29,7 +29,7 @@ We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/ma
 	class Price extends F<Integer, String> {{t = f+"$";}};
 	List<String> prices = Lists.transform(values, Func.with(Price.class));
 
-	... with static imports it reads like this
+... with static imports it reads like this
 
 	List<String> prices = transform(values, with(Price.class));
 	
@@ -42,7 +42,7 @@ And [comparators](https://github.com/pyricau/FunkyJFunctional/blob/master/src/te
 	class Sort extends Comp<Person> {{r = t1.getName().compareTo(t2.getName());}};
 	List<Person> sortedPersons = Ordering.from(C.with(Sort.class)).sortedCopy(persons);;
 	
-	... with static imports it reads like this
+... with static imports it reads like this
 	
 	Ordering<Person> ordering = from(with(Sort.class)).sortedCopy(persons);
 	
