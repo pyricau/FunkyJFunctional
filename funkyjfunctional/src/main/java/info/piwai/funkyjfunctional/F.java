@@ -41,19 +41,18 @@ public abstract class F<FROM, TO> {
 		@Override
 		public TO apply(FROM input) {
 			holder.set(input);
-			F<FROM, TO> instance;
 			try {
-				instance = (F<FROM, TO>) constructor.newInstance(constructorParameters);
+				F<FROM, TO> instance = (F<FROM, TO>) constructor.newInstance(constructorParameters);
+				return instance.t;
 			} catch (InstantiationException e) {
 				throw new RuntimeException(e);
 			} catch (IllegalAccessException e) {
 				throw new RuntimeException(e);
 			} catch (InvocationTargetException e) {
 				throw new RuntimeException(e);
+			} finally {
+				holder.set(null);
 			}
-			holder.set(null);
-
-			return instance.t;
 		}
 	}
 

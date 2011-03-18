@@ -20,7 +20,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.google.common.base.Predicate;
 
-
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
@@ -28,7 +27,7 @@ public abstract class P<T> {
 	private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
 
 	private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
-	
+
 	private static class ClassPredicate<T> implements Predicate<T> {
 
 		private final Object[] constructorParameters;
@@ -42,22 +41,21 @@ public abstract class P<T> {
 		@Override
 		public boolean apply(T input) {
 			holder.set(input);
-			P<T> instance;
 			try {
-				instance = (P<T>) constructor.newInstance(constructorParameters);
+				P<T> instance = (P<T>) constructor.newInstance(constructorParameters);
+				return instance.r;
 			} catch (InstantiationException e) {
 				throw new RuntimeException(e);
 			} catch (IllegalAccessException e) {
 				throw new RuntimeException(e);
 			} catch (InvocationTargetException e) {
 				throw new RuntimeException(e);
+			} finally {
+				holder.set(null);
 			}
-			holder.set(null);
-
-			return instance.r;
 		}
 	}
-	
+
 	public static <T> Predicate<T> from(Class<? extends P<T>> applyingClass) {
 		return from(applyingClass, null);
 	}
@@ -68,7 +66,7 @@ public abstract class P<T> {
 
 		return new ClassPredicate<T>(constructor, constructorParameters);
 	}
-	
+
 	private static Object[] createConstructorParameters(Constructor<?> constructor, Object instance) {
 		if (constructor.getParameterTypes().length == 0) {
 			return EMPTY_OBJECT_ARRAY;
@@ -94,5 +92,5 @@ public abstract class P<T> {
 	public P() {
 		t = (T) holder.get();
 	}
-	
+
 }

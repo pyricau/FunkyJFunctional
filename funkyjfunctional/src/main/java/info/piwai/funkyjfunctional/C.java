@@ -19,7 +19,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Comparator;
 
-
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
@@ -27,23 +26,23 @@ public abstract class C<T> {
 	private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
 
 	private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
-	
+
 	private static class Compared<T> {
-		
+
 		public final T t1;
 		public final T t2;
-		
+
 		public Compared(T t1, T t2) {
 			this.t1 = t1;
 			this.t2 = t2;
 		}
 	}
-	
+
 	private static class ClassComparator<T> implements Comparator<T> {
 
 		private final Object[] constructorParameters;
 		private final Constructor<C<T>> constructor;
-		
+
 		public ClassComparator(Constructor<C<T>> constructor, Object[] constructorParameters) {
 			this.constructor = constructor;
 			this.constructorParameters = constructorParameters;
@@ -52,22 +51,21 @@ public abstract class C<T> {
 		@Override
 		public int compare(T t1, T t2) {
 			holder.set(new Compared<T>(t1, t2));
-			C<T> instance;
 			try {
-				instance = (C<T>) constructor.newInstance(constructorParameters);
+				C<T> instance = (C<T>) constructor.newInstance(constructorParameters);
+				return instance.r;
 			} catch (InstantiationException e) {
 				throw new RuntimeException(e);
 			} catch (IllegalAccessException e) {
 				throw new RuntimeException(e);
 			} catch (InvocationTargetException e) {
 				throw new RuntimeException(e);
+			} finally {
+				holder.set(null);
 			}
-			holder.set(null);
-			
-			return instance.r;
 		}
 	}
-	
+
 	public static <T> Comparator<T> from(Class<? extends C<T>> applyingClass) {
 		return from(applyingClass, null);
 	}
@@ -78,7 +76,7 @@ public abstract class C<T> {
 
 		return new ClassComparator<T>(constructor, constructorParameters);
 	}
-	
+
 	private static Object[] createConstructorParameters(Constructor<?> constructor, Object instance) {
 		if (constructor.getParameterTypes().length == 0) {
 			return EMPTY_OBJECT_ARRAY;
@@ -98,15 +96,14 @@ public abstract class C<T> {
 
 	protected T t1;
 	protected T t2;
-	
 
 	protected int r;
 
 	@SuppressWarnings("unchecked")
 	public C() {
-		Compared<T> compared =  (Compared<T>) holder.get();
+		Compared<T> compared = (Compared<T>) holder.get();
 		t1 = compared.t1;
 		t2 = compared.t2;
 	}
-	
+
 }
