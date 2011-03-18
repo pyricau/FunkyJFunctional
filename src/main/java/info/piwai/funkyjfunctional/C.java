@@ -19,94 +19,92 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Comparator;
 
-
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class C<T> {
-	private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
+    private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
 
-	private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
-	
-	private static class Compared<T> {
-		
-		public final T t1;
-		public final T t2;
-		
-		public Compared(T t1, T t2) {
-			this.t1 = t1;
-			this.t2 = t2;
-		}
-	}
-	
-	private static class ClassComparator<T> implements Comparator<T> {
+    private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
 
-		private final Object[] constructorParameters;
-		private final Constructor<C<T>> constructor;
-		
-		public ClassComparator(Constructor<C<T>> constructor, Object[] constructorParameters) {
-			this.constructor = constructor;
-			this.constructorParameters = constructorParameters;
-		}
+    private static class Compared<T> {
 
-		@Override
-		public int compare(T t1, T t2) {
-			holder.set(new Compared<T>(t1, t2));
-			C<T> instance;
-			try {
-				instance = (C<T>) constructor.newInstance(constructorParameters);
-			} catch (InstantiationException e) {
-				throw new RuntimeException(e);
-			} catch (IllegalAccessException e) {
-				throw new RuntimeException(e);
-			} catch (InvocationTargetException e) {
-				throw new RuntimeException(e);
-			}
-			holder.set(null);
-			
-			return instance.r;
-		}
-	}
-	
-	public static <T> Comparator<T> from(Class<? extends C<T>> applyingClass) {
-		return from(applyingClass, null);
-	}
+        public final T t1;
+        public final T t2;
 
-	public static <T> Comparator<T> from(Class<? extends C<T>> applyingClass, Object instance) {
-		Constructor<C<T>> constructor = extractConstructor(applyingClass);
-		Object[] constructorParameters = createConstructorParameters(constructor, instance);
+        public Compared(T t1, T t2) {
+            this.t1 = t1;
+            this.t2 = t2;
+        }
+    }
 
-		return new ClassComparator<T>(constructor, constructorParameters);
-	}
-	
-	private static Object[] createConstructorParameters(Constructor<?> constructor, Object instance) {
-		if (constructor.getParameterTypes().length == 0) {
-			return EMPTY_OBJECT_ARRAY;
-		} else {
-			return new Object[] { instance };
-		}
-	}
+    private static class ClassComparator<T> implements Comparator<T> {
 
-	@SuppressWarnings("unchecked")
-	private static <T> Constructor<C<T>> extractConstructor(Class<? extends C<T>> applyingClass) {
-		Constructor<?> constructor = applyingClass.getDeclaredConstructors()[0];
-		if (!constructor.isAccessible()) {
-			constructor.setAccessible(true);
-		}
-		return (Constructor<C<T>>) constructor;
-	}
+        private final Object[] constructorParameters;
+        private final Constructor<C<T>> constructor;
+        private C<T> instance;
 
-	protected T t1;
-	protected T t2;
-	
+        public ClassComparator(Constructor<C<T>> constructor, Object[] constructorParameters) {
+            this.constructor = constructor;
+            this.constructorParameters = constructorParameters;
+        }
 
-	protected int r;
+        @Override
+        public int compare(T t1, T t2) {
+            holder.set(new Compared<T>(t1, t2));
+            try {
+                instance = (C<T>) constructor.newInstance(constructorParameters);
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+            holder.set(null);
 
-	@SuppressWarnings("unchecked")
-	public C() {
-		Compared<T> compared =  (Compared<T>) holder.get();
-		t1 = compared.t1;
-		t2 = compared.t2;
-	}
-	
+            return instance.r;
+        }
+    }
+
+    public static <T> Comparator<T> comparator(Class<? extends C<T>> applyingClass) {
+        return comparator(applyingClass, null);
+    }
+
+    public static <T> Comparator<T> comparator(Class<? extends C<T>> applyingClass, Object instance) {
+        Constructor<C<T>> constructor = extractConstructor(applyingClass);
+        Object[] constructorParameters = createConstructorParameters(constructor, instance);
+
+        return new ClassComparator<T>(constructor, constructorParameters);
+    }
+
+    private static Object[] createConstructorParameters(Constructor<?> constructor, Object instance) {
+        if (constructor.getParameterTypes().length == 0) {
+            return EMPTY_OBJECT_ARRAY;
+        } else {
+            return new Object[] { instance };
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> Constructor<C<T>> extractConstructor(Class<? extends C<T>> applyingClass) {
+        Constructor<?> constructor = applyingClass.getDeclaredConstructors()[0];
+        if (!constructor.isAccessible()) {
+            constructor.setAccessible(true);
+        }
+        return (Constructor<C<T>>) constructor;
+    }
+
+    protected T t1;
+    protected T t2;
+
+    protected int r;
+
+    @SuppressWarnings("unchecked")
+    public C() {
+        Compared<T> compared = (Compared<T>) holder.get();
+        t1 = compared.t1;
+        t2 = compared.t2;
+    }
+
 }

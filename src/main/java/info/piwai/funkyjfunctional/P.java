@@ -58,11 +58,11 @@ public abstract class P<T> {
 		}
 	}
 	
-	public static <T> Predicate<T> from(Class<? extends P<T>> applyingClass) {
-		return from(applyingClass, null);
+	public static <T> Predicate<T> withPredicate(Class<? extends P<T>> applyingClass) {
+		return withPredicate(applyingClass, null);
 	}
 
-	public static <T> Predicate<T> from(Class<? extends P<T>> applyingClass, Object instance) {
+	public static <T> Predicate<T> withPredicate(Class<? extends P<T>> applyingClass, Object instance) {
 		Constructor<P<T>> constructor = extractConstructor(applyingClass);
 		Object[] constructorParameters = createConstructorParameters(constructor, instance);
 

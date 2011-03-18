@@ -7,7 +7,7 @@
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software
+ * Unless required by applicable law or agreed To in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
@@ -23,27 +23,27 @@ import com.google.common.base.Function;
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class F<FROM, TO> {
+public abstract class F<From, To> {
 	private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
 
 	private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
 
-	private static class ClassFunction<FROM, TO> implements Function<FROM, TO> {
+	private static class ClassFunction<From, To> implements Function<From, To> {
 
-		private final Object[] constructorParameters;
-		private final Constructor<F<FROM, TO>> constructor;
+		private final Object[] ConstructorParameters;
+		private final Constructor<F<From, To>> Constructor;
 
-		public ClassFunction(Constructor<F<FROM, TO>> constructor, Object[] constructorParameters) {
-			this.constructor = constructor;
-			this.constructorParameters = constructorParameters;
+		public ClassFunction(Constructor<F<From, To>> Constructor, Object[] ConstructorParameters) {
+			this.Constructor = Constructor;
+			this.ConstructorParameters = ConstructorParameters;
 		}
 
 		@Override
-		public TO apply(FROM input) {
+		public To apply(From input) {
 			holder.set(input);
-			F<FROM, TO> instance;
+			F<From, To> instance;
 			try {
-				instance = (F<FROM, TO>) constructor.newInstance(constructorParameters);
+				instance = (F<From, To>) Constructor.newInstance(ConstructorParameters);
 			} catch (InstantiationException e) {
 				throw new RuntimeException(e);
 			} catch (IllegalAccessException e) {
@@ -57,20 +57,20 @@ public abstract class F<FROM, TO> {
 		}
 	}
 
-	public static <FROM, TO> Function<FROM, TO> from(Class<? extends F<FROM, TO>> applyingClass) {
-		return from(applyingClass, null);
+	public static <From, To> Function<From, To> withFunction(Class<? extends F<From, To>> applyingClass) {
+		return withFunction(applyingClass, null);
 	}
 
-	public static <FROM, TO> Function<FROM, TO> from(Class<? extends F<FROM, TO>> applyingClass, Object instance) {
+	public static <From, To> Function<From, To> withFunction(Class<? extends F<From, To>> applyingClass, Object instance) {
 
-		Constructor<F<FROM, TO>> constructor = extractConstructor(applyingClass);
-		Object[] constructorParameters = createConstructorParameters(constructor, instance);
+		Constructor<F<From, To>> Constructor = extractConstructor(applyingClass);
+		Object[] ConstructorParameters = createConstructorParameters(Constructor, instance);
 
-		return new ClassFunction<FROM, TO>(constructor, constructorParameters);
+		return new ClassFunction<From, To>(Constructor, ConstructorParameters);
 	}
 
-	private static Object[] createConstructorParameters(Constructor<?> constructor, Object instance) {
-		if (constructor.getParameterTypes().length == 0) {
+	private static Object[] createConstructorParameters(Constructor<?> Constructor, Object instance) {
+		if (Constructor.getParameterTypes().length == 0) {
 			return EMPTY_OBJECT_ARRAY;
 		} else {
 			return new Object[] { instance };
@@ -78,20 +78,20 @@ public abstract class F<FROM, TO> {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static <FROM, TO> Constructor<F<FROM, TO>> extractConstructor(Class<? extends F<FROM, TO>> applyingClass) {
-		Constructor<?> constructor = applyingClass.getDeclaredConstructors()[0];
-		if (!constructor.isAccessible()) {
-			constructor.setAccessible(true);
+	private static <From, To> Constructor<F<From, To>> extractConstructor(Class<? extends F<From, To>> applyingClass) {
+		Constructor<?> Constructor = applyingClass.getDeclaredConstructors()[0];
+		if (!Constructor.isAccessible()) {
+			Constructor.setAccessible(true);
 		}
-		return (Constructor<F<FROM, TO>>) constructor;
+		return (Constructor<F<From, To>>) Constructor;
 	}
 
-	protected FROM f;
+	protected From f;
 
-	protected TO t;
+	protected To t;
 
 	@SuppressWarnings("unchecked")
 	public F() {
-		f = (FROM) holder.get();
+		f = (From) holder.get();
 	}
 }

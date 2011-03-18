@@ -1,65 +1,55 @@
 package info.piwai.funkyjfunctional;
 
+import static com.google.common.collect.Ordering.from;
+import static info.piwai.funkyjfunctional.C.comparator;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertSame;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
 
-import com.google.common.collect.Ordering;
-
 public class CTest {
-	
-	public static class Person {
-		private final String name;
 
-		public Person(String name) {
-			this.name = name;
-		}
+    @Test
+    public void testOrdering() throws Exception {
+        Person john = new Person("John");
+        Person joe = new Person("Joe");
 
-		public String getName() {
-			return name;
-		}
-		
-	}
+        class Sort extends C<Person> {{r = t1.getName().compareTo(t2.getName());}}
 
-	@Test
-	public void testOrdering() throws Exception {
-		Person john = new Person("John");
-		Person joe = new Person("Joe");
-		
-		List<Person> persons = Arrays.asList(john, joe);
-		
-		class Sort extends C<Person> {{r = t1.getName().compareTo(t2.getName());}};
+        List<Person> sortedPersons = from(comparator(Sort.class)).sortedCopy(asList(john, joe));
 
-		Ordering<Person> ordering = Ordering.from(C.from(Sort.class));
-		
-		List<Person> sortedPersons = ordering.sortedCopy(persons);
+        assertSame(joe, sortedPersons.get(0));
+        assertSame(john, sortedPersons.get(1));
+    }
 
-		assertSame(joe, sortedPersons.get(0));
-		assertSame(john, sortedPersons.get(1));
-	}
+    @Test
+    public void testStaticOrdering() {
+        staticOrdering();
+    }
 
-	@Test
-	public void testStaticOrdering() {
-		staticOrdering();
-	}
+    private static void staticOrdering() {
+        Person john = new Person("John");
+        Person joe = new Person("Joe");
 
-	private static void staticOrdering() {
-		Person john = new Person("John");
-		Person joe = new Person("Joe");
-		
-		List<Person> persons = Arrays.asList(john, joe);
-		
-		class Sort extends C<Person> {{r = t1.getName().compareTo(t2.getName());}};
+        class Sort extends C<Person> {{r = t1.getName().compareTo(t2.getName());}}
 
-		Ordering<Person> ordering = Ordering.from(C.from(Sort.class));
-		
-		List<Person> sortedPersons = ordering.sortedCopy(persons);
+        List<Person> sortedPersons = from(comparator(Sort.class)).sortedCopy(asList(john, joe));
 
-		assertSame(joe, sortedPersons.get(0));
-		assertSame(john, sortedPersons.get(1));
-	}
+        assertSame(joe, sortedPersons.get(0));
+        assertSame(john, sortedPersons.get(1));
+    }
 
+    public static class Person {
+        private final String name;
+
+        public Person(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
 }
