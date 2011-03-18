@@ -10,6 +10,18 @@ import java.util.List;
 import org.junit.Test;
 
 public class CompTest {
+    
+    public static class Person {
+        private final String name;
+
+        public Person(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
 
     @Test
     public void testOrdering() throws Exception {
@@ -39,17 +51,5 @@ public class CompTest {
 
         assertSame(joe, sortedPersons.get(0));
         assertSame(john, sortedPersons.get(1));
-    }
-
-    public static class Person {
-        private final String name;
-
-        public Person(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 }
