@@ -25,7 +25,7 @@ import java.util.Comparator;
 public abstract class C<T> {
 	private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
 
-	private static Object ref;
+	private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
 
 	private static class Compared<T> {
 
@@ -50,7 +50,7 @@ public abstract class C<T> {
 
 		@Override
 		public int compare(T t1, T t2) {
-			ref = new Compared<T>(t1, t2);
+			holder.set(new Compared<T>(t1, t2));
 			try {
 				C<T> instance = (C<T>) constructor.newInstance(constructorParameters);
 				return instance.r;
@@ -61,7 +61,7 @@ public abstract class C<T> {
 			} catch (InvocationTargetException e) {
 				throw new RuntimeException(e);
 			} finally {
-				ref = null;
+				holder.set(null);
 			}
 		}
 	}
@@ -101,7 +101,7 @@ public abstract class C<T> {
 
 	@SuppressWarnings("unchecked")
 	public C() {
-		Compared<T> compared = (Compared<T>) ref;
+		Compared<T> compared = (Compared<T>) holder.get();
 		t1 = compared.t1;
 		t2 = compared.t2;
 	}
