@@ -42,7 +42,6 @@ public abstract class Comp<T> {
 
         private final Object[] constructorParameters;
         private final Constructor<Comp<T>> constructor;
-        
 
         public ClassComparator(Constructor<Comp<T>> constructor, Object[] constructorParameters) {
             this.constructor = constructor;
@@ -53,7 +52,8 @@ public abstract class Comp<T> {
         public int compare(T t1, T t2) {
             holder.set(new Compared<T>(t1, t2));
             try {
-                return ((Comp<T>) constructor.newInstance(constructorParameters)).r;
+                Comp<T> instance = (Comp<T>) constructor.newInstance(constructorParameters);
+                return instance.r;
             } catch (InstantiationException e) {
                 throw new RuntimeException(e);
             } catch (IllegalAccessException e) {

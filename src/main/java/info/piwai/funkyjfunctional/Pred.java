@@ -42,7 +42,8 @@ public abstract class Pred<T> {
         public boolean apply(T input) {
             holder.set(input);
             try {
-                return ((Pred<T>) constructor.newInstance(constructorParameters)).r;
+                Pred<T> instance = (Pred<T>) constructor.newInstance(constructorParameters);
+                return instance.r;
             } catch (InstantiationException e) {
                 throw new RuntimeException(e);
             } catch (IllegalAccessException e) {

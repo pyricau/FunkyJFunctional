@@ -42,7 +42,8 @@ public abstract class Func<From, To> {
         public To apply(From input) {
             holder.set(input);
             try {
-                return ((Func<From, To>) Constructor.newInstance(ConstructorParameters)).t;
+                Func<From, To> instance = (Func<From, To>) Constructor.newInstance(ConstructorParameters);
+                return instance.t;
             } catch (InstantiationException e) {
                 throw new RuntimeException(e);
             } catch (IllegalAccessException e) {
