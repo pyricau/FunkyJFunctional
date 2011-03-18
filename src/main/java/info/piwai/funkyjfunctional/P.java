@@ -20,79 +20,76 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.google.common.base.Predicate;
 
-
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class P<T> {
-	private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
+    private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
 
-	private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
-	
-	private static class ClassPredicate<T> implements Predicate<T> {
+    private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
 
-		private final Object[] constructorParameters;
-		private final Constructor<P<T>> constructor;
+    private static class ClassPredicate<T> implements Predicate<T> {
 
-		public ClassPredicate(Constructor<P<T>> constructor, Object[] constructorParameters) {
-			this.constructor = constructor;
-			this.constructorParameters = constructorParameters;
-		}
+        private final Object[] constructorParameters;
+        private final Constructor<P<T>> constructor;
 
-		@Override
-		public boolean apply(T input) {
-			holder.set(input);
-			P<T> instance;
-			try {
-				instance = (P<T>) constructor.newInstance(constructorParameters);
-			} catch (InstantiationException e) {
-				throw new RuntimeException(e);
-			} catch (IllegalAccessException e) {
-				throw new RuntimeException(e);
-			} catch (InvocationTargetException e) {
-				throw new RuntimeException(e);
-			}
-			holder.set(null);
+        public ClassPredicate(Constructor<P<T>> constructor, Object[] constructorParameters) {
+            this.constructor = constructor;
+            this.constructorParameters = constructorParameters;
+        }
 
-			return instance.r;
-		}
-	}
-	
-	public static <T> Predicate<T> withPredicate(Class<? extends P<T>> applyingClass) {
-		return withPredicate(applyingClass, null);
-	}
+        @Override
+        public boolean apply(T input) {
+            holder.set(input);
+            try {
+                return ((P<T>) constructor.newInstance(constructorParameters)).r;
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(e);
+            } finally {
+                holder.set(null);
+            }
+        }
+    }
 
-	public static <T> Predicate<T> withPredicate(Class<? extends P<T>> applyingClass, Object instance) {
-		Constructor<P<T>> constructor = extractConstructor(applyingClass);
-		Object[] constructorParameters = createConstructorParameters(constructor, instance);
+    public static <T> Predicate<T> withPredicate(Class<? extends P<T>> applyingClass) {
+        return withPredicate(applyingClass, null);
+    }
 
-		return new ClassPredicate<T>(constructor, constructorParameters);
-	}
-	
-	private static Object[] createConstructorParameters(Constructor<?> constructor, Object instance) {
-		if (constructor.getParameterTypes().length == 0) {
-			return EMPTY_OBJECT_ARRAY;
-		} else {
-			return new Object[] { instance };
-		}
-	}
+    public static <T> Predicate<T> withPredicate(Class<? extends P<T>> applyingClass, Object instance) {
+        Constructor<P<T>> constructor = extractConstructor(applyingClass);
+        Object[] constructorParameters = createConstructorParameters(constructor, instance);
 
-	@SuppressWarnings("unchecked")
-	private static <T> Constructor<P<T>> extractConstructor(Class<? extends P<T>> applyingClass) {
-		Constructor<?> constructor = applyingClass.getDeclaredConstructors()[0];
-		if (!constructor.isAccessible()) {
-			constructor.setAccessible(true);
-		}
-		return (Constructor<P<T>>) constructor;
-	}
+        return new ClassPredicate<T>(constructor, constructorParameters);
+    }
 
-	protected T t;
+    private static Object[] createConstructorParameters(Constructor<?> constructor, Object instance) {
+        if (constructor.getParameterTypes().length == 0) {
+            return EMPTY_OBJECT_ARRAY;
+        } else {
+            return new Object[] { instance };
+        }
+    }
 
-	protected boolean r;
+    @SuppressWarnings("unchecked")
+    private static <T> Constructor<P<T>> extractConstructor(Class<? extends P<T>> applyingClass) {
+        Constructor<?> constructor = applyingClass.getDeclaredConstructors()[0];
+        if (!constructor.isAccessible()) {
+            constructor.setAccessible(true);
+        }
+        return (Constructor<P<T>>) constructor;
+    }
 
-	@SuppressWarnings("unchecked")
-	public P() {
-		t = (T) holder.get();
-	}
-	
+    protected T t;
+
+    protected boolean r;
+
+    @SuppressWarnings("unchecked")
+    public P() {
+        t = (T) holder.get();
+    }
+
 }

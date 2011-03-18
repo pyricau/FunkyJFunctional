@@ -24,74 +24,72 @@ import com.google.common.base.Function;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class F<From, To> {
-	private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
+    private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
 
-	private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
+    private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
 
-	private static class ClassFunction<From, To> implements Function<From, To> {
+    private static class ClassFunction<From, To> implements Function<From, To> {
 
-		private final Object[] ConstructorParameters;
-		private final Constructor<F<From, To>> Constructor;
+        private final Object[] ConstructorParameters;
+        private final Constructor<F<From, To>> Constructor;
 
-		public ClassFunction(Constructor<F<From, To>> Constructor, Object[] ConstructorParameters) {
-			this.Constructor = Constructor;
-			this.ConstructorParameters = ConstructorParameters;
-		}
+        public ClassFunction(Constructor<F<From, To>> Constructor, Object[] ConstructorParameters) {
+            this.Constructor = Constructor;
+            this.ConstructorParameters = ConstructorParameters;
+        }
 
-		@Override
-		public To apply(From input) {
-			holder.set(input);
-			F<From, To> instance;
-			try {
-				instance = (F<From, To>) Constructor.newInstance(ConstructorParameters);
-			} catch (InstantiationException e) {
-				throw new RuntimeException(e);
-			} catch (IllegalAccessException e) {
-				throw new RuntimeException(e);
-			} catch (InvocationTargetException e) {
-				throw new RuntimeException(e);
-			}
-			holder.set(null);
+        @Override
+        public To apply(From input) {
+            holder.set(input);
+            try {
+                return ((F<From, To>) Constructor.newInstance(ConstructorParameters)).t;
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(e);
+            } finally {
+                holder.set(null);
+            }
+        }
+    }
 
-			return instance.t;
-		}
-	}
+    public static <From, To> Function<From, To> withFunction(Class<? extends F<From, To>> applyingClass) {
+        return withFunction(applyingClass, null);
+    }
 
-	public static <From, To> Function<From, To> withFunction(Class<? extends F<From, To>> applyingClass) {
-		return withFunction(applyingClass, null);
-	}
+    public static <From, To> Function<From, To> withFunction(Class<? extends F<From, To>> applyingClass, Object instance) {
 
-	public static <From, To> Function<From, To> withFunction(Class<? extends F<From, To>> applyingClass, Object instance) {
+        Constructor<F<From, To>> Constructor = extractConstructor(applyingClass);
+        Object[] ConstructorParameters = createConstructorParameters(Constructor, instance);
 
-		Constructor<F<From, To>> Constructor = extractConstructor(applyingClass);
-		Object[] ConstructorParameters = createConstructorParameters(Constructor, instance);
+        return new ClassFunction<From, To>(Constructor, ConstructorParameters);
+    }
 
-		return new ClassFunction<From, To>(Constructor, ConstructorParameters);
-	}
+    private static Object[] createConstructorParameters(Constructor<?> Constructor, Object instance) {
+        if (Constructor.getParameterTypes().length == 0) {
+            return EMPTY_OBJECT_ARRAY;
+        } else {
+            return new Object[] { instance };
+        }
+    }
 
-	private static Object[] createConstructorParameters(Constructor<?> Constructor, Object instance) {
-		if (Constructor.getParameterTypes().length == 0) {
-			return EMPTY_OBJECT_ARRAY;
-		} else {
-			return new Object[] { instance };
-		}
-	}
+    @SuppressWarnings("unchecked")
+    private static <From, To> Constructor<F<From, To>> extractConstructor(Class<? extends F<From, To>> applyingClass) {
+        Constructor<?> Constructor = applyingClass.getDeclaredConstructors()[0];
+        if (!Constructor.isAccessible()) {
+            Constructor.setAccessible(true);
+        }
+        return (Constructor<F<From, To>>) Constructor;
+    }
 
-	@SuppressWarnings("unchecked")
-	private static <From, To> Constructor<F<From, To>> extractConstructor(Class<? extends F<From, To>> applyingClass) {
-		Constructor<?> Constructor = applyingClass.getDeclaredConstructors()[0];
-		if (!Constructor.isAccessible()) {
-			Constructor.setAccessible(true);
-		}
-		return (Constructor<F<From, To>>) Constructor;
-	}
+    protected From f;
 
-	protected From f;
+    protected To t;
 
-	protected To t;
-
-	@SuppressWarnings("unchecked")
-	public F() {
-		f = (From) holder.get();
-	}
+    @SuppressWarnings("unchecked")
+    public F() {
+        f = (From) holder.get();
+    }
 }
