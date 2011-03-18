@@ -22,7 +22,7 @@ import java.util.Comparator;
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class C<T> {
+public abstract class Comp<T> {
     private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
 
     private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
@@ -41,10 +41,10 @@ public abstract class C<T> {
     private static class ClassComparator<T> implements Comparator<T> {
 
         private final Object[] constructorParameters;
-        private final Constructor<C<T>> constructor;
+        private final Constructor<Comp<T>> constructor;
         
 
-        public ClassComparator(Constructor<C<T>> constructor, Object[] constructorParameters) {
+        public ClassComparator(Constructor<Comp<T>> constructor, Object[] constructorParameters) {
             this.constructor = constructor;
             this.constructorParameters = constructorParameters;
         }
@@ -53,7 +53,7 @@ public abstract class C<T> {
         public int compare(T t1, T t2) {
             holder.set(new Compared<T>(t1, t2));
             try {
-                return ((C<T>) constructor.newInstance(constructorParameters)).r;
+                return ((Comp<T>) constructor.newInstance(constructorParameters)).r;
             } catch (InstantiationException e) {
                 throw new RuntimeException(e);
             } catch (IllegalAccessException e) {
@@ -66,12 +66,12 @@ public abstract class C<T> {
         }
     }
 
-    public static <T> Comparator<T> comparator(Class<? extends C<T>> applyingClass) {
-        return comparator(applyingClass, null);
+    public static <T> Comparator<T> with(Class<? extends Comp<T>> applyingClass) {
+        return with(applyingClass, null);
     }
 
-    public static <T> Comparator<T> comparator(Class<? extends C<T>> applyingClass, Object instance) {
-        Constructor<C<T>> constructor = extractConstructor(applyingClass);
+    public static <T> Comparator<T> with(Class<? extends Comp<T>> applyingClass, Object instance) {
+        Constructor<Comp<T>> constructor = extractConstructor(applyingClass);
         Object[] constructorParameters = createConstructorParameters(constructor, instance);
 
         return new ClassComparator<T>(constructor, constructorParameters);
@@ -86,12 +86,12 @@ public abstract class C<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> Constructor<C<T>> extractConstructor(Class<? extends C<T>> applyingClass) {
+    private static <T> Constructor<Comp<T>> extractConstructor(Class<? extends Comp<T>> applyingClass) {
         Constructor<?> constructor = applyingClass.getDeclaredConstructors()[0];
         if (!constructor.isAccessible()) {
             constructor.setAccessible(true);
         }
-        return (Constructor<C<T>>) constructor;
+        return (Constructor<Comp<T>>) constructor;
     }
 
     protected T t1;
@@ -100,7 +100,7 @@ public abstract class C<T> {
     protected int r;
 
     @SuppressWarnings("unchecked")
-    public C() {
+    public Comp() {
         Compared<T> compared = (Compared<T>) holder.get();
         t1 = compared.t1;
         t2 = compared.t2;

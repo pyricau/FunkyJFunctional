@@ -23,7 +23,7 @@ import com.google.common.base.Function;
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class F<From, To> {
+public abstract class Func<From, To> {
     private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
 
     private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
@@ -31,9 +31,9 @@ public abstract class F<From, To> {
     private static class ClassFunction<From, To> implements Function<From, To> {
 
         private final Object[] ConstructorParameters;
-        private final Constructor<F<From, To>> Constructor;
+        private final Constructor<Func<From, To>> Constructor;
 
-        public ClassFunction(Constructor<F<From, To>> Constructor, Object[] ConstructorParameters) {
+        public ClassFunction(Constructor<Func<From, To>> Constructor, Object[] ConstructorParameters) {
             this.Constructor = Constructor;
             this.ConstructorParameters = ConstructorParameters;
         }
@@ -42,7 +42,7 @@ public abstract class F<From, To> {
         public To apply(From input) {
             holder.set(input);
             try {
-                return ((F<From, To>) Constructor.newInstance(ConstructorParameters)).t;
+                return ((Func<From, To>) Constructor.newInstance(ConstructorParameters)).t;
             } catch (InstantiationException e) {
                 throw new RuntimeException(e);
             } catch (IllegalAccessException e) {
@@ -55,13 +55,13 @@ public abstract class F<From, To> {
         }
     }
 
-    public static <From, To> Function<From, To> withFunction(Class<? extends F<From, To>> applyingClass) {
-        return withFunction(applyingClass, null);
+    public static <From, To> Function<From, To> with(Class<? extends Func<From, To>> applyingClass) {
+        return with(applyingClass, null);
     }
 
-    public static <From, To> Function<From, To> withFunction(Class<? extends F<From, To>> applyingClass, Object instance) {
+    public static <From, To> Function<From, To> with(Class<? extends Func<From, To>> applyingClass, Object instance) {
 
-        Constructor<F<From, To>> Constructor = extractConstructor(applyingClass);
+        Constructor<Func<From, To>> Constructor = extractConstructor(applyingClass);
         Object[] ConstructorParameters = createConstructorParameters(Constructor, instance);
 
         return new ClassFunction<From, To>(Constructor, ConstructorParameters);
@@ -76,12 +76,12 @@ public abstract class F<From, To> {
     }
 
     @SuppressWarnings("unchecked")
-    private static <From, To> Constructor<F<From, To>> extractConstructor(Class<? extends F<From, To>> applyingClass) {
+    private static <From, To> Constructor<Func<From, To>> extractConstructor(Class<? extends Func<From, To>> applyingClass) {
         Constructor<?> Constructor = applyingClass.getDeclaredConstructors()[0];
         if (!Constructor.isAccessible()) {
             Constructor.setAccessible(true);
         }
-        return (Constructor<F<From, To>>) Constructor;
+        return (Constructor<Func<From, To>>) Constructor;
     }
 
     protected From f;
@@ -89,7 +89,7 @@ public abstract class F<From, To> {
     protected To t;
 
     @SuppressWarnings("unchecked")
-    public F() {
+    public Func() {
         f = (From) holder.get();
     }
 }

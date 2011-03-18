@@ -23,7 +23,7 @@ import com.google.common.base.Predicate;
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class P<T> {
+public abstract class Pred<T> {
     private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
 
     private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
@@ -31,9 +31,9 @@ public abstract class P<T> {
     private static class ClassPredicate<T> implements Predicate<T> {
 
         private final Object[] constructorParameters;
-        private final Constructor<P<T>> constructor;
+        private final Constructor<Pred<T>> constructor;
 
-        public ClassPredicate(Constructor<P<T>> constructor, Object[] constructorParameters) {
+        public ClassPredicate(Constructor<Pred<T>> constructor, Object[] constructorParameters) {
             this.constructor = constructor;
             this.constructorParameters = constructorParameters;
         }
@@ -42,7 +42,7 @@ public abstract class P<T> {
         public boolean apply(T input) {
             holder.set(input);
             try {
-                return ((P<T>) constructor.newInstance(constructorParameters)).r;
+                return ((Pred<T>) constructor.newInstance(constructorParameters)).r;
             } catch (InstantiationException e) {
                 throw new RuntimeException(e);
             } catch (IllegalAccessException e) {
@@ -55,12 +55,12 @@ public abstract class P<T> {
         }
     }
 
-    public static <T> Predicate<T> withPredicate(Class<? extends P<T>> applyingClass) {
-        return withPredicate(applyingClass, null);
+    public static <T> Predicate<T> with(Class<? extends Pred<T>> applyingClass) {
+        return with(applyingClass, null);
     }
 
-    public static <T> Predicate<T> withPredicate(Class<? extends P<T>> applyingClass, Object instance) {
-        Constructor<P<T>> constructor = extractConstructor(applyingClass);
+    public static <T> Predicate<T> with(Class<? extends Pred<T>> applyingClass, Object instance) {
+        Constructor<Pred<T>> constructor = extractConstructor(applyingClass);
         Object[] constructorParameters = createConstructorParameters(constructor, instance);
 
         return new ClassPredicate<T>(constructor, constructorParameters);
@@ -75,12 +75,12 @@ public abstract class P<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> Constructor<P<T>> extractConstructor(Class<? extends P<T>> applyingClass) {
+    private static <T> Constructor<Pred<T>> extractConstructor(Class<? extends Pred<T>> applyingClass) {
         Constructor<?> constructor = applyingClass.getDeclaredConstructors()[0];
         if (!constructor.isAccessible()) {
             constructor.setAccessible(true);
         }
-        return (Constructor<P<T>>) constructor;
+        return (Constructor<Pred<T>>) constructor;
     }
 
     protected T t;
@@ -88,7 +88,7 @@ public abstract class P<T> {
     protected boolean r;
 
     @SuppressWarnings("unchecked")
-    public P() {
+    public Pred() {
         t = (T) holder.get();
     }
 

@@ -1,7 +1,7 @@
 package info.piwai.funkyjfunctional;
 
 import static com.google.common.collect.Ordering.from;
-import static info.piwai.funkyjfunctional.C.comparator;
+import static info.piwai.funkyjfunctional.Comp.with;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertSame;
 
@@ -9,16 +9,16 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class CTest {
+public class CompTest {
 
     @Test
     public void testOrdering() throws Exception {
         Person john = new Person("John");
         Person joe = new Person("Joe");
 
-        class Sort extends C<Person> {{r = t1.getName().compareTo(t2.getName());}}
+        class Sort extends Comp<Person> {{r = t1.getName().compareTo(t2.getName());}}
 
-        List<Person> sortedPersons = from(comparator(Sort.class)).sortedCopy(asList(john, joe));
+        List<Person> sortedPersons = from(with(Sort.class)).sortedCopy(asList(john, joe));
 
         assertSame(joe, sortedPersons.get(0));
         assertSame(john, sortedPersons.get(1));
@@ -33,9 +33,9 @@ public class CTest {
         Person john = new Person("John");
         Person joe = new Person("Joe");
 
-        class Sort extends C<Person> {{r = t1.getName().compareTo(t2.getName());}}
+        class Sort extends Comp<Person> {{r = t1.getName().compareTo(t2.getName());}}
 
-        List<Person> sortedPersons = from(comparator(Sort.class)).sortedCopy(asList(john, joe));
+        List<Person> sortedPersons = from(with(Sort.class)).sortedCopy(asList(john, joe));
 
         assertSame(joe, sortedPersons.get(0));
         assertSame(john, sortedPersons.get(1));
