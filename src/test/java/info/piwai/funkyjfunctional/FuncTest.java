@@ -4,7 +4,10 @@ import static com.google.common.collect.Lists.transform;
 import static info.piwai.funkyjfunctional.Func.with;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.junit.Test;
@@ -39,5 +42,17 @@ public class FuncTest {
 		assertEquals("42$", prices.get(0));
 		assertEquals("69$", prices.get(1));
 	}
+	
+    @Test
+    public void testThrows() {
+        class Fails extends Func<Object, Integer> {{ t = 42 / 0; }};
+        try {
+            with(Fails.class).apply(null);
+            fail();
+        } catch(RuntimeException e) {
+            assertTrue(e.getCause() instanceof InvocationTargetException);
+            assertTrue(e.getCause().getCause() instanceof ArithmeticException);
+        }
+    }
 
 }
