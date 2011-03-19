@@ -1,6 +1,7 @@
-package info.piwai.funkyjfunctional;
+package info.piwai.funkyjfunctional.apitest;
 
 import static org.junit.Assert.assertEquals;
+import info.piwai.funkyjfunctional.Run;
 
 import org.junit.Before;
 import org.junit.Test;

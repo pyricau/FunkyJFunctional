@@ -1,4 +1,4 @@
-package info.piwai.funkyjfunctional;
+package info.piwai.funkyjfunctional.apitest;
 
 import static com.google.common.collect.Lists.transform;
 import static info.piwai.funkyjfunctional.Func.with;
@@ -6,6 +6,8 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import info.piwai.funkyjfunctional.Func;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;

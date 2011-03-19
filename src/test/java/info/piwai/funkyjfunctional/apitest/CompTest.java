@@ -1,4 +1,4 @@
-package info.piwai.funkyjfunctional;
+package info.piwai.funkyjfunctional.apitest;
 
 import static com.google.common.collect.Ordering.from;
 import static info.piwai.funkyjfunctional.Comp.with;
@@ -6,6 +6,8 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import info.piwai.funkyjfunctional.Comp;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
