@@ -4,7 +4,11 @@ There is no such thing as functional programming is Java, but sometimes we emula
 
 FunkyJFunctional provides a new way to do functional programming in Java. It integrates with [Guava](http://code.google.com/p/guava-libraries/) (the former google collections), and uses some Java syntaxic sugar: method local class declarations and init blocks.
 
-# Examples 
+In short, two syntax examples:
+1. A funky Runnable: ```class Hello {{System.out.println("Hello Funky World");}}```
+2. A funky Predicate: ```class Adult extends P<Integer> {{r = t > 18;}};```
+
+# Detailed examples
 
 With Guava:
 
