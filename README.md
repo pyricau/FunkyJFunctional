@@ -47,4 +47,10 @@ And [comparators](https://github.com/pyricau/FunkyJFunctional/blob/master/src/te
 ... with static imports:
 	
 	Ordering<Person> ordering = from(with(Sort.class)).sortedCopy(persons);
+	
+And [runnables](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/RunTest.java):
+
+    class Hello {{System.out.println("Hello World");}}
+    Runnable runnable = Run.with(Hello.class);
+    runnable.run();
 
