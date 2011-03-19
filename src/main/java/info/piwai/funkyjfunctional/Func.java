@@ -15,82 +15,39 @@
  */
 package info.piwai.funkyjfunctional;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import com.google.common.base.Function;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Func<From, To> {
-    private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
 
-    private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
+    private static class ClassFunction<From, To, U extends Func<From, To>> extends FunkyExecutorWithInput<U> implements Function<From, To> {
 
-    private static class ClassFunction<From, To> implements Function<From, To> {
-
-        private final Object[] ConstructorParameters;
-        private final Constructor<Func<From, To>> Constructor;
-
-        public ClassFunction(Constructor<Func<From, To>> Constructor, Object[] ConstructorParameters) {
-            this.Constructor = Constructor;
-            this.ConstructorParameters = ConstructorParameters;
+        public ClassFunction(Class<U> applyingClass, Object instance) {
+            super(applyingClass, instance);
         }
 
         @Override
         public To apply(From input) {
-            holder.set(input);
-            try {
-                Func<From, To> instance = (Func<From, To>) Constructor.newInstance(ConstructorParameters);
-                return instance.t;
-            } catch (InstantiationException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(e);
-            } finally {
-                holder.set(null);
-            }
+            U instance = call(input);
+            return instance.t;
         }
     }
 
-    public static <From, To> Function<From, To> with(Class<? extends Func<From, To>> applyingClass) {
+    public static <From, To, U extends Func<From, To>> Function<From, To> with(Class<U> applyingClass) {
         return with(applyingClass, null);
     }
 
-    public static <From, To> Function<From, To> with(Class<? extends Func<From, To>> applyingClass, Object instance) {
-
-        Constructor<Func<From, To>> Constructor = extractConstructor(applyingClass);
-        Object[] ConstructorParameters = createConstructorParameters(Constructor, instance);
-
-        return new ClassFunction<From, To>(Constructor, ConstructorParameters);
-    }
-
-    private static Object[] createConstructorParameters(Constructor<?> Constructor, Object instance) {
-        if (Constructor.getParameterTypes().length == 0) {
-            return EMPTY_OBJECT_ARRAY;
-        } else {
-            return new Object[] { instance };
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private static <From, To> Constructor<Func<From, To>> extractConstructor(Class<? extends Func<From, To>> applyingClass) {
-        Constructor<?> Constructor = applyingClass.getDeclaredConstructors()[0];
-        if (!Constructor.isAccessible()) {
-            Constructor.setAccessible(true);
-        }
-        return (Constructor<Func<From, To>>) Constructor;
+    public static <From, To, U extends Func<From, To>> Function<From, To> with(Class<U> applyingClass, Object instance) {
+        return new ClassFunction<From, To, U>(applyingClass, instance);
     }
 
     protected From f;
 
     protected To t;
 
-    @SuppressWarnings("unchecked")
     public Func() {
-        f = (From) holder.get();
+        f = FunkyExecutorWithInput.getThreadLocalParameter();
     }
 }

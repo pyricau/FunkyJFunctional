@@ -15,82 +15,39 @@
  */
 package info.piwai.funkyjfunctional;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import com.google.common.base.Predicate;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Pred<T> {
-    private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
+    private static class ClassPredicate<T, U extends Pred<T>> extends FunkyExecutorWithInput<U> implements Predicate<T> {
 
-    private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
-
-    private static class ClassPredicate<T> implements Predicate<T> {
-
-        private final Object[] constructorParameters;
-        private final Constructor<Pred<T>> constructor;
-
-        public ClassPredicate(Constructor<Pred<T>> constructor, Object[] constructorParameters) {
-            this.constructor = constructor;
-            this.constructorParameters = constructorParameters;
+        public ClassPredicate(Class<U> applyingClass, Object instance) {
+            super(applyingClass, instance);
         }
 
         @Override
         public boolean apply(T input) {
-            holder.set(input);
-            try {
-                Pred<T> instance = (Pred<T>) constructor.newInstance(constructorParameters);
-                return instance.r;
-            } catch (InstantiationException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(e);
-            } finally {
-                holder.set(null);
-            }
+            U instance = call(input);
+            return instance.r;
         }
     }
 
-    public static <T> Predicate<T> with(Class<? extends Pred<T>> applyingClass) {
+    public static <T, U extends Pred<T>> Predicate<T> with(Class<U> applyingClass) {
         return with(applyingClass, null);
     }
 
-    public static <T> Predicate<T> with(Class<? extends Pred<T>> applyingClass, Object instance) {
-        Constructor<Pred<T>> constructor = extractConstructor(applyingClass);
-        Object[] constructorParameters = createConstructorParameters(constructor, instance);
-
-        return new ClassPredicate<T>(constructor, constructorParameters);
-    }
-
-    private static Object[] createConstructorParameters(Constructor<?> constructor, Object instance) {
-        if (constructor.getParameterTypes().length == 0) {
-            return EMPTY_OBJECT_ARRAY;
-        } else {
-            return new Object[] { instance };
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private static <T> Constructor<Pred<T>> extractConstructor(Class<? extends Pred<T>> applyingClass) {
-        Constructor<?> constructor = applyingClass.getDeclaredConstructors()[0];
-        if (!constructor.isAccessible()) {
-            constructor.setAccessible(true);
-        }
-        return (Constructor<Pred<T>>) constructor;
+    public static <T, U extends Pred<T>> Predicate<T> with(Class<U> applyingClass, Object instance) {
+        return new ClassPredicate<T, U>(applyingClass, instance);
     }
 
     protected T t;
 
     protected boolean r;
 
-    @SuppressWarnings("unchecked")
     public Pred() {
-        t = (T) holder.get();
+        t = FunkyExecutorWithInput.getThreadLocalParameter();
     }
 
 }

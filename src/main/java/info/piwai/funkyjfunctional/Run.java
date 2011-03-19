@@ -15,61 +15,29 @@
  */
 package info.piwai.funkyjfunctional;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class Run implements Runnable {
-    private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
+public class Run  {
+    
+    private static class ClassRunnable<U> extends FunkyExecutor<U> implements Runnable {
 
-    private final Constructor<?> constructor;
-    private final Object[] constructorParameters;
+        public ClassRunnable(Class<U> applyingClass, Object instance) {
+            super(applyingClass, instance);
+        }
 
-    private Run(Constructor<?> constructor, Object[] constructorParameters) {
-        this.constructorParameters = constructorParameters;
-        this.constructor = constructor;
+        @Override
+        public void run() {
+            call();
+        }
     }
     
     public static Runnable with(Class<?> applyingClass) {
         return with(applyingClass, null);
     }
 
-    public static Runnable with(Class<?> applyingClass, Object instance) {
-        Constructor<?> constructor = extractConstructor(applyingClass);
-        Object[] constructorParameters = createConstructorParameters(constructor, instance);
-        return new Run(constructor, constructorParameters);
+    public static <U> Runnable with(Class<U> applyingClass, Object instance) {
+        return new ClassRunnable<U>(applyingClass, instance);
     }
-
-    @Override
-    public void run() {
-        try {
-             constructor.newInstance(constructorParameters);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    
-    private static Object[] createConstructorParameters(Constructor<?> constructor, Object instance) {
-        if (constructor.getParameterTypes().length == 0) {
-            return EMPTY_OBJECT_ARRAY;
-        } else {
-            return new Object[] { instance };
-        }
-    }
-
-    private static Constructor<?> extractConstructor(Class<?> applyingClass) {
-        Constructor<?> constructor = applyingClass.getDeclaredConstructors()[0];
-        if (!constructor.isAccessible()) {
-            constructor.setAccessible(true);
-        }
-        return (Constructor<?>) constructor;
-    }
-
-
 }
