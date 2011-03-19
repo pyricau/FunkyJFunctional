@@ -1,6 +1,10 @@
+# What is this ?
+
 There is no such thing as functional programming is Java, but sometimes we emulate it using anonymous classes.
 
-FunkyJFunctional provides a new way to do functional programming in Java. It integrates with [Guava](http://code.google.com/p/guava-libraries/), and uses some Java syntaxic sugar: method local class declarations and init blocks.
+FunkyJFunctional provides a new way to do functional programming in Java. It integrates with [Guava](http://code.google.com/p/guava-libraries/) (the former google collections), and uses some Java syntaxic sugar: method local class declarations and init blocks.
+
+# Examples 
 
 With Guava:
 
@@ -54,3 +58,7 @@ And [runnables](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test
     Runnable runnable = Run.with(Hello.class);
     runnable.run();
 
+# Other funky ways 
+
+* [jcurry](http://code.google.com/p/jcurry/) uses the awesome [projectlombok](http://projectlombok.org/) funkyness power.
+* [lambdaj](http://code.google.com/p/lambdaj/) is a funky alernative to [Guava](http://code.google.com/p/guava-libraries/)
