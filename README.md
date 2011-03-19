@@ -1,4 +1,4 @@
-# What is this ?
+# What is this?
 
 There is no such thing as functional programming is Java, but sometimes we emulate it using anonymous classes.
 
@@ -33,7 +33,7 @@ With FunkyJFunctional our [predicates](https://github.com/pyricau/FunkyJFunction
 	
 	Iterable<Integer> adults = filter(values, with(Adult.class));
 	
-Sounds funky ? We think it is ;-). 
+Sounds funky? We think it is ;-). 
 	
 We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/FuncTest.java) :
 
