@@ -76,11 +76,11 @@ You will need one of the following repositories in your Maven project:
 	<repositories>
 		<repository>
 			<id>funkyjfunctional-releases</id>
-			<url>https://github.com/pyricau/BuilderGen/raw/master/releases</url>
+			<url>https://github.com/pyricau/FunkyJFunctional/raw/master/releases</url>
 		</repository>
 		<repository>
 			<id>funkyjfunctional-snapshots</id>
-			<url>https://github.com/pyricau/BuilderGen/raw/master/snapshots</url>
+			<url>https://github.com/pyricau/FunkyJFunctional/raw/master/snapshots</url>
 		</repository>
 	</repositories>
 As well as the following dependency:
