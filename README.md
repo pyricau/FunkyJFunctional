@@ -23,7 +23,7 @@ With Guava:
 	};
 	Iterable<Integer> adults = Iterables.filter(values, adult);
 	
-With FunkyJFunctional our [predicates](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/PredTest.java) are much shorter:
+With FunkyJFunctional our [predicates](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/PredTest.java) are much shorter:
 	
 	List<Integer> values = Arrays.asList(16, 21);
 	class Adult extends Pred<Integer> {{ r = t > 18; }}
@@ -35,7 +35,7 @@ With FunkyJFunctional our [predicates](https://github.com/pyricau/FunkyJFunction
 	
 Sounds funky? We think it is ;-). 
 	
-We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/FuncTest.java) :
+We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/FuncTest.java) :
 
 	List<Integer> values = Arrays.asList(42, 69);
 	class Price extends Func<Integer, String> {{ t = f+"$"; }}
@@ -45,7 +45,7 @@ We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/ma
 
 	List<String> prices = transform(values, withFunc(Price.class));
 	
-And [comparators](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/CompTest.java):
+And [comparators](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/CompTest.java):
 
 	Person john = new Person("John");
 	Person joe = new Person("Joe");
@@ -58,11 +58,17 @@ And [comparators](https://github.com/pyricau/FunkyJFunctional/blob/master/src/te
 	
 	Ordering<Person> ordering = from(withComp(Sort.class)).sortedCopy(persons);
 	
-And [runnables](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/RunTest.java):
+And [runnables](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/RunTest.java):
 
     class Hello {{ System.out.println("Hello World"); }}
     Runnable runnable = Funky.withRun(Hello.class);
     runnable.run();
+    
+And [callables](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/CallTest.java):
+
+    class FortyTwo extends Call<Integer> {{ r = 42; }}
+    Callable<Integer> callable = withCall(FortyTwo.class);
+    Integer result = callable.call();
 
 # Other funky ways 
 

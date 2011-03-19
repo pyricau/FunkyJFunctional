@@ -41,7 +41,7 @@ public abstract class Comp<T> {
 
         @Override
         public int compare(T t1, T t2) {
-            U instance = call(new Compared<T>(t1, t2));
+            U instance = createExecutedInstance(new Compared<T>(t1, t2));
             return instance.r;
         }
     }

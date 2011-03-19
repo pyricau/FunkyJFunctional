@@ -29,7 +29,7 @@ public abstract class Pred<T> {
 
         @Override
         public boolean apply(T input) {
-            U instance = call(input);
+            U instance = createExecutedInstance(input);
             return instance.r;
         }
     }

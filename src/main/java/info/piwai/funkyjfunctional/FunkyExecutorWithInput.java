@@ -17,10 +17,10 @@ abstract class FunkyExecutorWithInput<T> extends FunkyExecutor<T> {
         super(applyingClass, instance);
     }
 
-    T call(Object parameter) {
+    T createExecutedInstance(Object parameter) {
         holder.set(parameter);
         try {
-            return call();
+            return createExecutedInstance();
         } finally {
             holder.set(null);
         }

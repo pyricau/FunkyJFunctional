@@ -15,31 +15,27 @@
  */
 package info.piwai.funkyjfunctional;
 
-import com.google.common.base.Function;
+import java.util.concurrent.Callable;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class Func<From, To> {
+public abstract class Call<T> {
 
-    static class ClassFunction<From, To, U extends Func<From, To>> extends FunkyExecutorWithInput<U> implements Function<From, To> {
+    static class ClassCallable<T, U extends Call<T>> extends FunkyExecutor<U> implements Callable<T> {
 
-        public ClassFunction(Class<U> applyingClass, Object instance) {
+        public ClassCallable(Class<U> applyingClass, Object instance) {
             super(applyingClass, instance);
         }
 
         @Override
-        public To apply(From input) {
-            U instance = createExecutedInstance(input);
-            return instance.t;
+        public T call() throws Exception {
+            U instance = createExecutedInstance();
+            return instance.r;
         }
+
     }
 
-    protected From f;
+    protected T r;
 
-    protected To t;
-
-    public Func() {
-        f = FunkyExecutorWithInput.getThreadLocalParameter();
-    }
 }

@@ -26,6 +26,6 @@ class ClassRunnable<U> extends FunkyExecutor<U> implements Runnable {
 
     @Override
     public void run() {
-        call();
+        createExecutedInstance();
     }
 }

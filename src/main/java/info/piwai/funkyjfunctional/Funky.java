@@ -1,10 +1,12 @@
 package info.piwai.funkyjfunctional;
 
+import info.piwai.funkyjfunctional.Call.ClassCallable;
 import info.piwai.funkyjfunctional.Comp.ClassComparator;
 import info.piwai.funkyjfunctional.Func.ClassFunction;
 import info.piwai.funkyjfunctional.Pred.ClassPredicate;
 
 import java.util.Comparator;
+import java.util.concurrent.Callable;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -41,6 +43,14 @@ public class Funky {
 
     public static <U> Runnable withRun(Class<U> applyingClass, Object instance) {
         return new ClassRunnable<U>(applyingClass, instance);
+    }
+    
+    public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass) {
+        return withCall(applyingClass, null);
+    }
+
+    public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object instance) {
+        return new ClassCallable<T, U>(applyingClass, instance);
     }
 
 
