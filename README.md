@@ -23,6 +23,8 @@ With FunkyJFunctional our [predicates](https://github.com/pyricau/FunkyJFunction
 	
 	Iterable<Integer> adults = filter(values, with(Adult.class));
 	
+Sounds funky ? We think it is ;-). 
+	
 We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/FuncTest.java) :
 
 	List<Integer> values = Arrays.asList(42, 69);
@@ -45,5 +47,4 @@ And [comparators](https://github.com/pyricau/FunkyJFunctional/blob/master/src/te
 ... with static imports:
 	
 	Ordering<Person> ordering = from(with(Sort.class)).sortedCopy(persons);
-	
-Sounds funky ? We think it is ;-). 
+
