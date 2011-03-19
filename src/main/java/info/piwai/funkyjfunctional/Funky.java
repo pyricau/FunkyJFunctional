@@ -54,7 +54,7 @@ import com.google.common.base.Predicate;
  * 
  * <pre>
  * // t is the input parameter, and r is the returned value.
- * class Adult extends Pred<Integer> {{ r = t > 18; }}
+ * class Adult extends Pred&lt;Integer&gt; {{ r = t &gt; 18; }}
  * </pre>
  * 
  * To use this predicate, we need to instantiate it as a Guava {@link Predicate}
@@ -66,13 +66,13 @@ import com.google.common.base.Predicate;
  * import static com.google.common.collect.Iterables.*;
  * 
  * // Nothing too complex here
- * List<Integer> values = Arrays.asList(16, 21);
+ * List&lt;Integer&gt; values = Arrays.asList(16, 21);
  * 
  * // the 'adults' Iterable contains only one element: '21'.
- * Iterable<Integer> adults = filter(values, withPred(Adult.class));
+ * Iterable&lt;Integer&gt; adults = filter(values, withPred(Adult.class));
  * 
  * // The magic all happened in the withPred method, which created a Predicate:
- * Predicate<Integer> adultPredicate = withPred(Adult.class);
+ * Predicate&lt;Integer&gt; adultPredicate = withPred(Adult.class);
  * </pre>
  * 
  * <p>
