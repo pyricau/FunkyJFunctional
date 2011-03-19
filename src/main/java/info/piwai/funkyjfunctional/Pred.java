@@ -21,7 +21,7 @@ import com.google.common.base.Predicate;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Pred<T> {
-    private static class ClassPredicate<T, U extends Pred<T>> extends FunkyExecutorWithInput<U> implements Predicate<T> {
+    static class ClassPredicate<T, U extends Pred<T>> extends FunkyExecutorWithInput<U> implements Predicate<T> {
 
         public ClassPredicate(Class<U> applyingClass, Object instance) {
             super(applyingClass, instance);
@@ -32,14 +32,6 @@ public abstract class Pred<T> {
             U instance = call(input);
             return instance.r;
         }
-    }
-
-    public static <T, U extends Pred<T>> Predicate<T> with(Class<U> applyingClass) {
-        return with(applyingClass, null);
-    }
-
-    public static <T, U extends Pred<T>> Predicate<T> with(Class<U> applyingClass, Object instance) {
-        return new ClassPredicate<T, U>(applyingClass, instance);
     }
 
     protected T t;

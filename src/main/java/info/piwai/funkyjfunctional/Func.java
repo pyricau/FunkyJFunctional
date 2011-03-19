@@ -22,7 +22,7 @@ import com.google.common.base.Function;
  */
 public abstract class Func<From, To> {
 
-    private static class ClassFunction<From, To, U extends Func<From, To>> extends FunkyExecutorWithInput<U> implements Function<From, To> {
+    static class ClassFunction<From, To, U extends Func<From, To>> extends FunkyExecutorWithInput<U> implements Function<From, To> {
 
         public ClassFunction(Class<U> applyingClass, Object instance) {
             super(applyingClass, instance);
@@ -33,14 +33,6 @@ public abstract class Func<From, To> {
             U instance = call(input);
             return instance.t;
         }
-    }
-
-    public static <From, To, U extends Func<From, To>> Function<From, To> with(Class<U> applyingClass) {
-        return with(applyingClass, null);
-    }
-
-    public static <From, To, U extends Func<From, To>> Function<From, To> with(Class<U> applyingClass, Object instance) {
-        return new ClassFunction<From, To, U>(applyingClass, instance);
     }
 
     protected From f;

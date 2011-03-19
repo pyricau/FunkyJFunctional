@@ -26,24 +26,24 @@ With Guava:
 With FunkyJFunctional our [predicates](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/PredTest.java) are much shorter:
 	
 	List<Integer> values = Arrays.asList(16, 21);
-	class Adult extends P<Integer> {{ r = t > 18; }}
-	Iterable<Integer> adults = Iterables.filter(values, Pred.with(Adult.class));
+	class Adult extends Pred<Integer> {{ r = t > 18; }}
+	Iterable<Integer> adults = Iterables.filter(values, Funky.withPred(Adult.class));
 	
 ... with static imports:
 	
-	Iterable<Integer> adults = filter(values, with(Adult.class));
+	Iterable<Integer> adults = filter(values, withPred(Adult.class));
 	
 Sounds funky? We think it is ;-). 
 	
 We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/FuncTest.java) :
 
 	List<Integer> values = Arrays.asList(42, 69);
-	class Price extends F<Integer, String> {{ t = f+"$"; }}
-	List<String> prices = Lists.transform(values, Func.with(Price.class));
+	class Price extends Func<Integer, String> {{ t = f+"$"; }}
+	List<String> prices = Lists.transform(values, Funky.withFunc(Price.class));
 
 ... with static imports:
 
-	List<String> prices = transform(values, with(Price.class));
+	List<String> prices = transform(values, withFunc(Price.class));
 	
 And [comparators](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/CompTest.java):
 
@@ -52,16 +52,16 @@ And [comparators](https://github.com/pyricau/FunkyJFunctional/blob/master/src/te
 	
 	List<Person> persons = Arrays.asList(john, joe);
 	class Sort extends Comp<Person> {{ r = t1.getName().compareTo(t2.getName()); }}
-	List<Person> sortedPersons = Ordering.from(C.with(Sort.class)).sortedCopy(persons);;
+	List<Person> sortedPersons = Ordering.from(Funky.withComp(Sort.class)).sortedCopy(persons);;
 	
 ... with static imports:
 	
-	Ordering<Person> ordering = from(with(Sort.class)).sortedCopy(persons);
+	Ordering<Person> ordering = from(withComp(Sort.class)).sortedCopy(persons);
 	
 And [runnables](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/RunTest.java):
 
     class Hello {{ System.out.println("Hello World"); }}
-    Runnable runnable = Run.with(Hello.class);
+    Runnable runnable = Funky.withRun(Hello.class);
     runnable.run();
 
 # Other funky ways 

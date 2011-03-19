@@ -33,7 +33,7 @@ public abstract class Comp<T> {
         }
     }
 
-    private static class ClassComparator<T, U extends Comp<T>> extends FunkyExecutorWithInput<U> implements Comparator<T> {
+    static class ClassComparator<T, U extends Comp<T>> extends FunkyExecutorWithInput<U> implements Comparator<T> {
 
         public ClassComparator(Class<U> applyingClass, Object instance) {
             super(applyingClass, instance);
@@ -45,15 +45,7 @@ public abstract class Comp<T> {
             return instance.r;
         }
     }
-
-    public static <T, U extends Comp<T>> Comparator<T> with(Class<U> applyingClass) {
-        return with(applyingClass, null);
-    }
-
-    public static <T, U extends Comp<T>> Comparator<T> with(Class<U> applyingClass, Object instance) {
-        return new ClassComparator<T, U>(applyingClass, instance);
-    }
-
+    
     protected T t1;
     protected T t2;
 

@@ -15,29 +15,17 @@
  */
 package info.piwai.funkyjfunctional;
 
-
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class Run  {
-    
-    private static class ClassRunnable<U> extends FunkyExecutor<U> implements Runnable {
+class ClassRunnable<U> extends FunkyExecutor<U> implements Runnable {
 
-        public ClassRunnable(Class<U> applyingClass, Object instance) {
-            super(applyingClass, instance);
-        }
-
-        @Override
-        public void run() {
-            call();
-        }
-    }
-    
-    public static Runnable with(Class<?> applyingClass) {
-        return with(applyingClass, null);
+    public ClassRunnable(Class<U> applyingClass, Object instance) {
+        super(applyingClass, instance);
     }
 
-    public static <U> Runnable with(Class<U> applyingClass, Object instance) {
-        return new ClassRunnable<U>(applyingClass, instance);
+    @Override
+    public void run() {
+        call();
     }
 }
