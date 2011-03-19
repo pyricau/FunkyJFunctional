@@ -39,7 +39,6 @@ import com.google.common.base.Predicate;
  * The {@link Funky} class is the main entry point to FunkyJFunctional.
  * Therefore, most of the documentation for this project will be found here.
  * 
- * 
  * <h1>Basics</h1>
  * 
  * <p>
@@ -77,15 +76,15 @@ import com.google.common.base.Predicate;
  * </pre>
  * 
  * <p>
- * <b>Warning: this paragraph is not clear and should be rewritten</b>
- * You might notice that there are two withPred() methods: one that takes a
- * class, and another one that takes a class and an instance object. In most
- * cases, you will only need to use the first one. However, if the function
- * declaration is done in an instance method (ie non static) AND this function
- * accesses other instance methods or instance fields, then you should use the
- * withPred() method that has two parameters. The second parameter is the
- * instance on which the methods / fields will be called (ie, in most cases,
- * 'this'). Otherwise, you will raise NullPointerExceptions.
+ * <b>Warning: this paragraph is not clear and should be rewritten</b> You might
+ * notice that there are two withPred() methods: one that takes a class, and
+ * another one that takes a class and an instance object. In most cases, you
+ * will only need to use the first one. However, if the function declaration is
+ * done in an instance method (ie non static) AND this function accesses other
+ * instance methods or instance fields, then you should use the withPred()
+ * method that has two parameters. The second parameter is the instance on which
+ * the methods / fields will be called (ie, in most cases, 'this'). Otherwise,
+ * you will raise NullPointerExceptions.
  * 
  * <p>
  * To know more about what you can do with FunkyJFunctional, have a look at the
