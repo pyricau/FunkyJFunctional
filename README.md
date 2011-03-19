@@ -8,7 +8,7 @@ In short, two syntax examples:
 
 * A funky Runnable: ```class Hello {{System.out.println("Hello Funky World");}}```
 
-* A funky Predicate: ```class Adult extends P<Integer> {{r = t > 18;}};```
+* A funky Predicate: ```class Adult extends P<Integer> {{r = t > 18;}}```
 
 # Detailed examples
 
@@ -26,7 +26,7 @@ With Guava:
 With FunkyJFunctional our [predicates](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/PredTest.java) are much shorter:
 	
 	List<Integer> values = Arrays.asList(16, 21);
-	class Adult extends P<Integer> {{r = t > 18;}};
+	class Adult extends P<Integer> {{r = t > 18;}}
 	Iterable<Integer> adults = Iterables.filter(values, Pred.with(Adult.class));
 	
 ... with static imports:
@@ -38,7 +38,7 @@ Sounds funky ? We think it is ;-).
 We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/FuncTest.java) :
 
 	List<Integer> values = Arrays.asList(42, 69);
-	class Price extends F<Integer, String> {{t = f+"$";}};
+	class Price extends F<Integer, String> {{t = f+"$";}}
 	List<String> prices = Lists.transform(values, Func.with(Price.class));
 
 ... with static imports:
@@ -51,7 +51,7 @@ And [comparators](https://github.com/pyricau/FunkyJFunctional/blob/master/src/te
 	Person joe = new Person("Joe");
 	
 	List<Person> persons = Arrays.asList(john, joe);
-	class Sort extends Comp<Person> {{r = t1.getName().compareTo(t2.getName());}};
+	class Sort extends Comp<Person> {{r = t1.getName().compareTo(t2.getName());}}
 	List<Person> sortedPersons = Ordering.from(C.with(Sort.class)).sortedCopy(persons);;
 	
 ... with static imports:

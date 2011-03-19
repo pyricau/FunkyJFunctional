@@ -19,7 +19,7 @@ public class FuncTest {
 
 		List<Integer> values = asList(42, 69);
 
-		class Price extends Func<Integer, String> {{ t = f+"$"; }};
+		class Price extends Func<Integer, String> {{ t = f+"$"; }}
 		
 		List<String> prices = transform(values, with(Price.class));
 
@@ -35,7 +35,7 @@ public class FuncTest {
 	private static void staticTransform() {
 		List<Integer> values = asList(42, 69);
 
-		class Price extends Func<Integer, String> {{ t = f+"$"; }};
+		class Price extends Func<Integer, String> {{ t = f+"$"; }}
 		
 		List<String> prices = transform(values, with(Price.class));
 
@@ -45,7 +45,7 @@ public class FuncTest {
 	
     @Test
     public void testThrows() {
-        class Fails extends Func<Object, Integer> {{ t = 42 / 0; }};
+        class Fails extends Func<Object, Integer> {{ t = 42 / 0; }}
         try {
             with(Fails.class).apply(null);
             fail();

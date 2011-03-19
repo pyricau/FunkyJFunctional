@@ -19,7 +19,7 @@ public class PredTest {
 	public void testFilter() throws Exception {
 		List<Integer> values = asList(16, 21);
 
-		class Adult extends Pred<Integer> {{r = t > 18;}};
+		class Adult extends Pred<Integer> {{r = t > 18;}}
 
 		List<Integer> adults = newArrayList(filter(values, with(Adult.class)));
 
@@ -35,7 +35,7 @@ public class PredTest {
 	private static void staticFilter() {
 		List<Integer> values = asList(16, 21);
 
-		class Adult extends Pred<Integer> {{r = t > 18;}};
+		class Adult extends Pred<Integer> {{r = t > 18;}}
 		
 		List<Integer> adults = newArrayList(filter(values, with(Adult.class)));
 
@@ -45,7 +45,7 @@ public class PredTest {
 	
     @Test
     public void testThrows() {
-        class Fails extends Pred<Object> {{ r = 42 / 0 > 69;}};
+        class Fails extends Pred<Object> {{ r = 42 / 0 > 69;}}
         try {
             with(Fails.class).apply(null);
             fail();
