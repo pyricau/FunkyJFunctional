@@ -69,6 +69,26 @@ And [callables](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test
     class FortyTwo extends Call<Integer> {{ r = 42; }}
     Callable<Integer> callable = withCall(FortyTwo.class);
     Integer result = callable.call();
+    
+# Maven artifacts
+
+You will need one of the following repositories in your Maven project:
+	<repositories>
+		<repository>
+			<id>funkyjfunctional-releases</id>
+			<url>https://github.com/pyricau/BuilderGen/raw/master/releases</url>
+		</repository>
+		<repository>
+			<id>funkyjfunctional-snapshots</id>
+			<url>https://github.com/pyricau/BuilderGen/raw/master/snapshots</url>
+		</repository>
+	</repositories>
+As well as the following dependency:
+	<dependency>
+		<groupId>info.piwai.funkyjfunctional</groupId>
+		<artifactId>funkyjfunctional</artifactId>
+		<version>0.2</version>
+	</dependency>	
 
 # Other funky ways 
 
