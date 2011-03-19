@@ -8,7 +8,7 @@ In short, two syntax examples:
 
 * A funky Runnable: ```class Hello {{ System.out.println("Hello Funky World"); }}```
 
-* A funky Predicate: ```class Adult extends P<Integer> {{ r = t > 18; }}```
+* A funky Predicate: ```class Adult extends Pred<Integer> {{ r = t > 18; }}```
 
 # Detailed examples
 
