@@ -67,4 +67,4 @@ And [runnables](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test
 # Other funky ways 
 
 * [jcurry](http://code.google.com/p/jcurry/) uses the awesome [projectlombok](http://projectlombok.org/) funkyness power.
-* [lambdaj](http://code.google.com/p/lambdaj/) is a funky alernative to [Guava](http://code.google.com/p/guava-libraries/)
+* [lambdaj](http://code.google.com/p/lambdaj/) is a funky alernative to [Guava](http://code.google.com/p/guava-libraries/).
