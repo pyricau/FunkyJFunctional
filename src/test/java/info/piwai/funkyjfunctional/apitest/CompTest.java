@@ -8,7 +8,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import info.piwai.funkyjfunctional.Comp;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.junit.Test;
@@ -64,8 +63,7 @@ public class CompTest {
             withComp(Fails.class).compare(null, null);
             fail();
         } catch(RuntimeException e) {
-            assertTrue(e.getCause() instanceof InvocationTargetException);
-            assertTrue(e.getCause().getCause() instanceof ArithmeticException);
+            assertTrue(e instanceof ArithmeticException);
         }
     }
 }
