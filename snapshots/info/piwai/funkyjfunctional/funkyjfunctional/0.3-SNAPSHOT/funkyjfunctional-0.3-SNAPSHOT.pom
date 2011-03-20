@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>info.piwai.funkyjfunctional</groupId>
+	<artifactId>funkyjfunctional</artifactId>
+	<version>0.3-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>FunkyJFunctional</name>
+	<description>Brings some functional Funkyness to Java.</description>
+	<url>https://github.com/pyricau/FunkyJFunctional</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<altDeploymentRepository>release-repo::default::file:../../releases</altDeploymentRepository>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>r08</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<defaultGoal>test</defaultGoal>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>release-repo</id>
+			<url>https://github.com/pyricau/FunkyJFunctional/raw/master/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshot-repo</id>
+			<url>https://github.com/pyricau/FunkyJFunctional/raw/master/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<scm>
+		<connection>scm:git:git@github.com:pyricau/FunkyJFunctional.git</connection>
+		<developerConnection>scm:git:git@github.com:pyricau/FunkyJFunctional.git</developerConnection>
+		<url>scm:git:git@github.com:pyricau/FunkyJFunctional.git</url>
+	</scm>
+
+	<profiles>
+		<profile>
+			<id>deploy-snapshot</id>
+			<properties>
+				<altDeploymentRepository>snapshot-repo::default::file:snapshots</altDeploymentRepository>
+			</properties>
+		</profile>
+	</profiles>
+</project>
