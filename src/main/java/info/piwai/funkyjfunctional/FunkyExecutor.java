@@ -19,6 +19,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
+ * <p>
+ * This class holds FunkyJFunctional's core behavior. It creates instances of
+ * the given class each time its init block code needs to be executed.
+ * 
+ * <p>
+ * {@link FunkyExecutor} is not part of the API, which is why it has package-private scope.
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 abstract class FunkyExecutor<T> {

@@ -33,6 +33,11 @@ public abstract class Comp<T> {
         }
     }
 
+    /**
+     * <p>
+     * {@link ClassComparator} is not part of the API, which is why it has
+     * package-private scope.
+     */
     static class ClassComparator<T, U extends Comp<T>> extends FunkyExecutorWithInput<U> implements Comparator<T> {
 
         public ClassComparator(Class<U> applyingClass, Object instance) {
@@ -45,7 +50,7 @@ public abstract class Comp<T> {
             return instance.r;
         }
     }
-    
+
     protected T t1;
     protected T t2;
 

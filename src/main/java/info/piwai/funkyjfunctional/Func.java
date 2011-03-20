@@ -22,6 +22,12 @@ import com.google.common.base.Function;
  */
 public abstract class Func<From, To> {
 
+    /**
+     * <p>
+     * {@link ClassFunction} is not part of the API, which is why it
+     * has package-private scope.
+     */
+
     static class ClassFunction<From, To, U extends Func<From, To>> extends FunkyExecutorWithInput<U> implements Function<From, To> {
 
         public ClassFunction(Class<U> applyingClass, Object instance) {
@@ -40,6 +46,6 @@ public abstract class Func<From, To> {
     protected To t;
 
     public Func() {
-        f = FunkyExecutorWithInput.<From>getThreadLocalParameter();
+        f = FunkyExecutorWithInput.<From> getThreadLocalParameter();
     }
 }

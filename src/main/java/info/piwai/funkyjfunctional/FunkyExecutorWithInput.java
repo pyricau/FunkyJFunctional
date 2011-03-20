@@ -16,6 +16,9 @@
 package info.piwai.funkyjfunctional;
 
 /**
+ * 
+ * <p>
+ * {@link FunkyExecutorWithInput} is not part of the API, which is why it has package-private scope. 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 abstract class FunkyExecutorWithInput<T> extends FunkyExecutor<T> {

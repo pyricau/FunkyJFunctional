@@ -16,6 +16,8 @@
 package info.piwai.funkyjfunctional;
 
 /**
+ * <p>
+ * {@link ClassRunnable} is not part of the API, which is why it has package-private scope.
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 class ClassRunnable<U> extends FunkyExecutor<U> implements Runnable {

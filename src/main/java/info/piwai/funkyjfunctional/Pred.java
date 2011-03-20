@@ -21,6 +21,12 @@ import com.google.common.base.Predicate;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Pred<T> {
+
+    /**
+     * <p>
+     * {@link ClassPredicate} is not part of the API, which is why it
+     * has package-private scope.
+     */
     static class ClassPredicate<T, U extends Pred<T>> extends FunkyExecutorWithInput<U> implements Predicate<T> {
 
         public ClassPredicate(Class<U> applyingClass, Object instance) {
@@ -39,7 +45,7 @@ public abstract class Pred<T> {
     protected boolean r;
 
     public Pred() {
-        t = FunkyExecutorWithInput.<T>getThreadLocalParameter();
+        t = FunkyExecutorWithInput.<T> getThreadLocalParameter();
     }
 
 }

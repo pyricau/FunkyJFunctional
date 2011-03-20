@@ -22,6 +22,11 @@ import java.util.concurrent.Callable;
  */
 public abstract class Call<T> {
 
+    /**
+     * <p>
+     * {@link ClassCallable} is not part of the API, which is why it has
+     * package-private scope.
+     */
     static class ClassCallable<T, U extends Call<T>> extends FunkyExecutor<U> implements Callable<T> {
 
         public ClassCallable(Class<U> applyingClass, Object instance) {
