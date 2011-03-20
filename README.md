@@ -33,7 +33,10 @@ With FunkyJFunctional our [predicate](https://github.com/pyricau/FunkyJFunctiona
 	System.out.println(adults); // prints [21]
 	
 With static imports, it's even shorter:
-	
+
+    import static info.piwai.funkyjfunctional.Funky.*;
+    import static com.google.common.collect.Iterables.*;
+	// [...]
 	Iterable<Integer> adults = filter(values, withPred(Adult.class));
 	
 Sounds funky? We think it is ;-). 
