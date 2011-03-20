@@ -60,7 +60,8 @@ import com.google.common.base.Supplier;
  * <li>function instantiation, using the {@link Funky} class.
  * </ul>
  * 
- * <h2>Function declaration</h2>
+ * <h3>Function declaration</h3>
+ * 
  * <p>
  * Let's declare an Adult predicate, that returns true if the given integer
  * parameter is greater than 18.
@@ -69,6 +70,8 @@ import com.google.common.base.Supplier;
  * // t is the input parameter, and r is the returned value.
  * class Adult extends Pred&lt;Integer&gt; {{ r = t &gt; 18; }}
  * </pre>
+ * 
+ * <h3>Function instantiation</h3>
  * 
  * <p>
  * To use this predicate, we need to instantiate it as a Guava {@link Predicate}
