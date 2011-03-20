@@ -1,6 +1,6 @@
 # Are you Funky?
 
-There is no such thing as functional programming is Java, but sometimes we emulate it using anonymous classes.
+There is no such thing as functional programming in Java, but sometimes we emulate it using anonymous classes.
 
 FunkyJFunctional provides a new way to do functional programming in Java. It integrates with [Guava](http://code.google.com/p/guava-libraries/) (the former google collections), and uses some Java syntaxic sugar: method local class declarations and init blocks.
 
