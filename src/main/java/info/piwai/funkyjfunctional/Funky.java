@@ -82,8 +82,11 @@ import com.google.common.base.Supplier;
  * // Nothing too complex here
  * List&lt;Integer&gt; values = Arrays.asList(16, 21);
  * 
- * // the 'adults' Iterable contains only one element: '21'.
+ * // To use Guava's Iterables.filter() method, the withPred() method creates a Predicate from our Adult class.
  * Iterable&lt;Integer&gt; adults = filter(values, withPred(Adult.class));
+ * 
+ * // the 'adults' Iterable contains only one element: '21'.
+ * assertEquals(Arrays.asList(21), adults);
  * 
  * // The magic all happened in the withPred method, which created a Predicate:
  * Predicate&lt;Integer&gt; adultPredicate = withPred(Adult.class);
