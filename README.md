@@ -98,7 +98,7 @@ As well as one of the following dependencies:
 	<dependency>
 		<groupId>info.piwai.funkyjfunctional</groupId>
 		<artifactId>funkyjfunctional</artifactId>
-		<version>0.3-snapshot</version>
+		<version>0.3-SNAPSHOT</version>
 	</dependency>	
 
 # Other funky ways 
