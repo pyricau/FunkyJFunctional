@@ -30,8 +30,9 @@ With FunkyJFunctional our [predicate](https://github.com/pyricau/FunkyJFunctiona
 	List<Integer> values = Arrays.asList(16, 21);
 	class Adult extends Pred<Integer> {{ r = t > 18; }}
 	Iterable<Integer> adults = Iterables.filter(values, Funky.withPred(Adult.class));
+	System.out.println(adults); // prints [21]
 	
-... with static imports:
+With static imports, it's even shorter:
 	
 	Iterable<Integer> adults = filter(values, withPred(Adult.class));
 	
@@ -41,13 +42,10 @@ We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/ma
 
 	List<Integer> values = Arrays.asList(42, 69);
 	class Price extends Func<Integer, String> {{ r = t + "$"; }}
-	List<String> prices = Lists.transform(values, Funky.withFunc(Price.class));
-
-... with static imports:
-
 	List<String> prices = transform(values, withFunc(Price.class));
+	System.out.println(prices); // prints [42$, 69$]
 	
-And [much more](http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html)!
+And... [much more](http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html)!
     
 # Maven funky artifact
 
