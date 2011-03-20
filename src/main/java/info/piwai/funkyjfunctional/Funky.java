@@ -29,6 +29,7 @@ import com.google.common.base.Predicate;
 /**
  * FunkyJFunctional enables Java functional programming using method local class
  * declarations and init blocks.
+ * 
  * <p>
  * FunkyJFunctional integrates with <a
  * href="http://code.google.com/p/guava-libraries/">Guava</a> (the former google
@@ -39,13 +40,23 @@ import com.google.common.base.Predicate;
  * The {@link Funky} class is the main entry point to FunkyJFunctional.
  * Therefore, most of the documentation for this project will be found here.
  * 
- * <h1>Basics</h1>
+ * <h1>Contents</h1>
+ * 
+ * <ul>
+ * <li><a href="#1">1. Let's learn the funky way</a>
+ * <li><a href="#2">2. Various Funky ways</a>
+ * <li><a href="#3">3. A word of caution</a>
+ * </ul>
+ * 
+ * <h2 id="1">1. Let's learn the funky way</h2>
  * 
  * <p>
  * Using FunkyJFunctional always involves two steps:
+ * 
  * <ul>
- * <li>function declaration, as a method local class,</li>
- * <li>function instantiation, using the {@link Funky} class.</li>
+ * <li>function declaration, as a method local class,
+ * <li>function instantiation, using the {@link Funky} class.
+ * </ul>
  * 
  * <h2>Function declaration</h2>
  * <p>
@@ -57,6 +68,7 @@ import com.google.common.base.Predicate;
  * class Adult extends Pred&lt;Integer&gt; {{ r = t &gt; 18; }}
  * </pre>
  * 
+ * <p>
  * To use this predicate, we need to instantiate it as a Guava {@link Predicate}
  * that we can use in our code.
  * 
@@ -75,22 +87,44 @@ import com.google.common.base.Predicate;
  * Predicate&lt;Integer&gt; adultPredicate = withPred(Adult.class);
  * </pre>
  * 
- * <p>
- * <b>Warning: this paragraph is not clear and should be rewritten</b> You might
- * notice that there are two withPred() methods: one that takes a class, and
- * another one that takes a class and an instance object. In most cases, you
- * will only need to use the first one. However, if the function declaration is
- * done in an instance method (ie non static) AND this function accesses other
- * instance methods or instance fields, then you should use the withPred()
- * method that has two parameters. The second parameter is the instance on which
- * the methods / fields will be called (ie, in most cases, 'this'). Otherwise,
- * you will raise NullPointerExceptions.
- * 
+ * <h2 id="2">2. Various Funky ways</h2>
  * <p>
  * To know more about what you can do with FunkyJFunctional, have a look at the
- * various with*() methods!
+ * various with*() methods of the {@link Funky} class.
+ * 
+ * <p>
+ * Here is the list of the various funky ways currently provided by
+ * FunkyJFunctional:
+ * 
+ * <ul>
+ * <li>For funky {@link Function}s, see {@link Func} and the
+ * {@link #withFunc(Class)} method.
+ * <li>For funky {@link Predicate}s, see {@link Pred} and the
+ * {@link #withPred(Class)} method.
+ * <li>For funky {@link Comparator}s, see {@link Comp} and the
+ * {@link #withComp(Class)} method.
+ * <li>For funky {@link Runnable}s, see the {@link #withRun(Class)} method.
+ * <li>For funky {@link Callable}s, see {@link Call} and the
+ * {@link #withCall(Class)} method.
+ * </ul>
+ * 
+ * <h2 id="3">3. A word of caution</h2>
+ * <p>
+ * <b>Warning: this paragraph is not clear and should be rewritten</b>
+ * 
+ * <p>
+ * You might notice that there are two withPred() methods: one that takes a
+ * class, and another one that takes a class and an instance object. In most
+ * cases, you will only need to use the first one. However, if the function
+ * declaration is done in an instance method (ie non static) AND this function
+ * accesses other instance methods or instance fields, then you should use the
+ * withPred() method that has two parameters. The second parameter is the
+ * instance on which the methods / fields will be called (ie, in most cases,
+ * 'this'). Otherwise, you will raise {@link NullPointerException}s.
+ * 
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ * @author Florent Ramière
  */
 public class Funky {
 
