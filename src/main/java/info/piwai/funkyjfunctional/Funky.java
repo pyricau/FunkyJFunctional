@@ -127,6 +127,9 @@ import com.google.common.base.Predicate;
  * @author Florent Ramière
  */
 public class Funky {
+    private Funky() {
+        
+    }
 
     public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass) {
         return withComp(applyingClass, null);
