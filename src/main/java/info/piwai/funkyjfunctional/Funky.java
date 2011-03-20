@@ -19,12 +19,14 @@ import info.piwai.funkyjfunctional.Call.ClassCallable;
 import info.piwai.funkyjfunctional.Comp.ClassComparator;
 import info.piwai.funkyjfunctional.Func.ClassFunction;
 import info.piwai.funkyjfunctional.Pred.ClassPredicate;
+import info.piwai.funkyjfunctional.Supp.ClassSupplier;
 
 import java.util.Comparator;
 import java.util.concurrent.Callable;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.google.common.base.Supplier;
 
 /**
  * FunkyJFunctional enables Java functional programming using method local class
@@ -106,6 +108,8 @@ import com.google.common.base.Predicate;
  * <li>For funky {@link Runnable}s, see the {@link #withRun(Class)} method.
  * <li>For funky {@link Callable}s, see {@link Call} and the
  * {@link #withCall(Class)} method.
+ * <li>For funky {@link Supplier}s, see {@link Supp} and the
+ * {@link #withSupp(Class)} method.
  * </ul>
  * 
  * <h2 id="3">3. A word of caution</h2>
@@ -130,8 +134,8 @@ public abstract class Funky {
 
     /**
      * The constructor is private to make sure this class won't be instantiated.
-     * The class itself is abstract so that it even cannot be instantiated using the
-     * reflection API.
+     * The class itself is abstract so that it even cannot be instantiated using
+     * the reflection API.
      */
     private Funky() {
     }
@@ -174,6 +178,14 @@ public abstract class Funky {
 
     public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object instance) {
         return new ClassCallable<T, U>(applyingClass, instance);
+    }
+
+    public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass) {
+        return withSupp(applyingClass, null);
+    }
+
+    public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object instance) {
+        return new ClassSupplier<T, U>(applyingClass, instance);
     }
 
 }
