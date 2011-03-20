@@ -10,7 +10,7 @@ In short, two syntax examples:
 
 * A funky Predicate: ```class Adult extends Pred<Integer> {{ r = t > 18; }}```
 
-Looking for the documentation? Have a look at the <a href="http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html">Funky javadoc</a>!
+Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html)!
 
 # Detailed examples
 
@@ -47,30 +47,7 @@ We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/ma
 
 	List<String> prices = transform(values, withFunc(Price.class));
 	
-And [comparators](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/CompTest.java):
-
-	Person john = new Person("John");
-	Person joe = new Person("Joe");
-	
-	List<Person> persons = Arrays.asList(john, joe);
-	class Sort extends Comp<Person> {{ r = t1.getName().compareTo(t2.getName()); }}
-	List<Person> sortedPersons = Ordering.from(Funky.withComp(Sort.class)).sortedCopy(persons);;
-	
-... with static imports:
-	
-	Ordering<Person> ordering = from(withComp(Sort.class)).sortedCopy(persons);
-	
-And [runnables](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/RunTest.java):
-
-    class Hello {{ System.out.println("Hello World"); }}
-    Runnable runnable = Funky.withRun(Hello.class);
-    runnable.run();
-    
-And [callables](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/CallTest.java):
-
-    class FortyTwo extends Call<Integer> {{ r = 42; }}
-    Callable<Integer> callable = withCall(FortyTwo.class);
-    Integer result = callable.call();
+And [much more](http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html)!
     
 # Maven funky artifact
 
