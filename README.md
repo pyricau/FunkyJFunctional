@@ -50,34 +50,45 @@ We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/ma
 	
 And... [much more](http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html)!
     
-# Maven funky artifact
+# Maven funky artifacts
 
-You will need one of the following repositories in your Maven project:
+## Releases, for the serious funky guys
+
+You will need the following repository in your Maven project:
+
 	<repositories>
-		<!-- For the serious funky guys -->
 		<repository>
 			<id>funkyjfunctional-releases</id>
 			<url>https://github.com/pyricau/FunkyJFunctional/raw/master/releases</url>
 		</repository>
-		<!-- For Chuck Norris and his funky friends -->
+	</repositories>
+	
+As well as the following dependency:
+
+	<dependency>
+		<groupId>info.piwai.funkyjfunctional</groupId>
+		<artifactId>funkyjfunctional</artifactId>
+		<version>0.2</version>
+	</dependency>
+	
+## Snapshots, for Chuck Norris and his funky friends
+
+You will need the following repository in your Maven project:
+
+	<repositories>
 		<repository>
 			<id>funkyjfunctional-snapshots</id>
 			<url>https://github.com/pyricau/FunkyJFunctional/raw/master/snapshots</url>
 		</repository>
 	</repositories>
-As well as one of the following dependencies:
-	<!-- For the serious funky guys -->
-	<dependency>
-		<groupId>info.piwai.funkyjfunctional</groupId>
-		<artifactId>funkyjfunctional</artifactId>
-		<version>0.2</version>
-	</dependency>	
-	<!-- For Chuck Norris and his funky friends -->
+
+As well as the following dependency:
+
 	<dependency>
 		<groupId>info.piwai.funkyjfunctional</groupId>
 		<artifactId>funkyjfunctional</artifactId>
 		<version>0.3-SNAPSHOT</version>
-	</dependency>	
+	</dependency>
 
 # Other funky ways 
 
