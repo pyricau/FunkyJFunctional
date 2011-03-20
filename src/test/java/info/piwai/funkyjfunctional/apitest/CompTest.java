@@ -19,8 +19,6 @@ import static com.google.common.collect.Ordering.from;
 import static info.piwai.funkyjfunctional.Funky.withComp;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import info.piwai.funkyjfunctional.Comp;
 
 import java.util.List;
@@ -74,14 +72,10 @@ public class CompTest {
         assertSame(john, sortedPersons.get(1));
     }
     
-    @Test
+    @Test(expected=ArithmeticException.class)
     public void testThrows() {
         class Fails extends Comp<Object> {{r = 42 / 0;}}
-        try {
-            withComp(Fails.class).compare(null, null);
-            fail();
-        } catch(RuntimeException e) {
-            assertTrue(e instanceof ArithmeticException);
-        }
+        withComp(Fails.class).compare(null, null);
     }
+
 }

@@ -37,7 +37,7 @@ With FunkyJFunctional our [predicate](https://github.com/pyricau/FunkyJFunctiona
 	
 Sounds funky? We think it is ;-). 
 	
-We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/FuncTest.java) :
+We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/FuncTest.java):
 
 	List<Integer> values = Arrays.asList(42, 69);
 	class Price extends Func<Integer, String> {{ t = f + "$"; }}

@@ -21,7 +21,6 @@ import static info.piwai.funkyjfunctional.Funky.withPred;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import info.piwai.funkyjfunctional.Pred;
 
 import java.util.List;
@@ -61,14 +60,9 @@ public class PredTest {
 		assertTrue(adults.contains(21));
 	}
 	
-    @Test
+    @Test(expected=ArithmeticException.class)
     public void testThrows() {
         class Fails extends Pred<Object> {{ r = 42 / 0 > 69;}}
-        try {
-            withPred(Fails.class).apply(null);
-            fail();
-        } catch(RuntimeException e) {
-            assertTrue(e instanceof ArithmeticException);
-        }
+        withPred(Fails.class).apply(null);
     }
 }

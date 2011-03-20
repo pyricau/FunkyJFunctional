@@ -19,8 +19,6 @@ import static com.google.common.collect.Lists.transform;
 import static info.piwai.funkyjfunctional.Funky.withFunc;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import info.piwai.funkyjfunctional.Func;
 
 import java.util.List;
@@ -61,15 +59,9 @@ public class FuncTest {
 		assertEquals("69$", prices.get(1));
 	}
 	
-    @Test
+    @Test(expected=ArithmeticException.class)
     public void testThrows() {
         class Fails extends Func<Object, Integer> {{ t = 42 / 0; }}
-        try {
-            withFunc(Fails.class).apply(null);
-            fail();
-        } catch(RuntimeException e) {
-            assertTrue(e instanceof ArithmeticException);
-        }
+        withFunc(Fails.class).apply(null);
     }
-
 }
