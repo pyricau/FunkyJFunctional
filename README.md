@@ -1,4 +1,4 @@
-# What is this?
+# Are you Funky?
 
 There is no such thing as functional programming is Java, but sometimes we emulate it using anonymous classes.
 
@@ -25,7 +25,7 @@ With Guava:
 	};
 	Iterable<Integer> adults = Iterables.filter(values, adult);
 	
-With FunkyJFunctional our [predicates](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/PredTest.java) are much shorter:
+With FunkyJFunctional our [predicate](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/PredTest.java) is much shorter:
 	
 	List<Integer> values = Arrays.asList(16, 21);
 	class Adult extends Pred<Integer> {{ r = t > 18; }}
@@ -72,14 +72,16 @@ And [callables](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test
     Callable<Integer> callable = withCall(FortyTwo.class);
     Integer result = callable.call();
     
-# Maven artifacts
+# Maven funky artifact
 
 You will need one of the following repositories in your Maven project:
 	<repositories>
+		<!-- For the serious funky guys -->
 		<repository>
 			<id>funkyjfunctional-releases</id>
 			<url>https://github.com/pyricau/FunkyJFunctional/raw/master/releases</url>
 		</repository>
+		<!-- For Chuck Norris and his funky friends -->
 		<repository>
 			<id>funkyjfunctional-snapshots</id>
 			<url>https://github.com/pyricau/FunkyJFunctional/raw/master/snapshots</url>
