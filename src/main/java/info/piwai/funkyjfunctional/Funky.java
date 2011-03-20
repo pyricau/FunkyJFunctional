@@ -126,9 +126,14 @@ import com.google.common.base.Predicate;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  * @author Florent Ramière
  */
-public class Funky {
+public abstract class Funky {
+
+    /**
+     * The constructor is private to make sure this class won't be instantiated.
+     * The class itself is abstract so that it even cannot be instantiated using the
+     * reflection API.
+     */
     private Funky() {
-        
     }
 
     public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass) {
