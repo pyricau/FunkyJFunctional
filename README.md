@@ -10,7 +10,7 @@ In short, two syntax examples:
 
 * A funky Predicate: ```class Adult extends Pred<Integer> {{ r = t > 18; }}```
 
-Looking for the documentation? Have a look at the <a href="https://github.com/pyricau/FunkyJFunctional/blob/master/src/main/java/info/piwai/funkyjfunctional/Funky.java">Funky javadoc</a>!
+Looking for the documentation? Have a look at the <a href="http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html">Funky javadoc</a>!
 
 # Detailed examples
 
