@@ -24,10 +24,9 @@ public abstract class Func<From, To> {
 
     /**
      * <p>
-     * {@link ClassFunction} is not part of the API, which is why it
-     * has package-private scope.
+     * {@link ClassFunction} is not part of the API, which is why it has
+     * package-private scope.
      */
-
     static class ClassFunction<From, To, U extends Func<From, To>> extends FunkyExecutorWithInput<U> implements Function<From, To> {
 
         public ClassFunction(Class<U> applyingClass, Object instance) {
@@ -37,15 +36,15 @@ public abstract class Func<From, To> {
         @Override
         public To apply(From input) {
             U instance = createExecutedInstance(input);
-            return instance.t;
+            return instance.r;
         }
     }
 
-    protected From f;
+    protected From t;
 
-    protected To t;
+    protected To r;
 
     public Func() {
-        f = FunkyExecutorWithInput.<From> getThreadLocalParameter();
+        t = FunkyExecutorWithInput.<From> getThreadLocalParameter();
     }
 }

@@ -35,7 +35,7 @@ public class FuncTest {
 
 		List<Integer> values = asList(42, 69);
 
-		class Price extends Func<Integer, String> {{ t = f+"$"; }}
+		class Price extends Func<Integer, String> {{ r = t+"$"; }}
 		
 		List<String> prices = transform(values, withFunc(Price.class));
 
@@ -51,7 +51,7 @@ public class FuncTest {
 	private static void staticTransform() {
 		List<Integer> values = asList(42, 69);
 
-		class Price extends Func<Integer, String> {{ t = f+"$"; }}
+		class Price extends Func<Integer, String> {{ r = t+"$"; }}
 		
 		List<String> prices = transform(values, withFunc(Price.class));
 
@@ -61,7 +61,7 @@ public class FuncTest {
 	
     @Test(expected=ArithmeticException.class)
     public void testThrows() {
-        class Fails extends Func<Object, Integer> {{ t = 42 / 0; }}
+        class Fails extends Func<Object, Integer> {{ r = 42 / 0; }}
         withFunc(Fails.class).apply(null);
     }
 }
