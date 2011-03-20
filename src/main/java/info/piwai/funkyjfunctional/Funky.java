@@ -128,7 +128,7 @@ import com.google.common.base.Supplier;
  * 
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
- * @author Florent Ramière
+ * @author Florent Rami&egrave;re
  */
 public abstract class Funky {
 
