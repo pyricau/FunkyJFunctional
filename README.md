@@ -87,11 +87,18 @@ You will need one of the following repositories in your Maven project:
 			<url>https://github.com/pyricau/FunkyJFunctional/raw/master/snapshots</url>
 		</repository>
 	</repositories>
-As well as the following dependency:
+As well as one of the following dependencies:
+	<!-- For the serious funky guys -->
 	<dependency>
 		<groupId>info.piwai.funkyjfunctional</groupId>
 		<artifactId>funkyjfunctional</artifactId>
 		<version>0.2</version>
+	</dependency>	
+	<!-- For Chuck Norris and his funky friends -->
+	<dependency>
+		<groupId>info.piwai.funkyjfunctional</groupId>
+		<artifactId>funkyjfunctional</artifactId>
+		<version>0.3-snapshot</version>
 	</dependency>	
 
 # Other funky ways 
