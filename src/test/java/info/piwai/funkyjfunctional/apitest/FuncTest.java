@@ -39,8 +39,7 @@ public class FuncTest {
 		
 		List<String> prices = transform(values, withFunc(Price.class));
 
-		assertEquals("42$", prices.get(0));
-		assertEquals("69$", prices.get(1));
+		assertEquals(asList("42$", "69$"), prices);
 	}
 	
 	@Test
@@ -55,8 +54,7 @@ public class FuncTest {
 		
 		List<String> prices = transform(values, withFunc(Price.class));
 
-		assertEquals("42$", prices.get(0));
-		assertEquals("69$", prices.get(1));
+		assertEquals(asList("42$", "69$"), prices);
 	}
 	
     @Test(expected=ArithmeticException.class)

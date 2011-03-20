@@ -19,8 +19,7 @@ import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Lists.newArrayList;
 import static info.piwai.funkyjfunctional.Funky.withPred;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import info.piwai.funkyjfunctional.Pred;
 
 import java.util.List;
@@ -40,8 +39,7 @@ public class PredTest {
 
 		List<Integer> adults = newArrayList(filter(values, withPred(Adult.class)));
 
-		assertFalse(adults.contains(16));
-		assertTrue(adults.contains(21));
+		assertEquals(asList(21), adults);
 	}
 	
 	@Test
@@ -56,8 +54,7 @@ public class PredTest {
 		
 		List<Integer> adults = newArrayList(filter(values, withPred(Adult.class)));
 
-		assertFalse(adults.contains(16));
-		assertTrue(adults.contains(21));
+		assertEquals(asList(21), adults);
 	}
 	
     @Test(expected=ArithmeticException.class)

@@ -18,7 +18,7 @@ package info.piwai.funkyjfunctional.apitest;
 import static com.google.common.collect.Ordering.from;
 import static info.piwai.funkyjfunctional.Funky.withComp;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertEquals;
 import info.piwai.funkyjfunctional.Comp;
 
 import java.util.List;
@@ -51,8 +51,7 @@ public class CompTest {
 
         List<Person> sortedPersons = from(withComp(Sort.class)).sortedCopy(asList(john, joe));
 
-        assertSame(joe, sortedPersons.get(0));
-        assertSame(john, sortedPersons.get(1));
+        assertEquals(asList(joe, john), sortedPersons);
     }
 
     @Test
@@ -67,9 +66,8 @@ public class CompTest {
         class Sort extends Comp<Person> {{ r = t1.getName().compareTo(t2.getName()); }}
 
         List<Person> sortedPersons = from(withComp(Sort.class)).sortedCopy(asList(john, joe));
-
-        assertSame(joe, sortedPersons.get(0));
-        assertSame(john, sortedPersons.get(1));
+        
+        assertEquals(asList(joe, john), sortedPersons);
     }
     
     @Test(expected=ArithmeticException.class)
