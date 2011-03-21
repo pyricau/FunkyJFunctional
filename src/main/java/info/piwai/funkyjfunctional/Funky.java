@@ -44,12 +44,12 @@ import com.google.common.base.Supplier;
  * <h1>Contents</h1>
  * 
  * <ul>
- * <li><a href="#1">1. Let's learn the funky way</a>
- * <li><a href="#2">2. Various Funky ways</a>
+ * <li><a href="#1">1. Let's learn the Funky way</a>
+ * <li><a href="#2">2. List of the Funky ways</a>
  * <li><a href="#3">3. Some more info</a>
  * </ul>
  * 
- * <h2 id="1">1. Let's learn the funky way</h2>
+ * <h2 id="1">1. Let's learn the Funky way</h2>
  * 
  * <p>
  * Using FunkyJFunctional always involves two steps:
@@ -67,11 +67,7 @@ import com.google.common.base.Supplier;
  * 
  * <pre>
  * // t is the input parameter, and r is the returned value.
- * class Adult extends Pred&lt;Integer&gt; {
- *     {
- *         r = t &gt; 18;
- *     }
- * }
+ * class Adult extends Pred&lt;Integer&gt; {{ r = t &gt; 18; }}
  * </pre>
  * 
  * <h3>Function instantiation</h3>
@@ -98,7 +94,7 @@ import com.google.common.base.Supplier;
  * Predicate&lt;Integer&gt; adultPredicate = withPred(Adult.class);
  * </pre>
  * 
- * <h2 id="2">2. Various Funky ways</h2>
+ * <h2 id="2">2. List of the Funky ways</h2>
  * <p>
  * To know more about what you can do with FunkyJFunctional, have a look at the
  * various with*() methods of the {@link Funky} class.
@@ -127,8 +123,11 @@ import com.google.common.base.Supplier;
  * "https://groups.google.com/forum/#!msg/google-guice/Eu-cJ1N2Q_A/jtiRfGlg3G4J"
  * >message</a> on the Google Guice forum.
  * <li>FunkyJFunctional has 100% code coverage (in fact it's actually 96.9% but
- * the missing 3.1% is unreachable code).
- * <li>You may create your own Funky implementations, using the {@link #classExecutor(Class, Object...)} method, or the {@link #classExecutorWithInput(Class, Object...) and #getThreadLocalParameter() methods if you need input parameters.
+ * the missing 3.1% are unreachable code).
+ * <li>You may create your own Funky implementations, using the
+ * {@link #classExecutor(Class, Object...)} method, or the
+ * {@link #classExecutorWithInput(Class, Object...)} and
+ * {@link #getThreadLocalParameter()}) methods if you need input parameters.
  * </ul>
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
@@ -143,7 +142,7 @@ public abstract class Funky {
      */
     private Funky() {
     }
-    
+
     public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass, Object... constructorParameters) {
         return new FunkyExecutorWithInput<T>(classExecutor(applyingClass, constructorParameters));
     }
@@ -153,7 +152,7 @@ public abstract class Funky {
     }
 
     public static <T> T getThreadLocalParameter() {
-        return FunkyExecutorWithInput.<T>getThreadLocalParameter();
+        return FunkyExecutorWithInput.<T> getThreadLocalParameter();
     }
 
     /**
