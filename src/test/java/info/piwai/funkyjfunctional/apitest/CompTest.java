@@ -43,15 +43,17 @@ public class CompTest {
     }
 
     @Test
-    public void ordering() throws Exception {
+    public void ordering() {
         Person john = new Person("John");
         Person joe = new Person("Joe");
+        
+        List<Person> persons = asList(john, joe);
 
         // @off
         class Sort extends Comp<Person> {{ r = t1.getName().compareTo(t2.getName()); }}
         // @on
 
-        List<Person> sortedPersons = from(withComp(Sort.class)).sortedCopy(asList(john, joe));
+        List<Person> sortedPersons = from(withComp(Sort.class)).sortedCopy(persons);
 
         assertEquals(asList(joe, john), sortedPersons);
     }

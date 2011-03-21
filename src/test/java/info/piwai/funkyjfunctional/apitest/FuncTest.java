@@ -29,17 +29,29 @@ import org.junit.Test;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public class FuncTest {
+    
+    static class Person {
+        final String firstName;
+        final String lastName;
+        
+        Person(String firstName, String lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+    }
 
     @Test
-    public void testTransform() throws Exception {
-        List<Integer> values = asList(42, 69);
+    public void transforming() {
+        Person johnSmith = new Person("John", "Smith");
+        Person joeBar = new Person("Joe", "Bar");
+        List<Person> persons = asList(johnSmith, joeBar);
 
         // @off
-		class Price extends Func<Integer, String> {{ r = t+"$"; }}
+		class FullName extends Func<Person, String> {{ r = t.firstName + " " + t.lastName; }}
 		// @on
 
-        List<String> prices = transform(values, withFunc(Price.class));
+        List<String> fullNames = transform(persons, withFunc(FullName.class));
 
-        assertEquals(asList("42$", "69$"), prices);
+        assertEquals(asList("John Smith", "Joe Bar"), fullNames);
     }
 }

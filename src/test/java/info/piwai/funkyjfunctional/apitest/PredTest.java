@@ -32,14 +32,14 @@ import org.junit.Test;
 public class PredTest {
 
     @Test
-    public void testFilter() throws Exception {
-        List<Integer> values = asList(16, 21);
+    public void filtering() {
+        List<Integer> ages = asList(16, 21);
 
         // @off
 		class Adult extends Pred<Integer> {{ r = t > 18; }}
 		// @on
 
-        List<Integer> adults = newArrayList(filter(values, withPred(Adult.class)));
+        List<Integer> adults = newArrayList(filter(ages, withPred(Adult.class)));
 
         assertEquals(asList(21), adults);
     }

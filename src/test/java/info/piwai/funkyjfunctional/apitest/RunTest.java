@@ -26,7 +26,7 @@ import org.junit.Test;
  */
 public class RunTest {
 
-    int counter;
+    static int counter;
 
     @Before
     public void setup() {
@@ -36,10 +36,10 @@ public class RunTest {
     @Test
     public void run() {
         // @off
-        class RunnableIncrement {{ counter++; }}
+        class Increment {{ counter++; }}
         // @on
 
-        Runnable runnable = withRun(RunnableIncrement.class, this);
+        Runnable runnable = withRun(Increment.class);
 
         assertEquals(0, counter);
         runnable.run();

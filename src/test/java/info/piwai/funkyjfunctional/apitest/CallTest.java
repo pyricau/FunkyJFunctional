@@ -30,14 +30,14 @@ import org.junit.Test;
 public class CallTest {
 
     @Test
-    public void callReturnsResult() throws Exception {
+    public void callableReturnsFortyTwo() throws Exception {
         // @off
-        class FortyTwo extends Call<Integer> {{ r = 42; }}
+        class FortyTwo extends Call<String> {{ r = "42"; }}
         // @on
 
-        Callable<Integer> callable = withCall(FortyTwo.class);
+        Callable<String> callable = withCall(FortyTwo.class);
 
-        assertEquals(42, (int) callable.call());
+        assertEquals("42", callable.call());
     }
 
 }
