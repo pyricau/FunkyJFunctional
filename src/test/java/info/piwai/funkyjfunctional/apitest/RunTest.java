@@ -25,52 +25,25 @@ import org.junit.Test;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public class RunTest {
-    
+
     int counter;
-    static int staticCounter;
-    
+
     @Before
     public void setup() {
         counter = 0;
-        staticCounter = 0;
     }
-    
+
     @Test
-    public void runWithInstance() {
-        class RunnableIncrement {{counter++;}}
-        
+    public void run() {
+        // @off
+        class RunnableIncrement {{ counter++; }}
+        // @on
+
         Runnable runnable = withRun(RunnableIncrement.class, this);
-        
+
+        assertEquals(0, counter);
         runnable.run();
-        
         assertEquals(1, counter);
-    }
-    
-    @Test
-    public void runWithoutInstance() {
-        class RunnableIncrement {{staticCounter++;}}
-        
-        Runnable runnable = withRun(RunnableIncrement.class);
-        
-        runnable.run();
-        
-        assertEquals(1, staticCounter);
-    }
-    
-    
-    @Test
-    public void runFromStaticTest() {
-        runFromStatic();
-    }
-    
-    public static void runFromStatic() {
-        class RunnableIncrement {{staticCounter++;}}
-        
-        Runnable runnable = withRun(RunnableIncrement.class);
-        
-        runnable.run();
-        
-        assertEquals(1, staticCounter);
     }
 
 }

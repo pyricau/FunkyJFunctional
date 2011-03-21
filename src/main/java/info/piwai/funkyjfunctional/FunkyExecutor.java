@@ -40,19 +40,15 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
     private final Object[] constructionArguments;
 
     FunkyExecutor(Class<T> applyingClass, Object... constructorArguments) {
-        checkNotAbstract(applyingClass);
         constructor = extractConstructor(applyingClass);
-        constructionArguments = extractConstructionParameters(constructor, constructorArguments);
-    }
-
-    private void checkNotAbstract(Class<T> applyingClass) {
-        if (Modifier.isAbstract(applyingClass.getModifiers())) {
-            throw new IllegalArgumentException("The applyingClass should not be abstract");
-        }
+        constructionArguments = extractConstructionArguments(constructor, constructorArguments);
     }
 
     @SuppressWarnings("unchecked")
     private Constructor<T> extractConstructor(Class<T> applyingClass) {
+        checkNotNull(applyingClass);
+        checkNotAbstract(applyingClass);
+        
         Constructor<T>[] declaredConstructors = (Constructor<T>[]) applyingClass.getDeclaredConstructors();
 
         if (declaredConstructors.length > 1) {
@@ -70,8 +66,20 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
         }
         return constructor;
     }
+    
+    private void checkNotNull(Class<T> applyingClass) {
+        if (applyingClass==null) {
+            throw new IllegalArgumentException("The applyingClass parameter should not be null");
+        }
+    }
 
-    private Object[] extractConstructionParameters(Constructor<T> constructor, Object[] constructorArguments) {
+    private void checkNotAbstract(Class<T> applyingClass) {
+        if (Modifier.isAbstract(applyingClass.getModifiers())) {
+            throw new IllegalArgumentException("The applyingClass parameter should not be abstract");
+        }
+    }
+
+    private Object[] extractConstructionArguments(Constructor<T> constructor, Object[] constructorArguments) {
         Class<?>[] parameterTypes = constructor.getParameterTypes();
 
         if (parameterTypes.length == 0) {

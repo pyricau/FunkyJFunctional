@@ -29,31 +29,17 @@ import org.junit.Test;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public class FuncTest {
-	
-	@Test
-	public void testTransform() throws Exception {
 
-		List<Integer> values = asList(42, 69);
+    @Test
+    public void testTransform() throws Exception {
+        List<Integer> values = asList(42, 69);
 
+        // @off
 		class Price extends Func<Integer, String> {{ r = t+"$"; }}
-		
-		List<String> prices = transform(values, withFunc(Price.class));
+		// @on
 
-		assertEquals(asList("42$", "69$"), prices);
-	}
-	
-	@Test
-	public void testStaticTransform() {
-		staticTransform();
-	}
-	
-	private static void staticTransform() {
-		List<Integer> values = asList(42, 69);
+        List<String> prices = transform(values, withFunc(Price.class));
 
-		class Price extends Func<Integer, String> {{ r = t+"$"; }}
-		
-		List<String> prices = transform(values, withFunc(Price.class));
-
-		assertEquals(asList("42$", "69$"), prices);
-	}
+        assertEquals(asList("42$", "69$"), prices);
+    }
 }

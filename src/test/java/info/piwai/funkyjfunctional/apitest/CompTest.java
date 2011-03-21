@@ -29,7 +29,7 @@ import org.junit.Test;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public class CompTest {
-    
+
     public static class Person {
         private final String name;
 
@@ -43,31 +43,17 @@ public class CompTest {
     }
 
     @Test
-    public void testOrdering() throws Exception {
+    public void ordering() throws Exception {
         Person john = new Person("John");
         Person joe = new Person("Joe");
 
+        // @off
         class Sort extends Comp<Person> {{ r = t1.getName().compareTo(t2.getName()); }}
+        // @on
 
         List<Person> sortedPersons = from(withComp(Sort.class)).sortedCopy(asList(john, joe));
 
         assertEquals(asList(joe, john), sortedPersons);
     }
 
-    @Test
-    public void testStaticOrdering() {
-        staticOrdering();
-    }
-
-    private static void staticOrdering() {
-        Person john = new Person("John");
-        Person joe = new Person("Joe");
-
-        class Sort extends Comp<Person> {{ r = t1.getName().compareTo(t2.getName()); }}
-
-        List<Person> sortedPersons = from(withComp(Sort.class)).sortedCopy(asList(john, joe));
-        
-        assertEquals(asList(joe, john), sortedPersons);
-    }
-    
 }

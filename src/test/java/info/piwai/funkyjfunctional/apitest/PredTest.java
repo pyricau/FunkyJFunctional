@@ -31,29 +31,16 @@ import org.junit.Test;
  */
 public class PredTest {
 
-	@Test
-	public void testFilter() throws Exception {
-		List<Integer> values = asList(16, 21);
+    @Test
+    public void testFilter() throws Exception {
+        List<Integer> values = asList(16, 21);
 
-		class Adult extends Pred<Integer> {{r = t > 18;}}
+        // @off
+		class Adult extends Pred<Integer> {{ r = t > 18; }}
+		// @on
 
-		List<Integer> adults = newArrayList(filter(values, withPred(Adult.class)));
+        List<Integer> adults = newArrayList(filter(values, withPred(Adult.class)));
 
-		assertEquals(asList(21), adults);
-	}
-	
-	@Test
-	public void testStaticFilter() {
-		staticFilter();
-	}
-
-	private static void staticFilter() {
-		List<Integer> values = asList(16, 21);
-
-		class Adult extends Pred<Integer> {{r = t > 18;}}
-		
-		List<Integer> adults = newArrayList(filter(values, withPred(Adult.class)));
-
-		assertEquals(asList(21), adults);
-	}
+        assertEquals(asList(21), adults);
+    }
 }

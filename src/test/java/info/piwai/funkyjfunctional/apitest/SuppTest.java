@@ -21,20 +21,20 @@ import info.piwai.funkyjfunctional.Supp;
 
 import org.junit.Test;
 
-import com.google.common.base.Supplier;
-
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public class SuppTest {
-    
+
     @Test
     public void callReturnsResult() {
+        // @off
         class FortyTwo extends Supp<Integer> {{ r = 42; }}
-        
-        Supplier<Integer> supplier = withSupp(FortyTwo.class);
-        
-        assertEquals(42, (int) supplier.get());
+        // @on
+
+        Integer result = withSupp(FortyTwo.class).get();
+
+        assertEquals(42, (int) result);
     }
 
 }

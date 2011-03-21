@@ -28,13 +28,15 @@ import org.junit.Test;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public class CallTest {
-    
+
     @Test
     public void callReturnsResult() throws Exception {
+        // @off
         class FortyTwo extends Call<Integer> {{ r = 42; }}
-        
+        // @on
+
         Callable<Integer> callable = withCall(FortyTwo.class);
-        
+
         assertEquals(42, (int) callable.call());
     }
 
