@@ -143,6 +143,18 @@ public abstract class Funky {
      */
     private Funky() {
     }
+    
+    public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass, Object... constructorParameters) {
+        return new FunkyExecutorWithInput<T>(classExecutor(applyingClass, constructorParameters));
+    }
+
+    public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass, Object... constructorParameters) {
+        return new FunkyExecutor<T>(applyingClass, constructorParameters);
+    }
+
+    public static <T> T getThreadLocalParameter() {
+        return FunkyExecutorWithInput.<T>getThreadLocalParameter();
+    }
 
     /**
      * <p>
@@ -188,18 +200,6 @@ public abstract class Funky {
      */
     public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass, Object... constructorParameters) throws IllegalArgumentException {
         return new ClassComparator<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
-    }
-
-    public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass, Object... constructorParameters) {
-        return new FunkyExecutorWithInput<T>(classExecutor(applyingClass, constructorParameters));
-    }
-
-    public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass, Object... constructorParameters) {
-        return new FunkyExecutor<T>(applyingClass, constructorParameters);
-    }
-
-    public static <T> T getThreadLocalParameter() {
-        return FunkyExecutorWithInput.getThreadLocalParameter();
     }
 
     public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass) {
