@@ -12,6 +12,8 @@ In short, two syntax examples:
 
 Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html)!
 
+Any question? Please ask them on the dedicated [Google Group](https://groups.google.com/group/funkyjfunctional).
+
 # Detailed examples
 
 With Guava:
