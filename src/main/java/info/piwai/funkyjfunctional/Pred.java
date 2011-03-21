@@ -47,7 +47,7 @@ public abstract class Pred<T> {
     protected boolean r;
 
     public Pred() {
-        t = FunkyExecutorWithInput.<T> getThreadLocalParameter();
+        t = Funky.<T> getThreadLocalParameter();
     }
 
 }

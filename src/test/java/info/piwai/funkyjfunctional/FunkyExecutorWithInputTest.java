@@ -14,7 +14,7 @@ import org.mockito.stubbing.Answer;
 public class FunkyExecutorWithInputTest {
     
     private ClassExecutor<Object> executor;
-    private FunkyExecutorWithInput<Object> executorWithInput;
+    private ClassExecutorWithInput<Object> executorWithInput;
 
     @SuppressWarnings("unchecked")
     @Before

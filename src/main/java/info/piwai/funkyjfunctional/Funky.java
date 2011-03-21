@@ -46,7 +46,7 @@ import com.google.common.base.Supplier;
  * <ul>
  * <li><a href="#1">1. Let's learn the funky way</a>
  * <li><a href="#2">2. Various Funky ways</a>
- * <li><a href="#3">3. A word of caution</a>
+ * <li><a href="#3">3. Some more info</a>
  * </ul>
  * 
  * <h2 id="1">1. Let's learn the funky way</h2>
@@ -121,29 +121,15 @@ import com.google.common.base.Supplier;
  * {@link #withSupp(Class)} method.
  * </ul>
  * 
- * <h2 id="3">3. A word of caution</h2>
- * <p>
- * <b>Warning: this section is not clear and should be rewritten.</b>
- * 
- * <p>
- * You might notice that there are two withPred() methods: one that takes a
- * class ({@link #withPred(Class)}), and another that takes a class and an
- * instance object ({@link #withPred(Class, Object)}).
- * 
- * <p>
- * In most cases, you will only need to use the first one. However, if the
- * function declaration is done in an instance method (ie non static) AND this
- * function references an instance member (field or method), then you should use
- * the {@link #withPred(Class, Object)} method.
- * 
- * <p>
- * The second parameter is the instance on which the methods / fields will be
- * called (ie, in most cases, 'this'). Otherwise, you will raise
- * {@link NullPointerException}s.
- * 
- * <p>
- * The same rule applies for all with*() methods.
- * 
+ * <h2 id="3">3. Some more info</h2>
+ * <ul>
+ * <li>FunkyJFunctional was inspired by a <a href=
+ * "https://groups.google.com/forum/#!msg/google-guice/Eu-cJ1N2Q_A/jtiRfGlg3G4J"
+ * >message</a> on the Google Guice forum.
+ * <li>FunkyJFunctional has 100% code coverage (in fact it's actually 96.9% but
+ * the missing 3.1% is unreachable code).
+ * <li>You may create your own Funky implementations, using the {@link #classExecutor(Class, Object...)} method, or the {@link #classExecutorWithInput(Class, Object...) and #getThreadLocalParameter() methods if you need input parameters.
+ * </ul>
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  * @author Florent Rami&egrave;re
@@ -201,15 +187,19 @@ public abstract class Funky {
      * @see #withComp(Class)
      */
     public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass, Object... constructorParameters) throws IllegalArgumentException {
-        return new ClassComparator<T, U>(withInput(funkyExecutor(applyingClass, constructorParameters)));
+        return new ClassComparator<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
     }
 
-    private static <T> ClassExecutorWithInput<T> withInput(ClassExecutor<T> executor) {
-        return new FunkyExecutorWithInput<T>(executor);
+    public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass, Object... constructorParameters) {
+        return new FunkyExecutorWithInput<T>(classExecutor(applyingClass, constructorParameters));
     }
 
-    private static <T> ClassExecutor<T> funkyExecutor(Class<T> applyingClass, Object... constructorParameters) {
+    public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass, Object... constructorParameters) {
         return new FunkyExecutor<T>(applyingClass, constructorParameters);
+    }
+
+    public static <T> T getThreadLocalParameter() {
+        return FunkyExecutorWithInput.getThreadLocalParameter();
     }
 
     public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass) {
@@ -217,7 +207,7 @@ public abstract class Funky {
     }
 
     public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassFunction<From, To, U>(withInput(funkyExecutor(applyingClass, constructorParameters)));
+        return new ClassFunction<From, To, U>(classExecutorWithInput(applyingClass, constructorParameters));
     }
 
     public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass) {
@@ -225,7 +215,7 @@ public abstract class Funky {
     }
 
     public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassPredicate<T, U>(withInput(funkyExecutor(applyingClass, constructorParameters)));
+        return new ClassPredicate<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
     }
 
     public static Runnable withRun(Class<?> applyingClass) {
@@ -233,7 +223,7 @@ public abstract class Funky {
     }
 
     public static <U> Runnable withRun(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassRunnable<U>(funkyExecutor(applyingClass, constructorParameters));
+        return new ClassRunnable<U>(classExecutor(applyingClass, constructorParameters));
     }
 
     public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass) {
@@ -241,7 +231,7 @@ public abstract class Funky {
     }
 
     public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassCallable<T, U>(funkyExecutor(applyingClass, constructorParameters));
+        return new ClassCallable<T, U>(classExecutor(applyingClass, constructorParameters));
     }
 
     public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass) {
@@ -249,7 +239,7 @@ public abstract class Funky {
     }
 
     public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassSupplier<T, U>(funkyExecutor(applyingClass, constructorParameters));
+        return new ClassSupplier<T, U>(classExecutor(applyingClass, constructorParameters));
     }
 
 }

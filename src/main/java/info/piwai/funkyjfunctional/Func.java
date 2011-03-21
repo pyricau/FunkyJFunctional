@@ -47,6 +47,6 @@ public abstract class Func<From, To> {
     protected To r;
 
     public Func() {
-        t = FunkyExecutorWithInput.<From> getThreadLocalParameter();
+        t = Funky.<From> getThreadLocalParameter();
     }
 }

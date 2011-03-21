@@ -51,6 +51,7 @@ public abstract class Comp<T> {
             U instance = executor.createExecutedInstance(new Compared<T>(t1, t2));
             return instance.r;
         }
+        
     }
 
     protected T t1;
@@ -58,7 +59,7 @@ public abstract class Comp<T> {
     protected int r;
 
     public Comp() {
-        Compared<T> compared = FunkyExecutorWithInput.getThreadLocalParameter();
+        Compared<T> compared = Funky.getThreadLocalParameter();
         t1 = compared.t1;
         t2 = compared.t2;
     }
