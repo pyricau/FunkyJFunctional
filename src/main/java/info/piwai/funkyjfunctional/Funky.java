@@ -46,7 +46,8 @@ import com.google.common.base.Supplier;
  * <ul>
  * <li><a href="#1">1. Let's learn the Funky way</a>
  * <li><a href="#2">2. List of the Funky ways</a>
- * <li><a href="#3">3. Some more info</a>
+ * <li><a href="#3">3. Implementing your own Funky functions</a>
+ * <li><a href="#4">4. Some more info</a>
  * </ul>
  * 
  * <h2 id="1">1. Let's learn the Funky way</h2>
@@ -116,39 +117,44 @@ import com.google.common.base.Supplier;
  * <li>For funky {@link Supplier}s, see {@link Supp} and the
  * {@link #withSupp(Class)} method.
  * </ul>
+ * <h2 id="3">3. Implementing your own Funky functions</h2>
  * 
- * <h2 id="3">3. Some more info</h2>
+ * <p>
+ * You may create your own Funky implementations, using the
+ * {@link #classExecutor(Class, Object...)} method, or the
+ * {@link #classExecutorWithInput(Class, Object...)} and
+ * {@link #getThreadLocalParameter()}) methods if you need input parameters.
+ * 
+ * <h2 id="4">4. Some more info</h2>
  * <ul>
  * <li>FunkyJFunctional was inspired by a <a href=
  * "https://groups.google.com/forum/#!msg/google-guice/Eu-cJ1N2Q_A/jtiRfGlg3G4J"
  * >message</a> on the Google Guice forum.
  * <li>FunkyJFunctional has 100% code coverage (in fact it's actually 96.9% but
- * the missing 3.1% are unreachable code).
- * <li>You may create your own Funky implementations, using the
- * {@link #classExecutor(Class, Object...)} method, or the
- * {@link #classExecutorWithInput(Class, Object...)} and
- * {@link #getThreadLocalParameter()}) methods if you need input parameters.
+ * the missing 3.1% are unreachable code). 
  * </ul>
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  * @author Florent Rami&egrave;re
  */
 public abstract class Funky {
+    
+    private static final Object[] NULL_PARAM_ARRAY = new Object[]{null};
 
-    /**
-     * The constructor is private to make sure this class won't be instantiated.
-     * The class itself is abstract so that it even cannot be instantiated using
-     * the reflection API.
-     */
-    private Funky() {
+    public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass) {
+        return classExecutor(applyingClass, NULL_PARAM_ARRAY);
     }
-
-    public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass, Object... constructorParameters) {
-        return new FunkyExecutorWithInput<T>(classExecutor(applyingClass, constructorParameters));
-    }
-
+    
     public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass, Object... constructorParameters) {
         return new FunkyExecutor<T>(applyingClass, constructorParameters);
+    }
+    
+    public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass) {
+        return classExecutorWithInput(applyingClass, NULL_PARAM_ARRAY);
+    }
+    
+    public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass, Object... constructorParameters) {
+        return new FunkyExecutorWithInput<T>(classExecutor(applyingClass, constructorParameters));
     }
 
     public static <T> T getThreadLocalParameter() {
@@ -173,7 +179,7 @@ public abstract class Funky {
      * @return A {@link Comparator} based on the applyingClass parameter.
      */
     public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass) {
-        return withComp(applyingClass, (Object) null);
+        return withComp(applyingClass, NULL_PARAM_ARRAY);
     }
 
     /**
@@ -202,7 +208,7 @@ public abstract class Funky {
     }
 
     public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass) {
-        return withFunc(applyingClass, (Object) null);
+        return withFunc(applyingClass, NULL_PARAM_ARRAY);
     }
 
     public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass, Object... constructorParameters) {
@@ -210,7 +216,7 @@ public abstract class Funky {
     }
 
     public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass) {
-        return withPred(applyingClass, (Object) null);
+        return withPred(applyingClass, NULL_PARAM_ARRAY);
     }
 
     public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass, Object... constructorParameters) {
@@ -218,7 +224,7 @@ public abstract class Funky {
     }
 
     public static Runnable withRun(Class<?> applyingClass) {
-        return withRun(applyingClass, (Object) null);
+        return withRun(applyingClass, NULL_PARAM_ARRAY);
     }
 
     public static <U> Runnable withRun(Class<U> applyingClass, Object... constructorParameters) {
@@ -226,7 +232,7 @@ public abstract class Funky {
     }
 
     public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass) {
-        return withCall(applyingClass, (Object) null);
+        return withCall(applyingClass, NULL_PARAM_ARRAY);
     }
 
     public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object... constructorParameters) {
@@ -234,11 +240,19 @@ public abstract class Funky {
     }
 
     public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass) {
-        return withSupp(applyingClass, (Object) null);
+        return withSupp(applyingClass, NULL_PARAM_ARRAY);
     }
 
     public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassSupplier<T, U>(classExecutor(applyingClass, constructorParameters));
+    }
+    
+    /**
+     * The constructor is private to make sure this class won't be instantiated.
+     * The class itself is abstract so that it even cannot be instantiated using
+     * the reflection API.
+     */
+    private Funky() {
     }
 
 }
