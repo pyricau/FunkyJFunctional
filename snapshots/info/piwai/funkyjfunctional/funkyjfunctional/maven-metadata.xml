@@ -2,11 +2,10 @@
 <metadata>
   <groupId>info.piwai.funkyjfunctional</groupId>
   <artifactId>funkyjfunctional</artifactId>
-  <version>0.3-SNAPSHOT</version>
   <versioning>
     <versions>
       <version>0.3-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20110320113441</lastUpdated>
+    <lastUpdated>20110321173459</lastUpdated>
   </versioning>
 </metadata>
