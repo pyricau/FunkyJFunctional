@@ -27,15 +27,17 @@ public abstract class Call<T> {
      * {@link ClassCallable} is not part of the API, which is why it has
      * package-private scope.
      */
-    static class ClassCallable<T, U extends Call<T>> extends FunkyExecutor<U> implements Callable<T> {
+    static final class ClassCallable<T, U extends Call<T>> implements Callable<T> {
 
-        public ClassCallable(Class<U> applyingClass, Object instance) {
-            super(applyingClass, instance);
+        private final ClassExecutor<U> executor;
+        
+        ClassCallable(ClassExecutor<U> executor) {
+            this.executor = executor;
         }
 
         @Override
         public T call() throws Exception {
-            U instance = createExecutedInstance();
+            U instance = executor.createExecutedInstance();
             return instance.r;
         }
 

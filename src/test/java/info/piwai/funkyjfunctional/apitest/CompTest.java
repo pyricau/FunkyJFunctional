@@ -70,10 +70,4 @@ public class CompTest {
         assertEquals(asList(joe, john), sortedPersons);
     }
     
-    @Test(expected=ArithmeticException.class)
-    public void testThrows() {
-        class Fails extends Comp<Object> {{r = 42 / 0;}}
-        withComp(Fails.class).compare(null, null);
-    }
-
 }

@@ -21,27 +21,25 @@ package info.piwai.funkyjfunctional;
  * {@link FunkyExecutorWithInput} is not part of the API, which is why it has package-private scope. 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-abstract class FunkyExecutorWithInput<T> extends FunkyExecutor<T> {
+final class FunkyExecutorWithInput<T> implements ClassExecutorWithInput<T>  {
 
     private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
+    
+    private final ClassExecutor<T> executor;
 
     @SuppressWarnings("unchecked")
     static <T> T getThreadLocalParameter() {
         return (T) holder.get();
     }
 
-    FunkyExecutorWithInput(Class<? extends T> applyingClass) {
-        this(applyingClass, null);
+    FunkyExecutorWithInput(ClassExecutor<T> executor) {
+        this.executor = executor;
     }
 
-    FunkyExecutorWithInput(Class<? extends T> applyingClass, Object instance) {
-        super(applyingClass, instance);
-    }
-
-    T createExecutedInstance(Object parameter) {
+    public T createExecutedInstance(Object parameter) {
         holder.set(parameter);
         try {
-            return createExecutedInstance();
+            return executor.createExecutedInstance();
         } finally {
             holder.set(null);
         }

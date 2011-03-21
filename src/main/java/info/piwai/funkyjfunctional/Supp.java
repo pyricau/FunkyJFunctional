@@ -27,15 +27,17 @@ public abstract class Supp<T> {
      * {@link ClassSupplier} is not part of the API, which is why it has
      * package-private scope.
      */
-    static class ClassSupplier<T, U extends Supp<T>> extends FunkyExecutor<U> implements Supplier<T> {
+    static class ClassSupplier<T, U extends Supp<T>> implements Supplier<T> {
 
-        public ClassSupplier(Class<U> applyingClass, Object instance) {
-            super(applyingClass, instance);
+        private ClassExecutor<U> executor;
+
+        ClassSupplier(ClassExecutor<U> executor) {
+            this.executor = executor;
         }
 
         @Override
         public T get() {
-            U instance = createExecutedInstance();
+            U instance = executor.createExecutedInstance();
             return instance.r;
         }
 

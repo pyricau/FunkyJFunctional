@@ -56,10 +56,4 @@ public class PredTest {
 
 		assertEquals(asList(21), adults);
 	}
-	
-    @Test(expected=ArithmeticException.class)
-    public void testThrows() {
-        class Fails extends Pred<Object> {{ r = 42 / 0 > 69;}}
-        withPred(Fails.class).apply(null);
-    }
 }

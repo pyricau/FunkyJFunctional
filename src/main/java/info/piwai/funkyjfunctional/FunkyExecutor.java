@@ -17,6 +17,8 @@ package info.piwai.funkyjfunctional;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
 
 /**
  * <p>
@@ -24,66 +26,114 @@ import java.lang.reflect.InvocationTargetException;
  * the given class each time its init block code needs to be executed.
  * 
  * <p>
- * {@link FunkyExecutor} is not part of the API, which is why it has package-private scope.
+ * {@link FunkyExecutor} is not part of the API, which is why it has
+ * package-private scope.
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-abstract class FunkyExecutor<T> {
+final class FunkyExecutor<T> implements ClassExecutor<T> {
 
-    private static final Object[] EMPTY_OBJECT_ARRAY = new Object[] {};
+    private static final Object[] NO_PARAMETER_ARRAY = new Object[] {};
 
-    private Constructor<? extends T> constructor;
+    private final Constructor<T> constructor;
 
-    private Object[] constructorParameters;
+    private final Object[] constructionArguments;
 
-    FunkyExecutor(Class<? extends T> applyingClass) {
-        this(applyingClass, null);
+    FunkyExecutor(Class<T> applyingClass, Object... constructorArguments) {
+        checkNotAbstract(applyingClass);
+        constructor = extractConstructor(applyingClass);
+        constructionArguments = extractConstructionParameters(constructor, constructorArguments);
     }
 
-    FunkyExecutor(Class<? extends T> applyingClass, Object instance) {
-        constructor = extractConstructor(applyingClass);
-        constructorParameters = createConstructorParameters(constructor, instance);
+    private void checkNotAbstract(Class<T> applyingClass) {
+        if (Modifier.isAbstract(applyingClass.getModifiers())) {
+            throw new IllegalArgumentException("The applyingClass should not be abstract");
+        }
     }
 
     @SuppressWarnings("unchecked")
-    private Constructor<? extends T> extractConstructor(Class<? extends T> applyingClass) {
-        Constructor<?> constructor = applyingClass.getDeclaredConstructors()[0];
+    private Constructor<T> extractConstructor(Class<T> applyingClass) {
+        Constructor<T>[] declaredConstructors = (Constructor<T>[]) applyingClass.getDeclaredConstructors();
+
+        if (declaredConstructors.length > 1) {
+            throw new IllegalArgumentException("The applyingClass should not have more than one constructor");
+        }
+
+        Constructor<T> constructor = declaredConstructors[0];
+
+        if (constructor.getExceptionTypes().length > 0) {
+            throw new IllegalArgumentException("The applyingClass constructor should not declare throwing any exception");
+        }
+
         if (!constructor.isAccessible()) {
             constructor.setAccessible(true);
         }
-        return (Constructor<? extends T>) constructor;
+        return constructor;
     }
 
-    private Object[] createConstructorParameters(Constructor<?> constructor, Object instance) {
-        if (constructor.getParameterTypes().length == 0) {
-            return EMPTY_OBJECT_ARRAY;
+    private Object[] extractConstructionParameters(Constructor<T> constructor, Object[] constructorArguments) {
+        Class<?>[] parameterTypes = constructor.getParameterTypes();
+
+        if (parameterTypes.length == 0) {
+            return NO_PARAMETER_ARRAY;
         } else {
-            return new Object[] { instance };
+            checkNullArgumentArray(constructorArguments, parameterTypes);
+
+            checkNumberOfArguments(constructorArguments, parameterTypes);
+
+            checkArgumentsType(constructorArguments, parameterTypes);
+
+            return constructorArguments;
         }
     }
 
-    T createExecutedInstance() {
+    private void checkNullArgumentArray(Object[] constructorArguments, Class<?>[] parameterTypes) {
+        if (constructorArguments == null) {
+            String neededArguments = Arrays.toString(parameterTypes);
+            throw new IllegalArgumentException("The constructor arguments array should not be null. Please provide the following argument(s): " + neededArguments);
+        }
+    }
+
+    private void checkNumberOfArguments(Object[] constructorArguments, Class<?>[] parameterTypes) {
+        if (constructorArguments.length != parameterTypes.length) {
+            String neededArguments = Arrays.toString(parameterTypes);
+            throw new IllegalArgumentException("The constructor arguments array should have " + parameterTypes.length + " arguments, not " + constructorArguments.length + ". Please provide the following argument(s): " + neededArguments);
+        }
+    }
+
+    private void checkArgumentsType(Object[] constructorArguments, Class<?>[] parameterTypes) {
+        int i = 0;
+        for (Class<?> parameterType : parameterTypes) {
+            Object constructorArgument = constructorArguments[i];
+            if (constructorArgument != null && !parameterType.isInstance(constructorArgument)) {
+                String neededArguments = Arrays.toString(parameterTypes);
+                throw new IllegalArgumentException("The constructor argument " + i + " should be a " + parameterType.getName() + ". Please provide the following argument(s): " + neededArguments);
+            }
+            i++;
+        }
+    }
+
+    public T createExecutedInstance() {
         try {
-            return createExecutedInstanceThrowing();
+            return constructor.newInstance(constructionArguments);
         } catch (InvocationTargetException e) {
             Throwable cause = e.getCause();
-
+            /*
+             * Due to constraints on the constructor, cause can only be an
+             * unchecked exception.
+             */
             if (cause instanceof Error) {
                 throw ((Error) cause);
-            } else if (cause instanceof RuntimeException) {
-                throw ((RuntimeException) cause);
             } else {
-                throw new RuntimeException(e);
+                throw ((RuntimeException) cause);
             }
-        }
-    }
-
-    private T createExecutedInstanceThrowing() throws InvocationTargetException {
-        try {
-            return constructor.newInstance(constructorParameters);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
+            /*
+             * SHOULD NEVER HAPPEN.
+             * 
+             * Due to previously checked constraints, no exception may actually
+             * be caught here.
+             */
             throw new RuntimeException(e);
         }
     }

@@ -24,18 +24,20 @@ public abstract class Pred<T> {
 
     /**
      * <p>
-     * {@link ClassPredicate} is not part of the API, which is why it
-     * has package-private scope.
+     * {@link ClassPredicate} is not part of the API, which is why it has
+     * package-private scope.
      */
-    static class ClassPredicate<T, U extends Pred<T>> extends FunkyExecutorWithInput<U> implements Predicate<T> {
+    static class ClassPredicate<T, U extends Pred<T>> implements Predicate<T> {
 
-        public ClassPredicate(Class<U> applyingClass, Object instance) {
-            super(applyingClass, instance);
+        private final ClassExecutorWithInput<U> executor;
+
+        ClassPredicate(ClassExecutorWithInput<U> executor) {
+            this.executor = executor;
         }
 
         @Override
         public boolean apply(T input) {
-            U instance = createExecutedInstance(input);
+            U instance = executor.createExecutedInstance(input);
             return instance.r;
         }
     }

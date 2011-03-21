@@ -56,10 +56,4 @@ public class FuncTest {
 
 		assertEquals(asList("42$", "69$"), prices);
 	}
-	
-    @Test(expected=ArithmeticException.class)
-    public void testThrows() {
-        class Fails extends Func<Object, Integer> {{ r = 42 / 0; }}
-        withFunc(Fails.class).apply(null);
-    }
 }

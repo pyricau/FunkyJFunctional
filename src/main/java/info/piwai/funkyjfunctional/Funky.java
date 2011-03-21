@@ -40,7 +40,6 @@ import com.google.common.base.Supplier;
  * 
  * <p>
  * The {@link Funky} class is the main entry point to FunkyJFunctional.
- * Therefore, most of the documentation for this project will be found here.
  * 
  * <h1>Contents</h1>
  * 
@@ -68,7 +67,11 @@ import com.google.common.base.Supplier;
  * 
  * <pre>
  * // t is the input parameter, and r is the returned value.
- * class Adult extends Pred&lt;Integer&gt; {{ r = t &gt; 18; }}
+ * class Adult extends Pred&lt;Integer&gt; {
+ *     {
+ *         r = t &gt; 18;
+ *     }
+ * }
  * </pre>
  * 
  * <h3>Function instantiation</h3>
@@ -120,17 +123,26 @@ import com.google.common.base.Supplier;
  * 
  * <h2 id="3">3. A word of caution</h2>
  * <p>
- * <b>Warning: this paragraph is not clear and should be rewritten</b>
+ * <b>Warning: this section is not clear and should be rewritten.</b>
  * 
  * <p>
  * You might notice that there are two withPred() methods: one that takes a
- * class, and another one that takes a class and an instance object. In most
- * cases, you will only need to use the first one. However, if the function
- * declaration is done in an instance method (ie non static) AND this function
- * accesses other instance methods or instance fields, then you should use the
- * withPred() method that has two parameters. The second parameter is the
- * instance on which the methods / fields will be called (ie, in most cases,
- * 'this'). Otherwise, you will raise {@link NullPointerException}s.
+ * class ({@link #withPred(Class)}), and another that takes a class and an
+ * instance object ({@link #withPred(Class, Object)}).
+ * 
+ * <p>
+ * In most cases, you will only need to use the first one. However, if the
+ * function declaration is done in an instance method (ie non static) AND this
+ * function references an instance member (field or method), then you should use
+ * the {@link #withPred(Class, Object)} method.
+ * 
+ * <p>
+ * The second parameter is the instance on which the methods / fields will be
+ * called (ie, in most cases, 'this'). Otherwise, you will raise
+ * {@link NullPointerException}s.
+ * 
+ * <p>
+ * The same rule applies for all with*() methods.
  * 
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
@@ -146,52 +158,98 @@ public abstract class Funky {
     private Funky() {
     }
 
+    /**
+     * <p>
+     * Creates a {@link Comparator} instance from a {@link Comp} class.
+     * 
+     * <p>
+     * If the init block of the applyingClass references an instance member or a
+     * local variable, you should use the {@link #withComp(Class, Object...)}
+     * method instead.
+     * 
+     * @param applyingClass
+     *            the local class that represents a {@link Comparator}.
+     * @param <T>
+     *            The type that is compared.
+     * @param <U>
+     *            The local class type. Must extend {@link Comp}.
+     * @return A {@link Comparator} based on the applyingClass parameter.
+     */
     public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass) {
-        return withComp(applyingClass, null);
+        return withComp(applyingClass, (Object) null);
     }
 
-    public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass, Object instance) {
-        return new ClassComparator<T, U>(applyingClass, instance);
+    /**
+     * <p>
+     * See the {@link #withComp(Class)} for details.
+     * 
+     * <p>
+     * If the init block of the applyingClass does not reference an instance
+     * member or a local variable, you should use the {@link #withComp(Class)}
+     * method instead.
+     * 
+     * @param constructorParameters
+     *            The constructor parameters to give to the created instance.
+     *            The first parameter will usually be 'this' or 'null' if the
+     *            applyingClass has been declared in an instance method, and the
+     *            other parameters will be the local variables that you use from
+     *            the local class.
+     * @throws IllegalArgumentException
+     *             if the applyingClass does not provide a default constructor
+     *             <b>or</b> if the instance parameter does not have the
+     *             expected type
+     * @see #withComp(Class)
+     */
+    public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass, Object... constructorParameters) throws IllegalArgumentException {
+        return new ClassComparator<T, U>(withInput(funkyExecutor(applyingClass, constructorParameters)));
+    }
+
+    private static <T> ClassExecutorWithInput<T> withInput(ClassExecutor<T> executor) {
+        return new FunkyExecutorWithInput<T>(executor);
+    }
+
+    private static <T> ClassExecutor<T> funkyExecutor(Class<T> applyingClass, Object... constructorParameters) {
+        return new FunkyExecutor<T>(applyingClass, constructorParameters);
     }
 
     public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass) {
-        return withFunc(applyingClass, null);
+        return withFunc(applyingClass, (Object) null);
     }
 
-    public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass, Object instance) {
-        return new ClassFunction<From, To, U>(applyingClass, instance);
+    public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass, Object... constructorParameters) {
+        return new ClassFunction<From, To, U>(withInput(funkyExecutor(applyingClass, constructorParameters)));
     }
 
     public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass) {
-        return withPred(applyingClass, null);
+        return withPred(applyingClass, (Object) null);
     }
 
-    public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass, Object instance) {
-        return new ClassPredicate<T, U>(applyingClass, instance);
+    public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass, Object... constructorParameters) {
+        return new ClassPredicate<T, U>(withInput(funkyExecutor(applyingClass, constructorParameters)));
     }
 
     public static Runnable withRun(Class<?> applyingClass) {
-        return withRun(applyingClass, null);
+        return withRun(applyingClass, (Object) null);
     }
 
-    public static <U> Runnable withRun(Class<U> applyingClass, Object instance) {
-        return new ClassRunnable<U>(applyingClass, instance);
+    public static <U> Runnable withRun(Class<U> applyingClass, Object... constructorParameters) {
+        return new ClassRunnable<U>(funkyExecutor(applyingClass, constructorParameters));
     }
 
     public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass) {
-        return withCall(applyingClass, null);
+        return withCall(applyingClass, (Object) null);
     }
 
-    public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object instance) {
-        return new ClassCallable<T, U>(applyingClass, instance);
+    public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object... constructorParameters) {
+        return new ClassCallable<T, U>(funkyExecutor(applyingClass, constructorParameters));
     }
 
     public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass) {
-        return withSupp(applyingClass, null);
+        return withSupp(applyingClass, (Object) null);
     }
 
-    public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object instance) {
-        return new ClassSupplier<T, U>(applyingClass, instance);
+    public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object... constructorParameters) {
+        return new ClassSupplier<T, U>(funkyExecutor(applyingClass, constructorParameters));
     }
 
 }

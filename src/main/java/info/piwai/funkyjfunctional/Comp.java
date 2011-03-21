@@ -38,22 +38,23 @@ public abstract class Comp<T> {
      * {@link ClassComparator} is not part of the API, which is why it has
      * package-private scope.
      */
-    static class ClassComparator<T, U extends Comp<T>> extends FunkyExecutorWithInput<U> implements Comparator<T> {
+    static class ClassComparator<T, U extends Comp<T>> implements Comparator<T> {
 
-        public ClassComparator(Class<U> applyingClass, Object instance) {
-            super(applyingClass, instance);
+        private final ClassExecutorWithInput<U> executor;
+
+        ClassComparator(ClassExecutorWithInput<U> executor) {
+            this.executor = executor;
         }
 
         @Override
         public int compare(T t1, T t2) {
-            U instance = createExecutedInstance(new Compared<T>(t1, t2));
+            U instance = executor.createExecutedInstance(new Compared<T>(t1, t2));
             return instance.r;
         }
     }
 
     protected T t1;
     protected T t2;
-
     protected int r;
 
     public Comp() {
