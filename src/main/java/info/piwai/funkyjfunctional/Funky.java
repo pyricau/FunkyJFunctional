@@ -139,7 +139,7 @@ import com.google.common.base.Supplier;
  */
 public abstract class Funky {
     
-    private static final Object[] NULL_PARAM_ARRAY = new Object[]{null};
+    private static final Object[] NULL_PARAM_ARRAY = new Object[] { null};
 
     public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass) {
         return classExecutor(applyingClass, NULL_PARAM_ARRAY);
