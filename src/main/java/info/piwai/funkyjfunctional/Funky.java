@@ -131,28 +131,28 @@ import com.google.common.base.Supplier;
  * "https://groups.google.com/forum/#!msg/google-guice/Eu-cJ1N2Q_A/jtiRfGlg3G4J"
  * >message</a> on the Google Guice forum.
  * <li>FunkyJFunctional has 100% code coverage (in fact it's actually 96.9% but
- * the missing 3.1% are unreachable code). 
+ * the missing 3.1% are unreachable code).
  * </ul>
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  * @author Florent Rami&egrave;re
  */
 public abstract class Funky {
-    
-    private static final Object[] NULL_PARAM_ARRAY = new Object[] { null};
+
+    private static final Object[] NULL_PARAM_ARRAY = new Object[] { null };
 
     public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass) {
         return classExecutor(applyingClass, NULL_PARAM_ARRAY);
     }
-    
+
     public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass, Object... constructorParameters) {
         return new FunkyExecutor<T>(applyingClass, constructorParameters);
     }
-    
+
     public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass) {
         return classExecutorWithInput(applyingClass, NULL_PARAM_ARRAY);
     }
-    
+
     public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass, Object... constructorParameters) {
         return new FunkyExecutorWithInput<T>(classExecutor(applyingClass, constructorParameters));
     }
@@ -246,7 +246,7 @@ public abstract class Funky {
     public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassSupplier<T, U>(classExecutor(applyingClass, constructorParameters));
     }
-    
+
     /**
      * The constructor is private to make sure this class won't be instantiated.
      * The class itself is abstract so that it even cannot be instantiated using
