@@ -17,6 +17,7 @@ package info.piwai.funkyjfunctional;
 
 import info.piwai.funkyjfunctional.Call.ClassCallable;
 import info.piwai.funkyjfunctional.Comp.ClassComparator;
+import info.piwai.funkyjfunctional.Const.ClassConstraint;
 import info.piwai.funkyjfunctional.Func.ClassFunction;
 import info.piwai.funkyjfunctional.Pred.ClassPredicate;
 import info.piwai.funkyjfunctional.Supp.ClassSupplier;
@@ -27,6 +28,7 @@ import java.util.concurrent.Callable;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Supplier;
+import com.google.common.collect.Constraint;
 
 /**
  * FunkyJFunctional enables Java functional programming using method local class
@@ -116,6 +118,8 @@ import com.google.common.base.Supplier;
  * {@link #withCall(Class)} method.
  * <li>For funky {@link Supplier}s, see {@link Supp} and the
  * {@link #withSupp(Class)} method.
+ * <li>For funky {@link Constraint}s, see {@link Const} and the
+ * {@link #withConst(Class)} method.
  * </ul>
  * <h2 id="3">3. Implementing your own Funky functions</h2>
  * 
@@ -245,6 +249,14 @@ public abstract class Funky {
 
     public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassSupplier<T, U>(classExecutor(applyingClass, constructorParameters));
+    }
+    
+    public static <T, U extends Const<T>> Constraint<T> withConst(Class<U> applyingClass) {
+        return withConst(applyingClass, NULL_PARAM_ARRAY);
+    }
+
+    public static <T, U extends Const<T>> Constraint<T> withConst(Class<U> applyingClass, Object... constructorParameters) {
+        return new ClassConstraint<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
     }
 
     /**
