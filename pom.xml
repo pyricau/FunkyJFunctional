@@ -24,6 +24,7 @@
 		<module>funkyjfunctional-core</module>
 		<module>funkyjfunctional-java</module>
 		<module>funkyjfunctional-guava</module>
+		<module>funkyjfunctional-swing</module>
 	</modules>
 
 	<dependencyManagement>
