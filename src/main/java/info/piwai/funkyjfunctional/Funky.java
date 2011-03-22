@@ -183,7 +183,7 @@ public abstract class Funky {
      * @return A {@link Comparator} based on the applyingClass parameter.
      */
     public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass) {
-        return withComp(applyingClass, NULL_PARAM_ARRAY);
+        return new ClassComparator<T, U>(classExecutorWithInput(applyingClass));
     }
 
     /**
@@ -212,7 +212,7 @@ public abstract class Funky {
     }
 
     public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass) {
-        return withFunc(applyingClass, NULL_PARAM_ARRAY);
+        return new ClassFunction<From, To, U>(classExecutorWithInput(applyingClass));
     }
 
     public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass, Object... constructorParameters) {
@@ -220,15 +220,15 @@ public abstract class Funky {
     }
 
     public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass) {
-        return withPred(applyingClass, NULL_PARAM_ARRAY);
+        return new ClassPredicate<T, U>(classExecutorWithInput(applyingClass));
     }
 
     public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassPredicate<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
     }
 
-    public static Runnable withRun(Class<?> applyingClass) {
-        return withRun(applyingClass, NULL_PARAM_ARRAY);
+    public static <U> Runnable withRun(Class<U> applyingClass) {
+        return new ClassRunnable<U>(classExecutor(applyingClass));
     }
 
     public static <U> Runnable withRun(Class<U> applyingClass, Object... constructorParameters) {
@@ -236,7 +236,7 @@ public abstract class Funky {
     }
 
     public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass) {
-        return withCall(applyingClass, NULL_PARAM_ARRAY);
+        return new ClassCallable<T, U>(classExecutor(applyingClass));
     }
 
     public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object... constructorParameters) {
@@ -244,7 +244,7 @@ public abstract class Funky {
     }
 
     public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass) {
-        return withSupp(applyingClass, NULL_PARAM_ARRAY);
+        return new ClassSupplier<T, U>(classExecutor(applyingClass));
     }
 
     public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object... constructorParameters) {
@@ -252,7 +252,7 @@ public abstract class Funky {
     }
     
     public static <T, U extends Const<T>> Constraint<T> withConst(Class<U> applyingClass) {
-        return withConst(applyingClass, NULL_PARAM_ARRAY);
+        return new ClassConstraint<T, U>(classExecutorWithInput(applyingClass));
     }
 
     public static <T, U extends Const<T>> Constraint<T> withConst(Class<U> applyingClass, Object... constructorParameters) {
