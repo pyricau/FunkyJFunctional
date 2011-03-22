@@ -193,5 +193,13 @@ public class FunkyExecutorTest {
     public void nullApplyClass() {
         new FunkyExecutor<Void>(null);
     }
+    
+    @Test
+    public void factoryBuildsValidExecutor() {
+        // @off
+        class Instanciated {}
+        // @on
+        Funky.classExecutor(Instanciated.class);
+    }
 
 }
