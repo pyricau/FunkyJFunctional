@@ -25,11 +25,11 @@ public class FunkyExecutorTest {
     }
 
     @Test
-    public void classInstanciated() {
+    public void classInstantiated() {
         // @off
-        class Instanciated {{ staticCounter.count++; }}
+        class Instantiated {{ staticCounter.count++; }}
         // @on
-        ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class, NULL_PARAM_ARRAY);
+        ClassExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, NULL_PARAM_ARRAY);
 
         assertEquals(0, staticCounter.count);
         executor.createExecutedInstance();
@@ -37,15 +37,15 @@ public class FunkyExecutorTest {
     }
 
     @Test
-    public void classInstanciatedFromStaticMethod() {
+    public void classInstantiatedFromStaticMethod() {
         delegatedStaticTest();
     }
 
     public static void delegatedStaticTest() {
         // @off
-        class Instanciated {{ staticCounter.count++; }}
+        class Instantiated {{ staticCounter.count++; }}
         // @on
-        ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class);
+        ClassExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class);
 
         assertEquals(0, staticCounter.count);
         executor.createExecutedInstance();
@@ -56,13 +56,13 @@ public class FunkyExecutorTest {
     public void differentInstances() {
 
         // @off
-        class Instanciated {{ staticCounter.count++; }}
+        class Instantiated {{ staticCounter.count++; }}
         // @on
-        ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class, NULL_PARAM_ARRAY);
+        ClassExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, NULL_PARAM_ARRAY);
 
         assertEquals(0, staticCounter.count);
-        Instanciated instance1 = executor.createExecutedInstance();
-        Instanciated instance2 = executor.createExecutedInstance();
+        Instantiated instance1 = executor.createExecutedInstance();
+        Instantiated instance2 = executor.createExecutedInstance();
 
         assertEquals(2, staticCounter.count);
         assertNotSame(instance1, instance2);
@@ -71,23 +71,23 @@ public class FunkyExecutorTest {
     @Test(expected = IllegalArgumentException.class)
     public void multipleConstructors() {
         @SuppressWarnings("unused")
-        class Instanciated {
-            Instanciated(FunkyExecutorTest obj) {
+        class Instantiated {
+            Instantiated(FunkyExecutorTest obj) {
             }
 
-            Instanciated() {
+            Instantiated() {
             }
         }
 
-        new FunkyExecutor<Instanciated>(Instanciated.class, NULL_PARAM_ARRAY);
+        new FunkyExecutor<Instantiated>(Instantiated.class, NULL_PARAM_ARRAY);
     }
 
     @Test
     public void instanceMemberAccess() {
         // @off 
-        class Instanciated {{ counter.count++; }}
+        class Instantiated {{ counter.count++; }}
         // @on
-        ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class, this);
+        ClassExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, this);
         assertEquals(0, counter.count);
         executor.createExecutedInstance();
         assertEquals(1, counter.count);
@@ -98,9 +98,9 @@ public class FunkyExecutorTest {
 
         final Counter counter = new Counter();
         // @off
-        class Instanciated {{ counter.count++; }}
+        class Instantiated {{ counter.count++; }}
         // @on
-        ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class, this, counter);
+        ClassExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, this, counter);
         assertEquals(0, counter.count);
         executor.createExecutedInstance();
         assertEquals(1, counter.count);
@@ -115,9 +115,9 @@ public class FunkyExecutorTest {
 
         final Counter counter = new Counter();
         // @off
-        class Instanciated {{ counter.count++; }}
+        class Instantiated {{ counter.count++; }}
         // @on
-        ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class, counter);
+        ClassExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, counter);
         assertEquals(0, counter.count);
         executor.createExecutedInstance();
         assertEquals(1, counter.count);
@@ -126,54 +126,54 @@ public class FunkyExecutorTest {
     @Test(expected = IllegalArgumentException.class)
     public void missingConstructorParameters() {
         // @off
-        class Instanciated {}
+        class Instantiated {}
         // @on
-        new FunkyExecutor<Instanciated>(Instanciated.class);
+        new FunkyExecutor<Instantiated>(Instantiated.class);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void incompatibleParameters() {
         // @off
-        class Instanciated {}
+        class Instantiated {}
         // @on
-        new FunkyExecutor<Instanciated>(Instanciated.class, new Object());
+        new FunkyExecutor<Instantiated>(Instantiated.class, new Object());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void nullConstructorParamsArray() {
         // @off
-        class Instanciated {}
+        class Instantiated {}
         // @on
         Object[] nullArray = null;
-        new FunkyExecutor<Instanciated>(Instanciated.class, nullArray);
+        new FunkyExecutor<Instantiated>(Instantiated.class, nullArray);
     }
 
     @Test(expected = ArithmeticException.class)
     public void throwsRuntimeException() {
         // @off
-        class Instanciated {{ System.out.println(42 / 0); }}
+        class Instantiated {{ System.out.println(42 / 0); }}
         // @on
-        ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class, NULL_PARAM_ARRAY);
+        ClassExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, NULL_PARAM_ARRAY);
         executor.createExecutedInstance();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void throwingConstructor() {
         @SuppressWarnings("unused")
-        class Instanciated {
-            public Instanciated() throws Exception {
+        class Instantiated {
+            public Instantiated() throws Exception {
             }
         }
 
-        new FunkyExecutor<Instanciated>(Instanciated.class, NULL_PARAM_ARRAY);
+        new FunkyExecutor<Instantiated>(Instantiated.class, NULL_PARAM_ARRAY);
     }
 
     @Test(expected = Error.class)
     public void throwsError() {
         // @off
-        class Instanciated {{ methodThrowingError(); }}
+        class Instantiated {{ methodThrowingError(); }}
         // @on
-        ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class, this);
+        ClassExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, this);
         executor.createExecutedInstance();
     }
 
@@ -184,9 +184,9 @@ public class FunkyExecutorTest {
     @Test(expected = IllegalArgumentException.class)
     public void abstractApplyingClass() {
         // @off
-        abstract class Instanciated {}
+        abstract class Instantiated {}
         // @on
-        new FunkyExecutor<Instanciated>(Instanciated.class, NULL_PARAM_ARRAY);
+        new FunkyExecutor<Instantiated>(Instantiated.class, NULL_PARAM_ARRAY);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -197,9 +197,9 @@ public class FunkyExecutorTest {
     @Test
     public void factoryBuildsValidExecutor() {
         // @off
-        class Instanciated {}
+        class Instantiated {}
         // @on
-        Funky.classExecutor(Instanciated.class);
+        Funky.classExecutor(Instantiated.class);
     }
 
 }
