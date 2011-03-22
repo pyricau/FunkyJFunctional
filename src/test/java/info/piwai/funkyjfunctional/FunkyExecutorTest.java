@@ -201,5 +201,31 @@ public class FunkyExecutorTest {
         // @on
         Funky.classExecutor(Instantiated.class);
     }
+    
+    @Test
+    public void factoryBuildsValidExecutorWithInput() {
+        // @off
+        class Instantiated {}
+        // @on
+        Funky.classExecutorWithInput(Instantiated.class);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void nullConstructorParamsArrayFromFactoryExecutor() {
+        // @off
+        class Instantiated {}
+        // @on
+        Object[] nullArray = null;
+        Funky.classExecutor(Instantiated.class, nullArray);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void nullConstructorParamsArrayFromFactoryExecutorWithInput() {
+        // @off
+        class Instantiated {}
+        // @on
+        Object[] nullArray = null;
+        Funky.classExecutorWithInput(Instantiated.class, nullArray);
+    }
 
 }
