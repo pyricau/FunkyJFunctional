@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class FunkyExecutorTest {
-    
+
     private static final Object[] NULL_PARAM_ARRAY = new Object[] { null };
 
     static class Counter {
@@ -55,13 +55,9 @@ public class FunkyExecutorTest {
     @Test
     public void differentInstances() {
 
-        // @foff
-        class Instanciated {
-            {
-                staticCounter.count++;
-            }
-        }
-        // @fon
+        // @off
+        class Instanciated {{ staticCounter.count++; }}
+        // @on
         ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class, NULL_PARAM_ARRAY);
 
         assertEquals(0, staticCounter.count);
@@ -88,13 +84,9 @@ public class FunkyExecutorTest {
 
     @Test
     public void instanceMemberAccess() {
-        // @foff
-        class Instanciated {
-            {
-                counter.count++;
-            }
-        }
-        // @fon
+        // @off 
+        class Instanciated {{ counter.count++; }}
+        // @on
         ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class, this);
         assertEquals(0, counter.count);
         executor.createExecutedInstance();
@@ -105,13 +97,9 @@ public class FunkyExecutorTest {
     public void localVariableAccess() {
 
         final Counter counter = new Counter();
-        // @foff
-        class Instanciated {
-            {
-                counter.count++;
-            }
-        }
-        // @fon
+        // @off
+        class Instanciated {{ counter.count++; }}
+        // @on
         ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class, this, counter);
         assertEquals(0, counter.count);
         executor.createExecutedInstance();
@@ -126,13 +114,9 @@ public class FunkyExecutorTest {
     public static void localStaticVariableAccessDelegate() {
 
         final Counter counter = new Counter();
-        // @foff
-        class Instanciated {
-            {
-                counter.count++;
-            }
-        }
-        // @fon
+        // @off
+        class Instanciated {{ counter.count++; }}
+        // @on
         ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class, counter);
         assertEquals(0, counter.count);
         executor.createExecutedInstance();
@@ -141,42 +125,34 @@ public class FunkyExecutorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void missingConstructorParameters() {
-        // @foff
-        class Instanciated {
-        }
-        // @fon
+        // @off
+        class Instanciated {}
+        // @on
         new FunkyExecutor<Instanciated>(Instanciated.class);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void incompatibleParameters() {
-        // @foff
-        class Instanciated {
-        }
-        // @fon
+        // @off
+        class Instanciated {}
+        // @on
         new FunkyExecutor<Instanciated>(Instanciated.class, new Object());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void nullConstructorParamsArray() {
-        // @foff
-        class Instanciated {
-        }
-        ;
-        // @fon
+        // @off
+        class Instanciated {}
+        // @on
         Object[] nullArray = null;
         new FunkyExecutor<Instanciated>(Instanciated.class, nullArray);
     }
 
     @Test(expected = ArithmeticException.class)
     public void throwsRuntimeException() {
-        // @foff
-        class Instanciated {
-            {
-                System.out.println(42 / 0);
-            }
-        }
-        // @fon
+        // @off
+        class Instanciated {{ System.out.println(42 / 0); }}
+        // @on
         ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class, NULL_PARAM_ARRAY);
         executor.createExecutedInstance();
     }
@@ -194,13 +170,9 @@ public class FunkyExecutorTest {
 
     @Test(expected = Error.class)
     public void throwsError() {
-        // @foff
-        class Instanciated {
-            {
-                methodThrowingError();
-            }
-        }
-        // @fon
+        // @off
+        class Instanciated {{ methodThrowingError(); }}
+        // @on
         ClassExecutor<Instanciated> executor = new FunkyExecutor<Instanciated>(Instanciated.class, this);
         executor.createExecutedInstance();
     }
@@ -211,13 +183,13 @@ public class FunkyExecutorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void abstractApplyingClass() {
-        abstract class Instanciated {
-        }
-
+        // @off
+        abstract class Instanciated {}
+        // @on
         new FunkyExecutor<Instanciated>(Instanciated.class, NULL_PARAM_ARRAY);
     }
-    
-    @Test(expected=IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void nullApplyClass() {
         new FunkyExecutor<Void>(null);
     }
