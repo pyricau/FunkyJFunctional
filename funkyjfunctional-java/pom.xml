@@ -10,7 +10,6 @@
 
 	<groupId>info.piwai.funkyjfunctional</groupId>
 	<artifactId>funkyjfunctional-java</artifactId>
-	<packaging>jar</packaging>
 
 	<name>FunkyJFunctional Guava</name>
 	<description>Brings some functional Funkyness to Java. This project contains the Java funky functions.</description>

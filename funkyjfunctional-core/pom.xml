@@ -10,7 +10,6 @@
 
 	<groupId>info.piwai.funkyjfunctional</groupId>
 	<artifactId>funkyjfunctional-core</artifactId>
-	<packaging>jar</packaging>
 
 	<name>FunkyJFunctional Core</name>
 	<description>Brings some functional Funkyness to Java. This project contains FunkyJFunctional internals and the Java funky functions.</description>
