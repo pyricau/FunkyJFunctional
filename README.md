@@ -8,13 +8,13 @@ FunkyJFunctional also provides a [Guava](http://code.google.com/p/guava-librarie
 
 Short syntax examples:
 
-* A funky Java Runnable: ```class Hello {{ System.out.println("Hello Funky World"); }}```
+* A funky Java [Runnable](http://download.oracle.com/javase/6/docs/api/java/lang/Runnable.html): ```class Hello {{ System.out.println("Hello Funky World"); }}```
 
-* A funky Swing ActionListener: ```class BtonClick extends ActL{{ buttonClicked(e); }}```
+* A funky Swing [ActionListener](http://download.oracle.com/javase/6/docs/api/java/awt/event/ActionListener.html): ```class BtonClick extends ActL{{ buttonClicked(e); }}```
 
-* A funky Guava Predicate: ```class Adult extends Pred<Integer> {{ r = t > 18; }}```
+* A funky Guava [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html): ```class Adult extends Pred<Integer> {{ r = t > 18; }}```
 
-* A funky Wicket AbstractReadOnlyModel: ```class FortyTwo extends ARON<String> {{ r = "42"; }}```
+* A funky Wicket [AbstractReadOnlyModel](http://wicket.apache.org/apidocs/1.4/org/apache/wicket/model/AbstractReadOnlyModel.html): ```class FortyTwo extends ARON<String> {{ r = "42"; }}```
 
 Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html)!
 
