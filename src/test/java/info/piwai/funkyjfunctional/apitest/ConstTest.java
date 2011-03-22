@@ -16,13 +16,18 @@
 package info.piwai.funkyjfunctional.apitest;
 
 import static info.piwai.funkyjfunctional.Funky.withConst;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 import info.piwai.funkyjfunctional.Const;
 
 import java.util.Collection;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.collect.Constraint;
 import com.google.common.collect.Constraints;
 import com.google.common.collect.Lists;
 
@@ -30,33 +35,64 @@ import com.google.common.collect.Lists;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public class ConstTest {
+    
+    private Collection<String> strings;
+    private Constraint<String> constraint;
 
-    @Test(expected = IllegalArgumentException.class)
-    public void invalidInput() {
-
+    @Before
+    public void setup() {
         // @off
         class NotFortyTwo extends Const<String> {{ if("42".equals(t)) invalid("Should not be 42!"); }}
         // @on
 
         List<String> list = Lists.newArrayList();
 
-        Collection<String> strings = Constraints.constrainedCollection(list, withConst(NotFortyTwo.class));
+        constraint = withConst(NotFortyTwo.class);
+        
+        strings = Constraints.constrainedCollection(list, constraint);
+    }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidInput() {
         strings.add("42");
     }
 
     @Test
     public void validInput() {
-
-        // @off
-        class NotFortyTwo extends Const<String> {{ if("42".equals(t)) invalid("Should not be 42!"); }}
-        // @on
-
-        List<String> list = Lists.newArrayList();
-
-        Collection<String> strings = Constraints.constrainedCollection(list, withConst(NotFortyTwo.class));
-
         strings.add("43");
     }
-
+    
+    @Test
+    public void defaultReturnsSame() {
+        // @off
+        class Void extends Const<String> {{}}
+        // @on
+        
+        String input = "43";
+        String returned = withConst(Void.class).checkElement(input);
+        assertSame(input, returned);
+    }
+    
+    @Test
+    public void mayChangeReturned() {
+        // @off
+        class ChangeReturn extends Const<String> {{ r = "43"; }}
+        // @on
+        
+        String input = "42";
+        String returned = withConst(ChangeReturn.class).checkElement(input);
+        assertNotSame(input, returned);
+    }
+    
+    @Test
+    public void printsCorrectString() {
+        // @off
+        class SomeName extends Const<String> {{}}
+        // @on
+        
+        String toStringValue = withConst(SomeName.class).toString();
+        
+        assertEquals("SomeName constraint", toStringValue);
+    }
+    
 }

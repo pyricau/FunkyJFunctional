@@ -40,10 +40,10 @@ public abstract class Const<T> {
             U instance = executor.createExecutedInstance(element);
             return instance.r;
         }
-        
+
         @Override
         public String toString() {
-            return getClass().getSimpleName()+" constraint";
+            return executor.getClassSimpleName() + " constraint";
         }
     }
 
@@ -55,7 +55,7 @@ public abstract class Const<T> {
         t = Funky.<T> getThreadLocalParameter();
         r = t;
     }
-    
+
     public void invalid(String msg) {
         throw new IllegalArgumentException(msg);
     }

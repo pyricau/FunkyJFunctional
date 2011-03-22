@@ -44,4 +44,9 @@ final class FunkyExecutorWithInput<T> implements ClassExecutorWithInput<T>  {
             holder.set(null);
         }
     }
+
+    @Override
+    public String getClassSimpleName() {
+        return executor.getClassSimpleName();
+    }
 }

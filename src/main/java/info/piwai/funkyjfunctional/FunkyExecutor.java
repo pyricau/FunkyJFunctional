@@ -145,4 +145,9 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public String getClassSimpleName() {
+        return constructor.getDeclaringClass().getSimpleName();
+    }
 }
