@@ -2,13 +2,15 @@
 
 There is no such thing as functional programming in Java, but sometimes we emulate it using anonymous classes.
 
-FunkyJFunctional provides a new way to do functional programming in Java. It integrates with [Guava](http://code.google.com/p/guava-libraries/) (the former google collections), and uses some Java syntaxic sugar: method local class declarations and init blocks.
+FunkyJFunctional provides a new way to do functional programming in Java, using some Java syntaxic sugar: method local class declarations and init blocks.
+
+FunkyJFunctional also provides a [Guava](http://code.google.com/p/guava-libraries/) module (Guava is the former google collections).
 
 In short, two syntax examples:
 
 * A funky Runnable: ```class Hello {{ System.out.println("Hello Funky World"); }}```
 
-* A funky Predicate: ```class Adult extends Pred<Integer> {{ r = t > 18; }}```
+* A funky Guava Predicate: ```class Adult extends Pred<Integer> {{ r = t > 18; }}```
 
 Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html)!
 
@@ -27,23 +29,23 @@ With Guava:
 	};
 	Iterable<Integer> adults = Iterables.filter(values, adult);
 	
-With FunkyJFunctional our [predicate](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/PredTest.java) is much shorter:
+With FunkyJFunctional our [predicate](https://github.com/pyricau/FunkyJFunctional/blob/master/funkyjfunctional-guava/src/test/java/info/piwai/funkyjfunctional/guava/test/PredTest.java) is much shorter:
 	
 	List<Integer> values = Arrays.asList(16, 21);
 	class Adult extends Pred<Integer> {{ r = t > 18; }}
-	Iterable<Integer> adults = Iterables.filter(values, Funky.withPred(Adult.class));
+	Iterable<Integer> adults = Iterables.filter(values, FunkyGuava.withPred(Adult.class));
 	System.out.println(adults); // prints [21]
 	
 With static imports, it's even shorter:
 
-    import static info.piwai.funkyjfunctional.Funky.*;
+    import static info.piwai.funkyjfunctional.FunkyGuava.*;
     import static com.google.common.collect.Iterables.*;
 	// [...]
 	Iterable<Integer> adults = filter(values, withPred(Adult.class));
 	
 Sounds funky? We think it is ;-). 
 	
-We also provide  [functions](https://github.com/pyricau/FunkyJFunctional/blob/master/src/test/java/info/piwai/funkyjfunctional/apitest/FuncTest.java):
+We also provide Guava [functions](https://github.com/pyricau/FunkyJFunctional/blob/master/funkyjfunctional-guava/src/test/java/info/piwai/funkyjfunctional/guava/test/FuncTest.java):
 
 	List<Integer> values = Arrays.asList(42, 69);
 	class Price extends Func<Integer, String> {{ r = t + "$"; }}
@@ -88,7 +90,7 @@ As well as the following dependency:
 
 	<dependency>
 		<groupId>info.piwai.funkyjfunctional</groupId>
-		<artifactId>funkyjfunctional</artifactId>
+		<artifactId>funkyjfunctional-guava</artifactId>
 		<version>0.3-SNAPSHOT</version>
 	</dependency>
 
