@@ -16,8 +16,10 @@
 package info.piwai.funkyjfunctional.wicket;
 
 import static info.piwai.funkyjfunctional.Funky.classExecutor;
+import info.piwai.funkyjfunctional.wicket.ARON.ClassAbstractReadOnlyModel;
 import info.piwai.funkyjfunctional.wicket.LDM.ClassLoadableDetachableModel;
 
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 
 /**
@@ -26,12 +28,20 @@ import org.apache.wicket.model.LoadableDetachableModel;
 public abstract class FunkyWicket {
 
 
-    public static <T, U extends LDM<T>> LoadableDetachableModel<T> withLdm(Class<U> applyingClass) {
+    public static <T, U extends LDM<T>> LoadableDetachableModel<T> withLDM(Class<U> applyingClass) {
         return new ClassLoadableDetachableModel<T, U>(classExecutor(applyingClass));
     }
 
-    public static <T, U extends LDM<T>> LoadableDetachableModel<T> withLdm(Class<U> applyingClass, Object... constructorParameters) {
+    public static <T, U extends LDM<T>> LoadableDetachableModel<T> withLDM(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassLoadableDetachableModel<T, U>(classExecutor(applyingClass, constructorParameters));
+    }
+    
+    public static <T, U extends ARON<T>> AbstractReadOnlyModel<T> withARON(Class<U> applyingClass) {
+        return new ClassAbstractReadOnlyModel<T, U>(classExecutor(applyingClass));
+    }
+
+    public static <T, U extends ARON<T>> AbstractReadOnlyModel<T> withARON(Class<U> applyingClass, Object... constructorParameters) {
+        return new ClassAbstractReadOnlyModel<T, U>(classExecutor(applyingClass, constructorParameters));
     }
 
     /**

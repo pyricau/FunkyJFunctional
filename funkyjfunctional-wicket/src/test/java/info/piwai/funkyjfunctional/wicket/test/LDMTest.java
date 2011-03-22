@@ -1,6 +1,6 @@
 package info.piwai.funkyjfunctional.wicket.test;
 
-import static info.piwai.funkyjfunctional.wicket.FunkyWicket.withLdm;
+import static info.piwai.funkyjfunctional.wicket.FunkyWicket.withLDM;
 import static org.junit.Assert.assertEquals;
 import info.piwai.funkyjfunctional.wicket.LDM;
 
@@ -16,7 +16,7 @@ public class LDMTest {
         class FortyTwo extends LDM<String> {{ r = "42"; }}
         // @on
 
-        LoadableDetachableModel<String> ldm = withLdm(FortyTwo.class);
+        LoadableDetachableModel<String> ldm = withLDM(FortyTwo.class);
 
         assertEquals("42",  ldm.getObject());
     }
