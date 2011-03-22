@@ -6,11 +6,15 @@ FunkyJFunctional provides a new way to do functional programming in Java, using 
 
 FunkyJFunctional also provides a [Guava](http://code.google.com/p/guava-libraries/) module (Guava is the former google collections).
 
-In short, two syntax examples:
+Short syntax examples:
 
-* A funky Runnable: ```class Hello {{ System.out.println("Hello Funky World"); }}```
+* A funky Java Runnable: ```class Hello {{ System.out.println("Hello Funky World"); }}```
+
+* A funky Swing ActionListener: ```class BtonClick extends ActL{{ buttonClicked(e); }}```
 
 * A funky Guava Predicate: ```class Adult extends Pred<Integer> {{ r = t > 18; }}```
+
+* A funky Wicket AbstractReadOnlyModel: ```class FortyTwo extends ARON<String> {{ r = "42"; }}```
 
 Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html)!
 
