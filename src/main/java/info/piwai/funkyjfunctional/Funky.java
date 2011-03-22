@@ -134,7 +134,7 @@ import com.google.common.collect.Constraint;
  * <li>FunkyJFunctional was inspired by a <a href=
  * "https://groups.google.com/forum/#!msg/google-guice/Eu-cJ1N2Q_A/jtiRfGlg3G4J"
  * >message</a> on the Google Guice forum.
- * <li>FunkyJFunctional has 100% code coverage (in fact it's actually 96.9% but
+ * <li>FunkyJFunctional has 100% code coverage (in fact it's actually 98.3% but
  * the missing 3.1% are unreachable code).
  * </ul>
  * 
