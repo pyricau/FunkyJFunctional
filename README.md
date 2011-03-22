@@ -56,6 +56,18 @@ And... [much more](http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/i
     
 # Maven funky artifacts
 
+There are several artifacts that you may want to use, depending on your needs.
+
+Here is a list:
+
+* funkyjfunctional-guava for Funky Guava
+* funkyjfunctional-wicket for Funky Wicket
+* funkyjfunctional-java for Funky Java
+* funkyjfunctional-swing for Funky Swing
+* funkyjfunctional-core FunkyJFunctional's core, if you want to create your own Funky implementation.
+
+The following configuration examples are for funkyjfunctional-guava. You should just switch the artifactId to use other implementations.
+
 ## Releases, for the serious funky guys
 
 You will need the following repository in your Maven project:
@@ -71,8 +83,8 @@ As well as the following dependency:
 
 	<dependency>
 		<groupId>info.piwai.funkyjfunctional</groupId>
-		<artifactId>funkyjfunctional</artifactId>
-		<version>0.2</version>
+		<artifactId>funkyjfunctional-guava</artifactId>
+		<version>0.3</version>
 	</dependency>
 	
 ## Snapshots, for Chuck Norris and his funky friends
@@ -91,7 +103,7 @@ As well as the following dependency:
 	<dependency>
 		<groupId>info.piwai.funkyjfunctional</groupId>
 		<artifactId>funkyjfunctional-guava</artifactId>
-		<version>0.3-SNAPSHOT</version>
+		<version>0.4-SNAPSHOT</version>
 	</dependency>
 
 # Other funky ways 
