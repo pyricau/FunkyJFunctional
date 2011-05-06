@@ -9,13 +9,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>info.piwai.funkyjfunctional</groupId>
     <artifactId>funkyjfunctional-fest-assert</artifactId>
 
-	<name>FunkyJFunctional Guava</name>
+	<name>FunkyJFunctional Fest Assert</name>
 	<description>Brings some functional Funkyness to Java. This project contains the Guava funky functions.</description>
 	<url>https://github.com/pyricau/FunkyJFunctional</url>
 
 	<dependencies>
+		<dependency>
+			<groupId>info.piwai.funkyjfunctional</groupId>
+			<artifactId>funkyjfunctional-core</artifactId>
+		</dependency>
         <dependency>
             <groupId>org.easytesting</groupId>
             <artifactId>fest-assert</artifactId>
