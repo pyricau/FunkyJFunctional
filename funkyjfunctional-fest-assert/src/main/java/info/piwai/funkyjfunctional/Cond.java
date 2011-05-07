@@ -15,7 +15,6 @@
  */
 package info.piwai.funkyjfunctional;
 
-import info.piwai.funkyjfunctional.Funky;
 import org.fest.assertions.Condition;
 
 /**
