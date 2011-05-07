@@ -13,10 +13,10 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional;
+package info.piwai.funkyjfunctional.festassert;
 
 import org.fest.assertions.Condition;
-import info.piwai.funkyjfunctional.Cond.ClassCondition;
+import info.piwai.funkyjfunctional.festassert.Cond.ClassCondition;
 import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
 
 /**
