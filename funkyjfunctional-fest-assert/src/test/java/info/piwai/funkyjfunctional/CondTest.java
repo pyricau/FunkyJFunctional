@@ -15,9 +15,12 @@
  */
 package info.piwai.funkyjfunctional;
 
-import static info.piwai.funkyjfunctional.FunkyFestAssert.withCond;
-import static org.fest.assertions.Assertions.assertThat;
 import org.junit.Test;
+import java.util.List;
+
+import static info.piwai.funkyjfunctional.FunkyFestAssert.withCond;
+import static java.util.Arrays.asList;
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Nicolas Francois (nicolas.franc at gmail.com)
@@ -28,11 +31,24 @@ public class CondTest{
     public void condition() {
 
         // @off
-		class Adult extends Cond<Integer> {{ r = t > 18; }}
-		// @on
+        class Adult extends Cond<Integer> {{ r = t > 18; }}
+        // @on
 
-        assertThat(20).satisfies(withCond(Adult.class));
-        assertThat(5).doesNotSatisfy(withCond(Adult.class));
+        assertThat(20).satisfies(withCond(Adult.class)).is(withCond(Adult.class));
+        assertThat(5).doesNotSatisfy(withCond(Adult.class)).isNot(withCond(Adult.class));
+
+    }
+
+
+    @Test
+    public void conditionOnList() {
+        List<Integer> eventList = asList(16, 21);
+        List<Integer> oddList = asList(16, 21, 38);
+        // @off
+        class EvenSize extends Cond<List<?>> {{ r = t != null && t.size() %2 == 0; }};
+        // @on
+        assertThat(eventList).satisfies(withCond(EvenSize.class)).is(withCond(EvenSize.class));
+        assertThat(oddList).doesNotSatisfy(withCond(EvenSize.class)).isNot(withCond(EvenSize.class));
 
     }
 
