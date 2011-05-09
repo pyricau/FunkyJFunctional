@@ -15,12 +15,14 @@
  */
 package info.piwai.funkyjfunctional.festassert;
 
-import org.junit.Test;
+import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.*;
+import static java.util.Arrays.*;
+import static org.fest.assertions.Assertions.*;
+import static org.junit.Assert.*;
+
 import java.util.List;
 
-import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.withCond;
-import static java.util.Arrays.asList;
-import static org.fest.assertions.Assertions.assertThat;
+import org.junit.Test;
 
 /**
  * @author Nicolas Francois (nicolas.franc at gmail.com)
@@ -49,7 +51,42 @@ public class CondTest{
         // @on
         assertThat(evenList).satisfies(withCond(EvenSize.class)).is(withCond(EvenSize.class));
         assertThat(oddList).doesNotSatisfy(withCond(EvenSize.class)).isNot(withCond(EvenSize.class));
-
+        
     }
+    
+    @Test
+    public void defaultDescription() {
+        // @off
+        class AlwaysFalse extends Cond<Object> {{ r = false; }};
+        // @on
+        
+        try {
+            assertThat(new Object()).satisfies(withCond(AlwaysFalse.class));
+        } catch (AssertionError e) {
+            String message = e.getMessage();
+            assertTrue(message.contains("<AlwaysFalse>"));
+            return;
+        }
+        fail();
+    }
+    
+    @Test
+    public void customDescription() {
+        
+        // @off
+        class AlwaysFalse extends Cond<Object> {{ d="I'm always false!"; r = false; }};
+        // @on
+        
+        try {
+            assertThat(new Object()).satisfies(withCond(AlwaysFalse.class));
+        } catch (AssertionError e) {
+            String message = e.getMessage();
+            assertTrue(message.contains("<I'm always false!>"));
+            return;
+        }
+        fail();
+    }
+    
+    
 
 }

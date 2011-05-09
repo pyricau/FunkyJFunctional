@@ -32,7 +32,7 @@ public abstract class Cond<T> {
     static class ClassCondition<T, U extends Cond<T>> extends Condition<T> {
 
         private final ClassExecutorWithInput<U> executor;
-
+        
         ClassCondition(ClassExecutorWithInput<U> executor) {
             this.executor = executor;
         }
@@ -40,13 +40,23 @@ public abstract class Cond<T> {
         @Override
         public boolean matches(T input) {
             U instance = executor.createExecutedInstance(input);
+            
+            if (instance.d != null) {
+                as(instance.d);
+            } else {
+                as(executor.getClassSimpleName());
+            }
+            
             return instance.r;
         }
+        
     }
 
     protected T t;
 
     protected boolean r;
+    
+    protected String d;
 
     public Cond() {
         t = Funky.<T> getThreadLocalParameter();
