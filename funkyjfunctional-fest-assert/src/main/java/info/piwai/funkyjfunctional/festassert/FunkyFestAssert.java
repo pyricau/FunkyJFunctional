@@ -15,9 +15,12 @@
  */
 package info.piwai.funkyjfunctional.festassert;
 
-import org.fest.assertions.Condition;
+import static info.piwai.funkyjfunctional.Funky.*;
 import info.piwai.funkyjfunctional.festassert.Cond.ClassCondition;
-import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
+
+import java.util.List;
+
+import org.fest.assertions.Condition;
 
 /**
  * FunkyJFunctional enables Java functional programming using method local class
@@ -119,7 +122,19 @@ public abstract class FunkyFestAssert {
     public static <T, U extends Cond<T>> Condition<T> withCond(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassCondition<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
     }
-
+    
+    public static <T, U extends Cond<T>> Condition<Iterable<T>> forAll(Class<U> applyingClass) {
+        return new IterableAllMatchingCondition<T>(new ClassCondition<T, U>(classExecutorWithInput(applyingClass)));
+    }
+    
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public static <T, U extends Cond<T>> Condition<List<?>> forAllInList(Class<U> applyingClass) {
+        return (Condition) forAll(applyingClass);
+    }
+    
+    public static <T, U extends Cond<T>> Condition<Iterable<T>> conditionForAll(Class<U> applyingClass, Object... constructorParameters) {
+        return new IterableAllMatchingCondition<T>(new ClassCondition<T, U>(classExecutorWithInput(applyingClass, constructorParameters)));
+    }
 
     /**
      * The constructor is private to make sure this class won't be instantiated.

@@ -20,8 +20,10 @@ import static java.util.Arrays.*;
 import static org.fest.assertions.Assertions.*;
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
 import java.util.List;
 
+import org.fest.assertions.Condition;
 import org.junit.Test;
 
 /**
@@ -86,6 +88,25 @@ public class CondTest{
         }
         fail();
     }
+    
+    @Test
+    public void allElementsSatisfyCondition() {
+        // @off
+        class Adult extends Cond<Integer> {{ r = t > 18; }}
+        // @on
+        assertThat(Arrays.asList(19, 21, 69)).satisfies(forAllInList(Adult.class));
+    }
+    
+    @Test
+    public void oneElementDoesNotSatisfyCondition() {
+        // @off
+        class Adult extends Cond<Integer> {{ r = t > 18; }}
+        // @on
+        assertThat(Arrays.asList(17, 21, 69)).satisfies(forAllInList(Adult.class));
+    }
+    
+    
+    
     
     
 
