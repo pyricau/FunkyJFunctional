@@ -15,7 +15,7 @@
  */
 package info.piwai.funkyjfunctional.festassert;
 
-import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.*;
+import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.withCond;
 import static java.util.Arrays.*;
 import static org.fest.assertions.Assertions.*;
 import static org.junit.Assert.*;
@@ -67,7 +67,7 @@ public class CondTest{
             assertTrue(message.contains("<AlwaysFalse>"));
             return;
         }
-        fail();
+        fail("Assertion should have throw an AssertionError");
     }
     
     @Test
@@ -84,9 +84,7 @@ public class CondTest{
             assertTrue(message.contains("<I'm always false!>"));
             return;
         }
-        fail();
+        fail("Assertion should have throw an AssertionError");
     }
-    
-    
 
 }
