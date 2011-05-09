@@ -25,7 +25,8 @@
 		<module>funkyjfunctional-guava</module>
 		<module>funkyjfunctional-swing</module>
 		<module>funkyjfunctional-wicket</module>
-	</modules>
+        <module>funkyjfunctional-fest-assert</module>
+    </modules>
 
 	<dependencyManagement>
 		<dependencies>
