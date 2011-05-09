@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>funkyjfunctional-parent</artifactId>
         <groupId>info.piwai.funkyjfunctional</groupId>
         <version>0.4-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>info.piwai.funkyjfunctional</groupId>
-	<artifactId>funkyjfunctional-guava</artifactId>
+    <groupId>info.piwai.funkyjfunctional</groupId>
+    <artifactId>funkyjfunctional-guava</artifactId>
 
-	<name>FunkyJFunctional Guava</name>
-	<description>Brings some functional Funkyness to Java. This project contains the Guava funky functions.</description>
-	<url>https://github.com/pyricau/FunkyJFunctional</url>
+    <name>FunkyJFunctional Guava</name>
+    <description>This project contains the Guava funky functions.</description>
 
-	<dependencies>
-		<dependency>
-			<groupId>info.piwai.funkyjfunctional</groupId>
-			<artifactId>funkyjfunctional-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>r09</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-		</dependency>
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>info.piwai.funkyjfunctional</groupId>
+            <artifactId>funkyjfunctional-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>r09</version>
+        </dependency>
+    </dependencies>
+
 </project>
