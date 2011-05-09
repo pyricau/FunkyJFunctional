@@ -42,12 +42,12 @@ public class CondTest{
 
     @Test
     public void conditionOnList() {
-        List<Integer> eventList = asList(16, 21);
+        List<Integer> evenList = asList(16, 21);
         List<Integer> oddList = asList(16, 21, 38);
         // @off
         class EvenSize extends Cond<List<?>> {{ r = t != null && t.size() %2 == 0; }};
         // @on
-        assertThat(eventList).satisfies(withCond(EvenSize.class)).is(withCond(EvenSize.class));
+        assertThat(evenList).satisfies(withCond(EvenSize.class)).is(withCond(EvenSize.class));
         assertThat(oddList).doesNotSatisfy(withCond(EvenSize.class)).isNot(withCond(EvenSize.class));
 
     }
