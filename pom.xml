@@ -54,7 +54,7 @@
             <url>http://injectinto.blogspot.com/</url>
             <organization>Sfeir</organization>
             <organizationUrl>http://www.sfeir.com/</organizationUrl>
-        </developer>        
+        </developer>
     </developers>
 
     <properties>
@@ -134,6 +134,31 @@
                     <source>1.6</source>
                     <target>1.6</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <!-- Checks for license headers. Use "mvn license:format" to update files. -->
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.9.0</version>
+                <configuration>
+                    <header>src/etc/header.txt</header>
+                    <excludes>
+                        <exclude>releases/**</exclude>
+                        <exclude>snapshots/**</exclude>
+                        <exclude>README.md</exclude>
+                        <exclude>.gitignore</exclude>
+                        <exclude>LICENSE.txt</exclude>
+                    </excludes>
+                    <strictCheck>true</strictCheck>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
