@@ -8,35 +8,35 @@ FunkyJFunctional provides modules that integrate with many different frameworks.
 
 Short syntax examples:
 
-* A funky Java [Runnable](http://download.oracle.com/javase/6/docs/api/java/lang/Runnable.html): 
+* Java: a funky [Runnable](http://download.oracle.com/javase/6/docs/api/java/lang/Runnable.html): 
 
 ``` java
 class Hello {{ System.out.println("Hello Funky World"); }}
 executorService.execute(withRun(Increment.class));
 ```
 
-* A funky [Guava](http://code.google.com/p/guava-libraries/) [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html) (Guava is the former google collections):
+* [Guava](http://code.google.com/p/guava-libraries/): a funky [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html) (Guava is the former google collections):
 
 ``` java
 class Minor extends Pred<Integer> {{ r = t < 18; }}
 minors = filter(ages, withPred(Minor.class)
 ```
 
-* A funky [FEST-Assert](http://docs.codehaus.org/display/FEST/Fluent+Assertions+Module) [Condition](http://docs.codehaus.org/display/FEST/Extending+FEST-Assert+with+Custom+Conditions):
+* [FEST-Assert](http://docs.codehaus.org/display/FEST/Fluent+Assertions+Module): a funky [Condition](http://docs.codehaus.org/display/FEST/Extending+FEST-Assert+with+Custom+Conditions):
 
 ``` java
 class Minor extends Cond<User> {{ r = t.getAge() < 18; }}
 assertThat(userList).noneSatisfies(Minor.class);
 ```
 
-* A funky Wicket [AbstractReadOnlyModel](http://wicket.apache.org/apidocs/1.4/org/apache/wicket/model/AbstractReadOnlyModel.html): 
+* [Wicket](http://wicket.apache.org/): a funky  [AbstractReadOnlyModel](http://wicket.apache.org/apidocs/1.4/org/apache/wicket/model/AbstractReadOnlyModel.html): 
 
 ``` java
 class FortyTwo extends ARON<String> {{ r = "42"; }}
 AbstractReadOnlyModel<String> aron = withARON(FortyTwo.class);
 ```
 
-* A funky Swing [ActionListener](http://download.oracle.com/javase/6/docs/api/java/awt/event/ActionListener.html): 
+* [Swing](http://java.sun.com/javase/technologies/desktop/): a funky  [ActionListener](http://download.oracle.com/javase/6/docs/api/java/awt/event/ActionListener.html): 
 
 ``` java
 class BtonClick extends ActL{{ doSomething(e); }}
