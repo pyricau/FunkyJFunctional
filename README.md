@@ -97,9 +97,10 @@ Here is a list:
 * funkyjfunctional-wicket for Funky Wicket
 * funkyjfunctional-java for Funky Java
 * funkyjfunctional-swing for Funky Swing
+* funkyjfunctional-fest-assert for Funky FEST-Assert
 * funkyjfunctional-core FunkyJFunctional's core, if you want to create your own Funky implementation.
 
-The following configuration examples are for funkyjfunctional-guava. You should just switch the artifactId to use other implementations.
+The following configuration examples are for funkyjfunctional-guava. You should just switch the *artifactId* to use other implementations.
 
 ## Releases, for the serious funky guys
 
