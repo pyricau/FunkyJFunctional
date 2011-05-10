@@ -5,7 +5,7 @@
     <parent>
         <groupId>info.piwai.funkyjfunctional</groupId>
         <artifactId>funkyjfunctional-parent</artifactId>
-        <version>0.4</version>
+        <version>0.5-SNAPSHOT</version>
     </parent>
 
     <groupId>info.piwai.funkyjfunctional</groupId>
