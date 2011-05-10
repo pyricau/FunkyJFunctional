@@ -146,6 +146,11 @@ As well as the following dependency:
 </dependency>
 ```
 
+#License
+
+* [Apache License, v2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
+
+
 # Other funky ways 
 
 * [jcurry](http://code.google.com/p/jcurry/) uses the awesome [projectlombok](http://projectlombok.org/) funkyness power.
