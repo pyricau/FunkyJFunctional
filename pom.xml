@@ -136,7 +136,8 @@
                 </configuration>
             </plugin>
             <plugin>
-                <!-- Checks for license headers. Use "mvn license:format" to update files. -->
+                <!-- Checks for license headers. Use "mvn license:format" 
+                    to update files. -->
                 <groupId>com.mycila.maven-license-plugin</groupId>
                 <artifactId>maven-license-plugin</artifactId>
                 <version>1.9.0</version>
