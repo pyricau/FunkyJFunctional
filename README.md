@@ -12,7 +12,7 @@ Short syntax examples:
 
 ``` java
 class Hello {{ System.out.println("Hello Funky World"); }}
-executorService.execute(withRun(Increment.class));
+executorService.execute(withRun(Hello.class));
 ```
 
 * [Guava](http://code.google.com/p/guava-libraries/), with a funky [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html) (Guava is the former google collections)
