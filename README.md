@@ -4,7 +4,7 @@ There is no such thing as functional programming in Java, but sometimes we emula
 
 FunkyJFunctional provides a **new** way to do **functional** programming in Java, using some Java syntactic sugar: **method local class** declarations and **init blocks**.
 
-FunkyJFunctional provides modules that integrate with many different frameworks. If not already available, feel free to implement a new funky module for the framework you love!
+FunkyJFunctional **integrates** with many different **frameworks**. If not already available, feel free to implement a new funky module for the framework you love!
 
 Short syntax examples:
 
