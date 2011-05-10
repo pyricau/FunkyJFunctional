@@ -17,6 +17,7 @@ package info.piwai.funkyjfunctional.java;
 
 import static info.piwai.funkyjfunctional.Funky.classExecutor;
 import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
+import info.piwai.funkyjfunctional.Funky;
 import info.piwai.funkyjfunctional.java.Call.ClassCallable;
 import info.piwai.funkyjfunctional.java.Comp.ClassComparator;
 
@@ -27,112 +28,15 @@ import java.util.concurrent.Callable;
  * FunkyJFunctional enables Java functional programming using method local class
  * declarations and init blocks.
  * 
- * <p>
- * FunkyJFunctional integrates with <a
- * href="http://code.google.com/p/guava-libraries/">Guava</a> (the former google
- * collections), but also provides shortcuts for some standard Java interfaces
- * such as {@link Runnable} or {@link Callable}.
+ * Please see the {@link Funky} javadoc to learn how to use FunkyJFunctional.
  * 
  * <p>
- * The {@link FunkyJava} class is the main entry point to FunkyJFunctional.
- * 
- * <h1>Contents</h1>
- * 
- * <ul>
- * <li><a href="#1">1. Let's learn the Funky way</a>
- * <li><a href="#2">2. List of the Funky ways</a>
- * <li><a href="#3">3. Implementing your own Funky functions</a>
- * <li><a href="#4">4. Some more info</a>
- * </ul>
- * 
- * <h2 id="1">1. Let's learn the Funky way</h2>
+ * This module is dedicated to FunkyJFunctional integration with the Java API.
  * 
  * <p>
- * Using FunkyJFunctional always involves two steps:
- * 
- * <ul>
- * <li>function declaration, as a method local class,
- * <li>function instantiation, using the {@link FunkyJava} class.
- * </ul>
- * 
- * <h3>Function declaration</h3>
- * 
- * <p>
- * Let's declare an Adult predicate, that returns true if the given integer
- * parameter is greater than 18.
- * 
- * <pre>
- * // t is the input parameter, and r is the returned value.
- * class Adult extends Pred&lt;Integer&gt; {{ r = t &gt; 18; }}
- * </pre>
- * 
- * <h3>Function instantiation</h3>
- * 
- * <p>
- * To use this predicate, we need to instantiate it as a Guava {@link Predicate}
- * that we can use in our code.
- * 
- * <pre>
- * // Let's import Funky statically, as well as Guava's Iterables class, so that the code looks clearer
- * import static info.piwai.funkyjfunctional.Funky.*;
- * import static com.google.common.collect.Iterables.*;
- * 
- * // Nothing too complex here
- * List&lt;Integer&gt; values = Arrays.asList(16, 21);
- * 
- * // To use Guava's Iterables.filter() method, the withPred() method creates a Predicate from our Adult class.
- * Iterable&lt;Integer&gt; adults = filter(values, withPred(Adult.class));
- * 
- * // the 'adults' Iterable contains only one element: '21'.
- * assertEquals(Arrays.asList(21), adults);
- * 
- * // The magic all happened in the withPred method, which created a Predicate:
- * Predicate&lt;Integer&gt; adultPredicate = withPred(Adult.class);
- * </pre>
- * 
- * <h2 id="2">2. List of the Funky ways</h2>
- * <p>
- * To know more about what you can do with FunkyJFunctional, have a look at the
- * various with*() methods of the {@link FunkyJava} class.
- * 
- * <p>
- * Here is the list of the various funky ways currently provided by
- * FunkyJFunctional:
- * 
- * <ul>
- * <li>For funky {@link Function}s, see {@link Func} and the
- * {@link #withFunc(Class)} method.
- * <li>For funky {@link Predicate}s, see {@link Pred} and the
- * {@link #withPred(Class)} method.
- * <li>For funky {@link Comparator}s, see {@link Comp} and the
- * {@link #withComp(Class)} method.
- * <li>For funky {@link Runnable}s, see the {@link #withRun(Class)} method.
- * <li>For funky {@link Callable}s, see {@link Call} and the
- * {@link #withCall(Class)} method.
- * <li>For funky {@link Supplier}s, see {@link Supp} and the
- * {@link #withSupp(Class)} method.
- * <li>For funky {@link Constraint}s, see {@link Const} and the
- * {@link #withConst(Class)} method.
- * </ul>
- * <h2 id="3">3. Implementing your own Funky functions</h2>
- * 
- * <p>
- * You may create your own Funky implementations, using the
- * {@link #classExecutor(Class, Object...)} method, or the
- * {@link #classExecutorWithInput(Class, Object...)} and
- * {@link #getThreadLocalParameter()}) methods if you need input parameters.
- * 
- * <h2 id="4">4. Some more info</h2>
- * <ul>
- * <li>FunkyJFunctional was inspired by a <a href=
- * "https://groups.google.com/forum/#!msg/google-guice/Eu-cJ1N2Q_A/jtiRfGlg3G4J"
- * >message</a> on the Google Guice forum.
- * <li>FunkyJFunctional has 100% code coverage (in fact it's actually 98.3% but
- * the missing 3.1% are unreachable code).
- * </ul>
+ * Code coverage of this module: 87.7%
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
- * @author Florent Rami&egrave;re
  */
 public abstract class FunkyJava {
 

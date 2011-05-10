@@ -19,7 +19,6 @@ import info.piwai.funkyjfunctional.ClassExecutor;
 
 import org.apache.wicket.model.AbstractReadOnlyModel;
 
-
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */

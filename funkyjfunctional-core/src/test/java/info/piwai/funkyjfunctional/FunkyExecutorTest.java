@@ -21,6 +21,9 @@ import static org.junit.Assert.assertNotSame;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ */
 public class FunkyExecutorTest {
 
     private static final Object[] NULL_PARAM_ARRAY = new Object[] { null };

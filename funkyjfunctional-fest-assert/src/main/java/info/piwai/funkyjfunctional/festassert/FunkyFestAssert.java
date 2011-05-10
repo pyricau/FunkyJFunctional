@@ -16,6 +16,7 @@
 package info.piwai.funkyjfunctional.festassert;
 
 import static info.piwai.funkyjfunctional.Funky.*;
+import info.piwai.funkyjfunctional.Funky;
 import info.piwai.funkyjfunctional.festassert.Cond.ClassCondition;
 
 import org.fest.assertions.Condition;
@@ -24,12 +25,18 @@ import org.fest.assertions.Condition;
  * FunkyJFunctional enables Java functional programming using method local class
  * declarations and init blocks.
  * 
+ * Please see the {@link Funky} javadoc to learn how to use FunkyJFunctional.
+ * 
  * <p>
- * FunkyJFunctional integrates with <a
- * href="http://fest.easytesting.org/">FEST-Assert</a> (The fluent assertions
+ * This module is dedicated to FunkyJFunctional integration with <a
+ * href="http://fest.easytesting.org/">FEST-Assert</a> (the fluent assertions
  * api).
  * 
+ * <p>
+ * Code coverage of this module: 76.1%
+ * 
  * @author Nicolas Francois (nicolas.franc at gmail.com)
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class FunkyFestAssert {
 

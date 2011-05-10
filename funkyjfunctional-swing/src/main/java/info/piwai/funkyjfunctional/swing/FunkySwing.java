@@ -16,10 +16,25 @@
 package info.piwai.funkyjfunctional.swing;
 
 import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
+import info.piwai.funkyjfunctional.Funky;
 import info.piwai.funkyjfunctional.swing.ActL.ClassActionListener;
 
 import java.awt.event.ActionListener;
 
+/**
+ * FunkyJFunctional enables Java functional programming using method local class
+ * declarations and init blocks.
+ * 
+ * Please see the {@link Funky} javadoc to learn how to use FunkyJFunctional.
+ * 
+ * <p>
+ * This module is dedicated to FunkyJFunctional integration with the Java Swing API.
+ * 
+ * <p>
+ * Code coverage of this module: 85.7%
+ * 
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ */
 public abstract class FunkySwing {
 
     public static <U extends ActL> ActionListener withActL(Class<U> applyingClass) {

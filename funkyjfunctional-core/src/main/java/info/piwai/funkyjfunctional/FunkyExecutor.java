@@ -48,7 +48,7 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
     private Constructor<T> extractConstructor(Class<T> applyingClass) {
         checkNotNull(applyingClass);
         checkNotAbstract(applyingClass);
-        
+
         Constructor<T>[] declaredConstructors = (Constructor<T>[]) applyingClass.getDeclaredConstructors();
 
         if (declaredConstructors.length > 1) {
@@ -66,9 +66,9 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
         }
         return constructor;
     }
-    
+
     private void checkNotNull(Class<T> applyingClass) {
-        if (applyingClass==null) {
+        if (applyingClass == null) {
             throw new IllegalArgumentException("The applyingClass parameter should not be null");
         }
     }

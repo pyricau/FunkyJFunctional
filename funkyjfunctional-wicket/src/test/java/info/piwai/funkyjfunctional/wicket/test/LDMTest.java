@@ -22,7 +22,9 @@ import info.piwai.funkyjfunctional.wicket.LDM;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.junit.Test;
 
-
+/**
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ */
 public class LDMTest {
 	
     @Test

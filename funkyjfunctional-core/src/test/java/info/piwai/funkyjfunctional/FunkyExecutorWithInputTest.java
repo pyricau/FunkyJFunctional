@@ -26,6 +26,9 @@ import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+/**
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ */
 public class FunkyExecutorWithInputTest {
     
     private ClassExecutor<Object> executor;

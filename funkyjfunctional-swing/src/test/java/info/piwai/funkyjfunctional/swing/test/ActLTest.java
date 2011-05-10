@@ -28,7 +28,9 @@ import info.piwai.funkyjfunctional.swing.ActL;
 import org.junit.Before;
 import org.junit.Test;
 
-
+/**
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ */
 public class ActLTest {
 	
     static int counter;

@@ -15,6 +15,9 @@
  */
 package info.piwai.funkyjfunctional;
 
+/**
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ */
 public interface ClassExecutor<T> {
     T createExecutedInstance();
     

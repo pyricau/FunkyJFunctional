@@ -22,52 +22,55 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+/**
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ */
 public class IterableAssertTest {
 
     @Test
     public void eachSatisfies() {
-       // @off
+        // @off
        class Adult extends Cond<Integer> {{ r = t >= 18; }}
        // @on
 
-       assertThat(Arrays.asList(19, 21, 69)).eachSatisfies(Adult.class);
+        assertThat(Arrays.asList(19, 21, 69)).eachSatisfies(Adult.class);
     }
-    
+
     @Test
     public void eachSatisfiesThrowsWhenOneDoesNot() {
-       // @off
+        // @off
        class Adult extends Cond<Integer> {{ r = t >= 18; }}
        // @on
 
-       try {
-           assertThat(Arrays.asList(17, 21, 69)).eachSatisfies(Adult.class);
-       } catch(AssertionError e) {
-           return;
-       }
-       fail("Assertion should have thrown an AssertionError");
+        try {
+            assertThat(Arrays.asList(17, 21, 69)).eachSatisfies(Adult.class);
+        } catch (AssertionError e) {
+            return;
+        }
+        fail("Assertion should have thrown an AssertionError");
     }
-    
+
     @Test
     public void noneSatisfies() {
-       // @off
+        // @off
        class Adult extends Cond<Integer> {{ r = t >= 18; }}
        // @on
 
-       assertThat(Arrays.asList(14, -2, 17)).noneSatisfies(Adult.class);
+        assertThat(Arrays.asList(14, -2, 17)).noneSatisfies(Adult.class);
     }
-    
+
     @Test
     public void noneSatisfiesThrowsWhenOneDoes() {
-       // @off
+        // @off
        class Adult extends Cond<Integer> {{ r = t >= 18; }}
        // @on
 
-       try {
-           assertThat(Arrays.asList(14, -2, 18)).noneSatisfies(Adult.class);
-       } catch(AssertionError e) {
-           return;
-       }
-       fail("Assertion should have thrown an AssertionError");
+        try {
+            assertThat(Arrays.asList(14, -2, 18)).noneSatisfies(Adult.class);
+        } catch (AssertionError e) {
+            return;
+        }
+        fail("Assertion should have thrown an AssertionError");
     }
 
 }

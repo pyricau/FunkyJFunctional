@@ -22,7 +22,9 @@ import info.piwai.funkyjfunctional.wicket.ARON;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.junit.Test;
 
-
+/**
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ */
 public class ARONTest {
 	
     @Test

@@ -15,18 +15,14 @@
  */
 package info.piwai.funkyjfunctional;
 
-import java.util.concurrent.Callable;
-
-
 /**
  * FunkyJFunctional enables Java functional programming using method local class
  * declarations and init blocks.
  * 
  * <p>
- * FunkyJFunctional integrates with <a
- * href="http://code.google.com/p/guava-libraries/">Guava</a> (the former google
- * collections), but also provides shortcuts for some standard Java interfaces
- * such as {@link Runnable} or {@link Callable}.
+ * FunkyJFunctional integrates with many different frameworks. If not already
+ * available, feel free to implement a new funky module for the framework you
+ * love!
  * 
  * <p>
  * The {@link Funky} class is the main entry point to FunkyJFunctional.
@@ -53,19 +49,20 @@ import java.util.concurrent.Callable;
  * <h3>Function declaration</h3>
  * 
  * <p>
- * Let's declare an Adult predicate, that returns true if the given integer
- * parameter is greater than 18.
+ * Let's declare a Minor predicate, that returns true if the given integer
+ * parameter is lower than 18.
  * 
  * <pre>
  * // t is the input parameter, and r is the returned value.
- * class Adult extends Pred&lt;Integer&gt; {{ r = t &gt; 18; }}
+ * class Minor extends Pred&lt;Integer&gt; {{ r = t &lt; 18; }}
  * </pre>
  * 
  * <h3>Function instantiation</h3>
  * 
  * <p>
- * To use this predicate, we need to instantiate it as a Guava {@link Predicate}
- * that we can use in our code.
+ * To use this predicate, we need to instantiate it as a Guava <a href=
+ * "http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html"
+ * >Predicate</a> that we can use in our code.
  * 
  * <pre>
  * // Let's import Funky statically, as well as Guava's Iterables class, so that the code looks clearer
@@ -76,25 +73,29 @@ import java.util.concurrent.Callable;
  * List&lt;Integer&gt; values = Arrays.asList(16, 21);
  * 
  * // To use Guava's Iterables.filter() method, the withPred() method creates a Predicate from our Adult class.
- * Iterable&lt;Integer&gt; adults = filter(values, withPred(Adult.class));
+ * Iterable&lt;Integer&gt; minors = filter(values, withPred(Minor.class));
  * 
- * // the 'adults' Iterable contains only one element: '21'.
- * assertEquals(Arrays.asList(21), adults);
+ * // the 'minors' Iterable contains only one element: '16'.
+ * assertEquals(Arrays.asList(16), minors);
  * 
  * // The magic all happened in the withPred method, which created a Predicate:
- * Predicate&lt;Integer&gt; adultPredicate = withPred(Adult.class);
+ * Predicate&lt;Integer&gt; minorPredicate = withPred(Adult.class);
  * </pre>
  * 
  * <h2 id="2">2. List of the Funky ways</h2>
  * <p>
  * To know more about what you can do with FunkyJFunctional, have a look at the
- * various with*() methods of the {@link Funky} class.
+ * various Maven modules available. Currently, we created the following modules
+ * :
+ * <ul>
+ * <li>Guava: <b>funkyjfunctional-guava</b>
+ * <li>Wicket: <b>funkyjfunctional-wicket</b>
+ * <li>Java: <b>funkyjfunctional-java</b>
+ * <li>Swing: <b>funkyjfunctional-swing</b>
+ * <li>FEST-Assert: <b>funkyjfunctional-fest-assert</b>
+ * <li>Contribute to FJF and add a new framework here!
+ * </ul>
  * 
- * <p>
- * Here is the list of the various funky ways currently provided by
- * FunkyJFunctional:
- * 
- * TODO
  * 
  * <h2 id="3">3. Implementing your own Funky functions</h2>
  * 
@@ -104,13 +105,20 @@ import java.util.concurrent.Callable;
  * {@link #classExecutorWithInput(Class, Object...)} and
  * {@link #getThreadLocalParameter()}) methods if you need input parameters.
  * 
+ * <p>
+ * To learn more about how to create custom Funky functions, please have a look
+ * at the source code of one of the FJF Maven module available.
+ * 
  * <h2 id="4">4. Some more info</h2>
  * <ul>
  * <li>FunkyJFunctional was inspired by a <a href=
  * "https://groups.google.com/forum/#!msg/google-guice/Eu-cJ1N2Q_A/jtiRfGlg3G4J"
  * >message</a> on the Google Guice forum.
- * <li>FunkyJFunctional has 100% code coverage (in fact it's actually 98.3% but
- * the missing 3.1% are unreachable code).
+ * <li>Code coverage of the core module: 82.8%
+ * <li>FunkyJFunctional has a good code coverage, and we're trying to reach 100%
+ * (in fact, almost 100% since there is unreachable code such as the private
+ * constructor of this class).
+ * 
  * </ul>
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)

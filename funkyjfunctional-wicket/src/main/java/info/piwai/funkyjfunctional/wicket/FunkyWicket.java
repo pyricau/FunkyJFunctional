@@ -16,6 +16,7 @@
 package info.piwai.funkyjfunctional.wicket;
 
 import static info.piwai.funkyjfunctional.Funky.classExecutor;
+import info.piwai.funkyjfunctional.Funky;
 import info.piwai.funkyjfunctional.wicket.ARON.ClassAbstractReadOnlyModel;
 import info.piwai.funkyjfunctional.wicket.LDM.ClassLoadableDetachableModel;
 
@@ -23,6 +24,18 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 
 /**
+ * FunkyJFunctional enables Java functional programming using method local class
+ * declarations and init blocks.
+ * 
+ * Please see the {@link Funky} javadoc to learn how to use FunkyJFunctional.
+ * 
+ * <p>
+ * This module is dedicated to FunkyJFunctional integration with <a
+ * href="http://wicket.apache.org/">Wicket</a>.
+ * 
+ * <p>
+ * Code coverage of this module: 80%
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class FunkyWicket {
