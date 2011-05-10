@@ -2,9 +2,9 @@
 
 There is no such thing as functional programming in Java, but sometimes we emulate it using anonymous classes.
 
-FunkyJFunctional provides a new way to do functional programming in Java, using some Java syntaxic sugar: method local class declarations and init blocks.
+FunkyJFunctional provides a **new** way to do **functional** programming in Java, using some Java syntactic sugar: **method local class** declarations and **init blocks**.
 
-FunkyJFunctional also provides a [Guava](http://code.google.com/p/guava-libraries/) module (Guava is the former google collections).
+FunkyJFunctional provides modules that integrate with many different frameworks. If not already available, feel free to implement a new funky module for the framework you love!
 
 Short syntax examples:
 
@@ -15,7 +15,7 @@ class Hello {{ System.out.println("Hello Funky World"); }}
 executorService.execute(withRun(Increment.class));
 ```
 
-* A funky Guava [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html):
+* A funky [Guava](http://code.google.com/p/guava-libraries/) [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html) (Guava is the former google collections):
 
 ``` java
 class Minor extends Pred<Integer> {{ r = t < 18; }}
