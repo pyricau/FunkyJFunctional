@@ -8,7 +8,11 @@ FunkyJFunctional also provides a [Guava](http://code.google.com/p/guava-librarie
 
 Short syntax examples:
 
-* A funky Java [Runnable](http://download.oracle.com/javase/6/docs/api/java/lang/Runnable.html): ```class Hello {{ System.out.println("Hello Funky World"); }}```
+* A funky Java [Runnable](http://download.oracle.com/javase/6/docs/api/java/lang/Runnable.html): 
+```Java
+class Hello {{ System.out.println("Hello Funky World"); }}
+
+```
 
 * A funky Swing [ActionListener](http://download.oracle.com/javase/6/docs/api/java/awt/event/ActionListener.html): ```class BtonClick extends ActL{{ buttonClicked(e); }}```
 
