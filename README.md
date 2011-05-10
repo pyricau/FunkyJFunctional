@@ -100,9 +100,9 @@ Here is a list:
 * funkyjfunctional-fest-assert for Funky FEST-Assert
 * funkyjfunctional-core FunkyJFunctional's core, if you want to create your own Funky implementation.
 
-The following configuration examples are for funkyjfunctional-guava. You should just switch the *artifactId* to use other implementations.
+The following configuration examples are for **funkyjfunctional-guava**. You should just switch the **artifactId** to use other modules.
 
-## Releases, for the serious funky guys
+## FJF-Guava releases, for the serious funky guys
 
 You will need the following repository in your Maven project:
 
@@ -125,7 +125,7 @@ As well as the following dependency:
 </dependency>
 ```
 	
-## Snapshots, for Chuck Norris and his funky friends
+## FJF-Guava snapshots, for Chuck Norris and his funky friends
 
 You will need the following repository in your Maven project:
 
