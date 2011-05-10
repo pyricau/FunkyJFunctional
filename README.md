@@ -14,8 +14,7 @@ class Hello {{ System.out.println("Hello Funky World"); }}
 ```
 
 ``` java
-public class Test {
-
+class Test {
 }
 ```
 
