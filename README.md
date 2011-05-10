@@ -13,7 +13,7 @@ Short syntax examples:
 class Hello {{ System.out.println("Hello Funky World"); }}
 ```
 
-``` ruby
+``` java
 require 'redcarpet'
 markdown = Redcarpet.new("Hello World!")
 puts markdown.to_html
