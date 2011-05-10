@@ -9,14 +9,8 @@ FunkyJFunctional also provides a [Guava](http://code.google.com/p/guava-librarie
 Short syntax examples:
 
 * A funky Java [Runnable](http://download.oracle.com/javase/6/docs/api/java/lang/Runnable.html): 
-``` Java
-class Hello {{ System.out.println("Hello Funky World"); }}
-```
-
 ``` java
-require 'redcarpet'
-markdown = Redcarpet.new("Hello World!")
-puts markdown.to_html
+class Hello {{ System.out.println("Hello Funky World"); }}
 ```
 
 
