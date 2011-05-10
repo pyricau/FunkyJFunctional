@@ -65,21 +65,33 @@ public class FunkyIterableAssert<T> extends IteratorAssert {
         failIfCustomMessageIsSet();
         throw failure(notMatching + " element(s) in the iterable not matching the provided condition:\n" + notMatchingDescription.toString());
     }
-
-    public <U extends Cond<T>> FunkyIterableAssert<T> eachSatisfies(Class<U> applyingClass) {
-        eachSatisfies(withCond(applyingClass));
-        return this;
-    }
-
-    public <U extends Cond<T>> FunkyIterableAssert<T> noneSatisfies(Class<U> applyingClass) {
-        noneSatisfies(withCond(applyingClass));
-        return this;
-    }
-
-
+    
     public FunkyIterableAssert<T> noneSatisfies(Condition<T> condition) {
         return eachSatisfies(not(condition));
     }
-
+    
+    public <U extends Cond<T>> FunkyIterableAssert<T> eachSatisfies(Class<U> applyingClass) {
+        return eachSatisfies(withCond(applyingClass));
+    }
+    
+    public <U extends Cond<T>> FunkyIterableAssert<T> noneSatisfies(Class<U> applyingClass) {
+        return noneSatisfies(withCond(applyingClass));
+    }
+    
+    public FunkyIterableAssert<T> eachIs(Condition<T> condition) {
+        return eachSatisfies(condition);
+    }
+    
+    public <U extends Cond<T>> FunkyIterableAssert<T> eachIs(Class<U> applyingClass) {
+        return eachSatisfies(applyingClass);
+    }
+    
+    public <U extends Cond<T>> FunkyIterableAssert<T> noneIs(Class<U> applyingClass) {
+        return noneSatisfies(applyingClass);
+    }
+    
+    public FunkyIterableAssert<T> noneIs(Condition<T> condition) {
+        return noneSatisfies(condition);
+    }
 
 }
