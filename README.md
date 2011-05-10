@@ -13,6 +13,11 @@ Short syntax examples:
 class Hello {{ System.out.println("Hello Funky World"); }}
 ```
 
+``` java
+public class Test {
+
+}
+```
 
 * A funky Swing [ActionListener](http://download.oracle.com/javase/6/docs/api/java/awt/event/ActionListener.html): ```class BtonClick extends ActL{{ buttonClicked(e); }}```
 
