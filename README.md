@@ -12,23 +12,27 @@ Short syntax examples:
 
 ``` java
 class Hello {{ System.out.println("Hello Funky World"); }}
-```
-
-* A funky Swing [ActionListener](http://download.oracle.com/javase/6/docs/api/java/awt/event/ActionListener.html): 
-
-``` java
-class BtonClick extends ActL{{ buttonClicked(e); }}
+executorService.execute(withRun(Increment.class));
 ```
 
 * A funky Guava [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html):
 
 ``` java
-class Adult extends Pred<Integer> {{ r = t > 18; }}
+class Minor extends Pred<Integer> {{ r = t < 18; }}
+minors = filter(ages, withPred(Minor.class)
 ```
 
 * A funky Wicket [AbstractReadOnlyModel](http://wicket.apache.org/apidocs/1.4/org/apache/wicket/model/AbstractReadOnlyModel.html): 
 ``` java
 class FortyTwo extends ARON<String> {{ r = "42"; }}
+AbstractReadOnlyModel<String> aron = withARON(FortyTwo.class);
+```
+
+* A funky Swing [ActionListener](http://download.oracle.com/javase/6/docs/api/java/awt/event/ActionListener.html): 
+
+``` java
+class BtonClick extends ActL{{ doSomething(e); }}
+jButton.addActionListener(withActL(BtonClick.class));
 ```
 
 Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html)!
@@ -41,24 +45,25 @@ With Guava:
 
 ``` java
 List<Integer> values = Arrays.asList(16, 21);
-Predicate<Integer> adult = new Predicate<Integer>() {
+Predicate<Integer> minorPredicate = new Predicate<Integer>() {
 	@Override
 	public boolean apply(Integer input) {
-		return input > 18;
+		return input < 18;
 	}
 };
-Iterable<Integer> adults = Iterables.filter(values, adult);
+Iterable<Integer> minors = Iterables.filter(values, minorPredicate);
+System.out.println(minors); // prints [16]
 ```
 	
 With FunkyJFunctional our [predicate](https://github.com/pyricau/FunkyJFunctional/blob/master/funkyjfunctional-guava/src/test/java/info/piwai/funkyjfunctional/guava/test/PredTest.java) is much shorter:
 
 ``` java
 List<Integer> values = Arrays.asList(16, 21);
-class Adult extends Pred<Integer> {{ r = t > 18; }}
-Iterable<Integer> adults = Iterables.filter(values, FunkyGuava.withPred(Adult.class));
-System.out.println(adults); // prints [21]
+class Minor extends Pred<Integer> {{ r = t < 18; }}
+Iterable<Integer> minors = Iterables.filter(values, FunkyGuava.withPred(Adult.class));
+System.out.println(minors); // prints [16]
 ```
-	
+
 With static imports, it's even shorter:
 
 ``` java
@@ -73,7 +78,7 @@ Sounds funky? We think it is ;-).
 We also provide Guava [functions](https://github.com/pyricau/FunkyJFunctional/blob/master/funkyjfunctional-guava/src/test/java/info/piwai/funkyjfunctional/guava/test/FuncTest.java):
 
 ``` java
-List<Integer> values = Arrays.asList(42, 69);
+List<Integer> values = asList(42, 69);
 class Price extends Func<Integer, String> {{ r = t + "$"; }}
 List<String> prices = transform(values, withFunc(Price.class));
 System.out.println(prices); // prints [42$, 69$]
