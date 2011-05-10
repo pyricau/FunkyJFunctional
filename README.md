@@ -14,7 +14,7 @@ class Hello {{ System.out.println("Hello Funky World"); }}
 ```
 
 ``` java
-class Test {}
+class Test {{}}
 ```
 
 * A funky Swing [ActionListener](http://download.oracle.com/javase/6/docs/api/java/awt/event/ActionListener.html): ```class BtonClick extends ActL{{ buttonClicked(e); }}```
