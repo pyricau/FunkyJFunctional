@@ -22,6 +22,13 @@ class Minor extends Pred<Integer> {{ r = t < 18; }}
 minors = filter(ages, withPred(Minor.class)
 ```
 
+* A funky [FEST-Assert](http://docs.codehaus.org/display/FEST/Fluent+Assertions+Module) [Condition](http://docs.codehaus.org/display/FEST/Extending+FEST-Assert+with+Custom+Conditions):
+
+``` java
+class Minor extends Cond<User> {{ r = t.getAge() < 18; }}
+assertThat(userList).noneSatisfies(Minor.class);
+```
+
 * A funky Wicket [AbstractReadOnlyModel](http://wicket.apache.org/apidocs/1.4/org/apache/wicket/model/AbstractReadOnlyModel.html): 
 
 ``` java
@@ -93,12 +100,12 @@ There are several artifacts that you may want to use, depending on your needs.
 
 Here is a list:
 
-* funkyjfunctional-guava for Funky Guava
-* funkyjfunctional-wicket for Funky Wicket
-* funkyjfunctional-java for Funky Java
-* funkyjfunctional-swing for Funky Swing
-* funkyjfunctional-fest-assert for Funky FEST-Assert
-* funkyjfunctional-core FunkyJFunctional's core, if you want to create your own Funky implementation.
+* **funkyjfunctional-guava** for Funky Guava
+* **funkyjfunctional-wicket** for Funky Wicket
+* **funkyjfunctional-java** for Funky Java
+* **funkyjfunctional-swing** for Funky Swing
+* **funkyjfunctional-fest-assert** for Funky FEST-Assert
+* **funkyjfunctional-core** FunkyJFunctional's core, if you want to create your own Funky implementation.
 
 The following configuration examples are for **funkyjfunctional-guava**. You should just switch the **artifactId** to use other modules.
 
