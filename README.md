@@ -19,7 +19,7 @@ executorService.execute(withRun(Increment.class));
 
 ``` java
 class Minor extends Pred<Integer> {{ r = t < 18; }}
-minors = filter(ages, withPred(Minor.class)
+minors = filter(ages, withPred(Minor.class));
 ```
 
 * [FEST-Assert](http://docs.codehaus.org/display/FEST/Fluent+Assertions+Module), with a funky [Condition](http://docs.codehaus.org/display/FEST/Extending+FEST-Assert+with+Custom+Conditions)
