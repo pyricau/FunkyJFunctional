@@ -119,7 +119,7 @@ As well as the following dependency:
 <dependency>
 	<groupId>info.piwai.funkyjfunctional</groupId>
 	<artifactId>funkyjfunctional-guava</artifactId>
-	<version>0.3</version>
+	<version>0.4</version>
 </dependency>
 ```
 	
@@ -142,7 +142,7 @@ As well as the following dependency:
 <dependency>
 	<groupId>info.piwai.funkyjfunctional</groupId>
 	<artifactId>funkyjfunctional-guava</artifactId>
-	<version>0.4-SNAPSHOT</version>
+	<version>0.5-SNAPSHOT</version>
 </dependency>
 ```
 
