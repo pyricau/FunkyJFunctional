@@ -47,7 +47,7 @@ Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau
 
 Any question? Please ask them on the dedicated [Google Group](https://groups.google.com/group/funkyjfunctional).
 
-# Detailed examples
+# Detailed example
 
 With Guava:
 
