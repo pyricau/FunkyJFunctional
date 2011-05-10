@@ -43,7 +43,7 @@ class BtonClick extends ActL {{ doSomething(e); }}
 jButton.addActionListener(withActL(BtonClick.class));
 ```
 
-Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html)!
+Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau.github.com/FunkyJFunctional/javadoc/releases/0.4/index.html?info/piwai/funkyjfunctional/Funky.html)!
 
 Any question? Please ask them on the dedicated [Google Group](https://groups.google.com/group/funkyjfunctional).
 
@@ -83,7 +83,7 @@ Iterable<Integer> minors = filter(values, withPred(Minor.class));
 	
 Sounds funky? We think it is ;-). 
 	
-And... [much more](http://pyricau.github.com/FunkyJFunctional/javadoc/snapshot/info/piwai/funkyjfunctional/Funky.html)!
+And... [much more](http://pyricau.github.com/FunkyJFunctional/javadoc/releases/0.4/index.html?info/piwai/funkyjfunctional/Funky.html)!
     
 # Maven funky artifacts
 
