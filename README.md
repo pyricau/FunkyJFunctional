@@ -13,6 +13,13 @@ Short syntax examples:
 class Hello {{ System.out.println("Hello Funky World"); }}
 ```
 
+``` ruby
+require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+```
+
+
 * A funky Swing [ActionListener](http://download.oracle.com/javase/6/docs/api/java/awt/event/ActionListener.html): ```class BtonClick extends ActL{{ buttonClicked(e); }}```
 
 * A funky Guava [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html): ```class Adult extends Pred<Integer> {{ r = t > 18; }}```
