@@ -39,7 +39,7 @@ AbstractReadOnlyModel<String> aron = withARON(FortyTwo.class);
 * [Swing](http://java.sun.com/javase/technologies/desktop/), with a funky  [ActionListener](http://download.oracle.com/javase/6/docs/api/java/awt/event/ActionListener.html)
 
 ``` java
-class BtonClick extends ActL{{ doSomething(e); }}
+class BtonClick extends ActL {{ doSomething(e); }}
 jButton.addActionListener(withActL(BtonClick.class));
 ```
 
