@@ -23,6 +23,7 @@ minors = filter(ages, withPred(Minor.class)
 ```
 
 * A funky Wicket [AbstractReadOnlyModel](http://wicket.apache.org/apidocs/1.4/org/apache/wicket/model/AbstractReadOnlyModel.html): 
+
 ``` java
 class FortyTwo extends ARON<String> {{ r = "42"; }}
 AbstractReadOnlyModel<String> aron = withARON(FortyTwo.class);
