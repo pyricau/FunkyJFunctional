@@ -15,8 +15,7 @@
  */
 package info.piwai.funkyjfunctional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -157,6 +156,14 @@ public class FunkyExecutorTest {
         // @on
         new FunkyExecutor<Instantiated>(Instantiated.class, new Object());
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void wrongNumberOfParameters() {
+        // @off
+        class Instantiated {}
+        // @on
+        new FunkyExecutor<Instantiated>(Instantiated.class, this, new Object());
+    }
 
     @Test(expected = IllegalArgumentException.class)
     public void nullConstructorParamsArray() {
@@ -183,7 +190,6 @@ public class FunkyExecutorTest {
             public Instantiated() throws Exception {
             }
         }
-
         new FunkyExecutor<Instantiated>(Instantiated.class, NULL_PARAM_ARRAY);
     }
 
@@ -214,37 +220,21 @@ public class FunkyExecutorTest {
     }
     
     @Test
-    public void factoryBuildsValidExecutor() {
+    public void simpleExecutorDoesNotThrow() {
         // @off
         class Instantiated {}
         // @on
-        Funky.classExecutor(Instantiated.class);
+        new FunkyExecutor<Instantiated>(Instantiated.class);
     }
+    
     
     @Test
-    public void factoryBuildsValidExecutorWithInput() {
+    public void getSimpleNameReturnsDeclaringClassSimpleName() {
         // @off
         class Instantiated {}
         // @on
-        Funky.classExecutorWithInput(Instantiated.class);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void nullConstructorParamsArrayFromFactoryExecutor() {
-        // @off
-        class Instantiated {}
-        // @on
-        Object[] nullArray = null;
-        Funky.classExecutor(Instantiated.class, nullArray);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void nullConstructorParamsArrayFromFactoryExecutorWithInput() {
-        // @off
-        class Instantiated {}
-        // @on
-        Object[] nullArray = null;
-        Funky.classExecutorWithInput(Instantiated.class, nullArray);
+        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class);
+        assertEquals("Instantiated", executor.getClassSimpleName());
     }
 
 }

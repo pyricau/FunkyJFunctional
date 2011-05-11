@@ -18,8 +18,6 @@ package info.piwai.funkyjfunctional;
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public interface ClassExecutor<T> {
+public interface ClassExecutor<T> extends HasClassSimpleName<T> {
     T createExecutedInstance();
-    
-    String getClassSimpleName();
 }

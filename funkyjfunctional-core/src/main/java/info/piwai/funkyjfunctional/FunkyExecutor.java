@@ -42,9 +42,6 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
     private final Object[] constructionArguments;
 
     FunkyExecutor(Class<T> applyingClass, Object... constructorArguments) {
-        checkNotNull("applyingClass", applyingClass);
-        checkNotNull("constructorArguments", constructorArguments);
-
         constructor = extractConstructor(applyingClass);
         constructionArguments = extractConstructionArguments(constructor, constructorArguments);
     }
@@ -56,6 +53,7 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
     }
 
     private Constructor<T> extractConstructor(Class<T> applyingClass) {
+        checkNotNull("applyingClass", applyingClass);
         checkNotAbstract(applyingClass);
 
         Constructor<T>[] declaredConstructors = getDeclaredConstructors(applyingClass);
@@ -88,6 +86,8 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
     }
 
     private Object[] extractConstructionArguments(Constructor<T> constructor, Object[] constructorArguments) {
+        checkNotNull("constructorArguments", constructorArguments);
+        
         Class<?>[] parameterTypes = constructor.getParameterTypes();
 
         if (parameterTypes.length == 0) {
@@ -96,20 +96,11 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
             // Check is inner class
             return NULL_PARAM_ARRAY;
         } else {
-            checkNullArgumentArray(constructorArguments, parameterTypes);
-
             checkNumberOfArguments(constructorArguments, parameterTypes);
 
             checkArgumentsType(constructorArguments, parameterTypes);
 
             return constructorArguments;
-        }
-    }
-
-    private void checkNullArgumentArray(Object[] constructorArguments, Class<?>[] parameterTypes) {
-        if (constructorArguments == null) {
-            String neededArguments = Arrays.toString(parameterTypes);
-            throw new IllegalArgumentException("The constructor arguments array should not be null. Please provide the following argument(s): " + neededArguments);
         }
     }
 
@@ -147,13 +138,7 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
                 throw ((RuntimeException) cause);
             }
         } catch (Exception e) {
-            /*
-             * SHOULD NEVER HAPPEN.
-             * 
-             * Due to previously checked constraints, no exception may actually
-             * be caught here.
-             */
-            throw new RuntimeException(e);
+            throw new IllegalStateException("This should never happen. Due to previously checked constraints (see extractConstructor()), no exception may actually be caught here.", e);
         }
     }
 
