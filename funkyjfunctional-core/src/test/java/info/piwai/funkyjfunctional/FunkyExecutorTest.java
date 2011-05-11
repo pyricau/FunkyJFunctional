@@ -141,12 +141,13 @@ public class FunkyExecutorTest {
         assertEquals(1, counter.count);
     }
 
+    @SuppressWarnings("all")
     @Test(expected = IllegalArgumentException.class)
-    public void missingConstructorParameters() {
+    public void nullconstructorArgumentsParameter() {
         // @off
         class Instantiated {}
         // @on
-        new FunkyExecutor<Instantiated>(Instantiated.class);
+        new FunkyExecutor<Instantiated>(Instantiated.class, null);
     }
 
     @Test(expected = IllegalArgumentException.class)

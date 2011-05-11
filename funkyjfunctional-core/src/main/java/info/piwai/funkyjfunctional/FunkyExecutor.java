@@ -35,21 +35,30 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
 
     private static final Object[] NO_PARAMETER_ARRAY = new Object[] {};
 
+    private static final Object[] NULL_PARAM_ARRAY = new Object[] { null };
+
     private final Constructor<T> constructor;
 
     private final Object[] constructionArguments;
 
     FunkyExecutor(Class<T> applyingClass, Object... constructorArguments) {
+        checkNotNull("applyingClass", applyingClass);
+        checkNotNull("constructorArguments", constructorArguments);
+
         constructor = extractConstructor(applyingClass);
         constructionArguments = extractConstructionArguments(constructor, constructorArguments);
     }
 
-    @SuppressWarnings("unchecked")
+    private void checkNotNull(String paramName, Object param) {
+        if (param == null) {
+            throw new IllegalArgumentException("The " + paramName + " parameter should not be null");
+        }
+    }
+
     private Constructor<T> extractConstructor(Class<T> applyingClass) {
-        checkNotNull(applyingClass);
         checkNotAbstract(applyingClass);
 
-        Constructor<T>[] declaredConstructors = (Constructor<T>[]) applyingClass.getDeclaredConstructors();
+        Constructor<T>[] declaredConstructors = getDeclaredConstructors(applyingClass);
 
         if (declaredConstructors.length > 1) {
             throw new IllegalArgumentException("The applyingClass should not have more than one constructor");
@@ -67,16 +76,15 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
         return constructor;
     }
 
-    private void checkNotNull(Class<T> applyingClass) {
-        if (applyingClass == null) {
-            throw new IllegalArgumentException("The applyingClass parameter should not be null");
-        }
-    }
-
     private void checkNotAbstract(Class<T> applyingClass) {
         if (Modifier.isAbstract(applyingClass.getModifiers())) {
             throw new IllegalArgumentException("The applyingClass parameter should not be abstract");
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private Constructor<T>[] getDeclaredConstructors(Class<T> applyingClass) {
+        return (Constructor<T>[]) applyingClass.getDeclaredConstructors();
     }
 
     private Object[] extractConstructionArguments(Constructor<T> constructor, Object[] constructorArguments) {
@@ -84,6 +92,9 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
 
         if (parameterTypes.length == 0) {
             return NO_PARAMETER_ARRAY;
+        } else if (parameterTypes.length == 1 && constructorArguments.length == 0) {
+            // Check is inner class
+            return NULL_PARAM_ARRAY;
         } else {
             checkNullArgumentArray(constructorArguments, parameterTypes);
 

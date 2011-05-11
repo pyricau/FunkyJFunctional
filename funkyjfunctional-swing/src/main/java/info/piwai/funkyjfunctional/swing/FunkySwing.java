@@ -37,10 +37,6 @@ import java.awt.event.ActionListener;
  */
 public abstract class FunkySwing {
 
-    public static <U extends ActL> ActionListener withActL(Class<U> applyingClass) {
-        return new ClassActionListener<U>(classExecutorWithInput(applyingClass));
-    }
-
     public static <U extends ActL> ActionListener withActL(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassActionListener<U>(classExecutorWithInput(applyingClass, constructorParameters));
     }

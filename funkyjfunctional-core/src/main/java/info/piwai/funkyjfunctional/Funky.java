@@ -126,18 +126,8 @@ package info.piwai.funkyjfunctional;
  */
 public abstract class Funky {
 
-    private static final Object[] NULL_PARAM_ARRAY = new Object[] { null };
-
-    public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass) {
-        return classExecutor(applyingClass, NULL_PARAM_ARRAY);
-    }
-
     public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass, Object... constructorParameters) {
         return new FunkyExecutor<T>(applyingClass, constructorParameters);
-    }
-
-    public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass) {
-        return classExecutorWithInput(applyingClass, NULL_PARAM_ARRAY);
     }
 
     public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass, Object... constructorParameters) {

@@ -46,29 +46,17 @@ public abstract class FunkyJava {
      * 
      * <p>
      * If the init block of the applyingClass references an instance member or a
-     * local variable, you should use the {@link #withComp(Class, Object...)}
-     * method instead.
+     * local variable, you should give it the instance as the first constructorParameter.
+     * 
+     * <p>
+     * If the init block of the applyingClass does not reference an instance
+     * member or a local variable, you should not give any object to the constructorParameter vararg.
      * 
      * @param applyingClass
      *            the local class that represents a {@link Comparator}.
      * @param <T>
      *            The type that is compared.
-     * @param <U>
-     *            The local class type. Must extend {@link Comp}.
-     * @return A {@link Comparator} based on the applyingClass parameter.
-     */
-    public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass) {
-        return new ClassComparator<T, U>(classExecutorWithInput(applyingClass));
-    }
-
-    /**
-     * <p>
-     * See the {@link #withComp(Class)} for details.
-     * 
-     * <p>
-     * If the init block of the applyingClass does not reference an instance
-     * member or a local variable, you should use the {@link #withComp(Class)}
-     * method instead.
+     * @param <U> The local class type. Must extend {@link Comp}.
      * 
      * @param constructorParameters
      *            The constructor parameters to give to the created instance.
@@ -80,22 +68,15 @@ public abstract class FunkyJava {
      *             if the applyingClass does not provide a default constructor
      *             <b>or</b> if the instance parameter does not have the
      *             expected type
-     * @see #withComp(Class)
+     *             
+     * @return A {@link Comparator} based on the applyingClass parameter.
      */
     public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass, Object... constructorParameters) throws IllegalArgumentException {
         return new ClassComparator<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
     }
 
-    public static <U> Runnable withRun(Class<U> applyingClass) {
-        return new ClassRunnable<U>(classExecutor(applyingClass));
-    }
-
     public static <U> Runnable withRun(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassRunnable<U>(classExecutor(applyingClass, constructorParameters));
-    }
-
-    public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass) {
-        return new ClassCallable<T, U>(classExecutor(applyingClass));
     }
 
     public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object... constructorParameters) {
