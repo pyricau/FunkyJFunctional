@@ -87,7 +87,7 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
 
     private Object[] extractConstructionArguments(Constructor<T> constructor, Object[] constructorArguments) {
         checkNotNull("constructorArguments", constructorArguments);
-        
+
         Class<?>[] parameterTypes = constructor.getParameterTypes();
 
         if (parameterTypes.length == 0) {
@@ -117,7 +117,7 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
             Object constructorArgument = constructorArguments[i];
             if (constructorArgument != null && !parameterType.isInstance(constructorArgument)) {
                 String neededArguments = Arrays.toString(parameterTypes);
-                throw new IllegalArgumentException("The constructor argument " + i + " should be a " + parameterType.getName() + ". Please provide the following argument(s): " + neededArguments);
+                throw new IllegalArgumentException("The constructor argument " + i + " should be a " + parameterType.getName() + ", not a " + constructorArgument.getClass().getName() + ". Please provide the following argument(s): " + neededArguments);
             }
             i++;
         }

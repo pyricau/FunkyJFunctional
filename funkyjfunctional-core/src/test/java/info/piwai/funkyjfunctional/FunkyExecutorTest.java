@@ -156,7 +156,7 @@ public class FunkyExecutorTest {
         // @on
         new FunkyExecutor<Instantiated>(Instantiated.class, new Object());
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void wrongNumberOfParameters() {
         // @off
@@ -218,7 +218,7 @@ public class FunkyExecutorTest {
     public void nullApplyClass() {
         new FunkyExecutor<Void>(null);
     }
-    
+
     @Test
     public void simpleExecutorDoesNotThrow() {
         // @off
@@ -226,8 +226,7 @@ public class FunkyExecutorTest {
         // @on
         new FunkyExecutor<Instantiated>(Instantiated.class);
     }
-    
-    
+
     @Test
     public void getSimpleNameReturnsDeclaringClassSimpleName() {
         // @off
@@ -235,6 +234,60 @@ public class FunkyExecutorTest {
         // @on
         FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class);
         assertEquals("Instantiated", executor.getClassSimpleName());
+    }
+
+    @Test
+    public void intLocalParamWorks() {
+        final int test = 2;
+
+        class Holder {
+            int result;
+        }
+
+        final Holder holder = new Holder();
+
+        // @off
+        class Instantiated {{ holder.result = test; }}
+        // @on
+
+        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, this, holder);
+
+        executor.createExecutedInstance();
+
+        assertSame(test, holder.result);
+    }
+
+    @Test
+    public void intConstructorParamWorks() {
+        int test = 2;
+
+        class Holder {
+            int result;
+        }
+
+        final Holder holder = new Holder();
+
+        class Instantiated {
+            @SuppressWarnings("unused")
+            Instantiated(int param) {
+                holder.result = param;
+            }
+        }
+
+        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, this, test, holder);
+
+        executor.createExecutedInstance();
+
+        assertSame(test, holder.result);
+    }
+
+    enum SomeEnum {
+    }
+
+    @Test
+    public void enumClassThrowsException() {
+        FunkyExecutor<SomeEnum> executor = new FunkyExecutor<SomeEnum>(SomeEnum.class, "Yes", 0);
+        executor.createExecutedInstance();
     }
 
 }
