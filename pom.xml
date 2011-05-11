@@ -144,6 +144,7 @@
                         <exclude>releases/**</exclude>
                         <exclude>snapshots/**</exclude>
                         <exclude>README.md</exclude>
+                        <exclude>.idea/**</exclude>
                         <exclude>.gitignore</exclude>
                         <exclude>LICENSE.txt</exclude>
                     </excludes>
