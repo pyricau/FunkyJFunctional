@@ -12,7 +12,7 @@ Short syntax examples:
 
 ``` java
 class Hello {{ System.out.println("Hello Funky World"); }}
-executorService.execute(withRun(Increment.class));
+executorService.execute(withRun(Hello.class));
 ```
 
 * [Guava](http://code.google.com/p/guava-libraries/), with a funky [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html) (Guava is the former google collections)
@@ -47,7 +47,7 @@ Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau
 
 Any question? Please ask them on the dedicated [Google Group](https://groups.google.com/group/funkyjfunctional).
 
-# Detailed examples
+# Detailed example
 
 With Guava:
 
