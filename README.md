@@ -47,6 +47,19 @@ Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau
 
 Any question? Please ask them on the dedicated [Google Group](https://groups.google.com/group/funkyjfunctional).
 
+# Quality
+
+FunkyJFunctional has continuous integration thanks to **CloudBees** DEV@Cloud [free plan](http://www.cloudbees.com/foss/foss-dev.cb) for [FOSS](http://en.wikipedia.org/wiki/Free_and_open_source_software) projects.
+
+![Built on CloudBees](http://static-www.cloudbees.com/images/badges/CBbadge_builton_125.png)
+
+## Build time trend & Test Result Trend
+![Build Trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/buildTimeGraph/png?width=400&height=200)
+![Test result trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/test/trend?width=400&height=200)
+
+Note that **funkyjfunctional-core** has **100% test coverage**, and that other modules do not fall under **75%**.
+
+
 # Detailed example
 
 With Guava:
@@ -63,7 +76,7 @@ Iterable<Integer> minors = Iterables.filter(values, minorPredicate);
 System.out.println(minors); // prints [16]
 ```
 	
-With FunkyJFunctional our [predicate](https://github.com/pyricau/FunkyJFunctional/blob/master/funkyjfunctional-guava/src/test/java/info/piwai/funkyjfunctional/guava/test/PredTest.java) is much shorter:
+With FunkyJFunctional our [predicate](https://github.com/pyricau/FunkyJFunctional/blob/master/funkyjfunctional-demo/src/test/java/info/piwai/funkyjfunctional/demo/guava/PredDemo.java) is much shorter:
 
 ``` java
 List<Integer> values = Arrays.asList(16, 21);

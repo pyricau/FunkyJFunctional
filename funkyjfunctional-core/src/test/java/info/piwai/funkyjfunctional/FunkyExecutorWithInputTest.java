@@ -15,11 +15,8 @@
  */
 package info.piwai.funkyjfunctional;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +27,7 @@ import org.mockito.stubbing.Answer;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public class FunkyExecutorWithInputTest {
-    
+
     private ClassExecutor<Object> executor;
     private ClassExecutorWithInput<Object> executorWithInput;
 
@@ -46,19 +43,20 @@ public class FunkyExecutorWithInputTest {
         executorWithInput.createExecutedInstance(null);
         verify(executor).createExecutedInstance();
     }
-    
+
     @Test
     public void inputStoredInThreadLocal() {
+        final Object parameter = new Object();
         when(executor.createExecutedInstance()).thenAnswer(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
-                assertNotNull(FunkyExecutorWithInput.getThreadLocalParameter());
+                assertSame(parameter, FunkyExecutorWithInput.getThreadLocalParameter());
                 return null;
             }
         });
-        executorWithInput.createExecutedInstance(new Object());
+        executorWithInput.createExecutedInstance(parameter);
     }
-    
+
     @Test
     public void threadLocalCleaned() {
         assertNull(FunkyExecutorWithInput.getThreadLocalParameter());
@@ -71,6 +69,19 @@ public class FunkyExecutorWithInputTest {
         });
         executorWithInput.createExecutedInstance(new Object());
         assertNull(FunkyExecutorWithInput.getThreadLocalParameter());
+    }
+
+    @Test
+    public void simpleExecutorWithInputDoesNotThrow() {
+        new FunkyExecutorWithInput<Object>(executor);
+    }
+
+    @Test
+    public void getClassSimpleNameDelegatesToClassExecutor() {
+        String classSimpleName = "classSimpleName";
+        when(executor.getClassSimpleName()).thenReturn(classSimpleName);
+        assertSame(classSimpleName, executorWithInput.getClassSimpleName());
+        verify(executor).getClassSimpleName();
     }
 
 }

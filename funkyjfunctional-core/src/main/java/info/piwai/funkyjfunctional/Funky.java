@@ -15,6 +15,8 @@
  */
 package info.piwai.funkyjfunctional;
 
+import java.io.Serializable;
+
 /**
  * FunkyJFunctional enables Java functional programming using method local class
  * declarations and init blocks.
@@ -114,8 +116,8 @@ package info.piwai.funkyjfunctional;
  * <li>FunkyJFunctional was inspired by a <a href=
  * "https://groups.google.com/forum/#!msg/google-guice/Eu-cJ1N2Q_A/jtiRfGlg3G4J"
  * >message</a> on the Google Guice forum.
- * <li>Code coverage of the core module: 82.8%
- * <li>FunkyJFunctional has a good code coverage, and we're trying to reach 100%
+ * <li>Code coverage of the core module: 100% (96% according to EclEmma)
+ * <li>FunkyJFunctional has a good code coverage, and we're trying to reach 100% for all modules
  * (in fact, almost 100% since there is unreachable code such as the private
  * constructor of this class).
  * 
@@ -126,22 +128,17 @@ package info.piwai.funkyjfunctional;
  */
 public abstract class Funky {
 
-    private static final Object[] NULL_PARAM_ARRAY = new Object[] { null };
-
-    public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass) {
-        return classExecutor(applyingClass, NULL_PARAM_ARRAY);
+    /**
+     * @param constructorArguments
+     *            if you want the {@link ClassExecutor} to be serialized, all
+     *            constructorArguments elements should be {@link Serializable}.
+     */
+    public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass, Object... constructorArguments) {
+        return new FunkyExecutor<T>(applyingClass, constructorArguments);
     }
 
-    public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass, Object... constructorParameters) {
-        return new FunkyExecutor<T>(applyingClass, constructorParameters);
-    }
-
-    public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass) {
-        return classExecutorWithInput(applyingClass, NULL_PARAM_ARRAY);
-    }
-
-    public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass, Object... constructorParameters) {
-        return new FunkyExecutorWithInput<T>(classExecutor(applyingClass, constructorParameters));
+    public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass, Object... constructorArguments) {
+        return new FunkyExecutorWithInput<T>(classExecutor(applyingClass, constructorArguments));
     }
 
     public static <T> T getThreadLocalParameter() {

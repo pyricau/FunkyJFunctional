@@ -15,8 +15,15 @@
  */
 package info.piwai.funkyjfunctional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.*;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -141,12 +148,13 @@ public class FunkyExecutorTest {
         assertEquals(1, counter.count);
     }
 
+    @SuppressWarnings("all")
     @Test(expected = IllegalArgumentException.class)
-    public void missingConstructorParameters() {
+    public void nullconstructorArgumentsParameter() {
         // @off
         class Instantiated {}
         // @on
-        new FunkyExecutor<Instantiated>(Instantiated.class);
+        new FunkyExecutor<Instantiated>(Instantiated.class, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -155,6 +163,14 @@ public class FunkyExecutorTest {
         class Instantiated {}
         // @on
         new FunkyExecutor<Instantiated>(Instantiated.class, new Object());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void wrongNumberOfParameters() {
+        // @off
+        class Instantiated {}
+        // @on
+        new FunkyExecutor<Instantiated>(Instantiated.class, this, new Object());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -182,7 +198,6 @@ public class FunkyExecutorTest {
             public Instantiated() throws Exception {
             }
         }
-
         new FunkyExecutor<Instantiated>(Instantiated.class, NULL_PARAM_ARRAY);
     }
 
@@ -211,39 +226,191 @@ public class FunkyExecutorTest {
     public void nullApplyClass() {
         new FunkyExecutor<Void>(null);
     }
-    
+
     @Test
-    public void factoryBuildsValidExecutor() {
+    public void simpleExecutorDoesNotThrow() {
         // @off
         class Instantiated {}
         // @on
-        Funky.classExecutor(Instantiated.class);
+        new FunkyExecutor<Instantiated>(Instantiated.class);
     }
-    
+
     @Test
-    public void factoryBuildsValidExecutorWithInput() {
+    public void getSimpleNameReturnsDeclaringClassSimpleName() {
         // @off
         class Instantiated {}
         // @on
-        Funky.classExecutorWithInput(Instantiated.class);
+        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class);
+        assertEquals("Instantiated", executor.getClassSimpleName());
     }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void nullConstructorParamsArrayFromFactoryExecutor() {
+
+    @Test
+    public void primitiveConstantIsDirectlyCopied() {
+        final int test = 2;
+
         // @off
-        class Instantiated {}
+        class Instantiated {{ assertEquals(2, test); }}
         // @on
-        Object[] nullArray = null;
-        Funky.classExecutor(Instantiated.class, nullArray);
+
+        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class);
+
+        executor.createExecutedInstance();
     }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void nullConstructorParamsArrayFromFactoryExecutorWithInput() {
+
+    @Test
+    public void primitiveIsWrapped() {
+
+        int a = 1;
+
+        final int total = a + 1;
+
         // @off
-        class Instantiated {}
+        class Instantiated {{ assertEquals(2, total); }}
         // @on
-        Object[] nullArray = null;
-        Funky.classExecutorWithInput(Instantiated.class, nullArray);
+
+        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, null, total);
+
+        executor.createExecutedInstance();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void primitiveWithNullThrows() {
+
+        int a = 1;
+
+        final int total = a + 1;
+
+        // @off
+        class Instantiated {{ assertEquals(2, total); }}
+        // @on
+
+        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, null, null);
+
+        executor.createExecutedInstance();
+    }
+
+    @Test
+    public void intConstructorParamWorks() {
+        int test = 2;
+
+        class Holder {
+            int result;
+        }
+
+        final Holder holder = new Holder();
+
+        class Instantiated {
+            @SuppressWarnings("unused")
+            Instantiated(int param) {
+                holder.result = param;
+            }
+        }
+
+        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, this, test, holder);
+
+        executor.createExecutedInstance();
+
+        assertSame(test, holder.result);
+    }
+
+    enum SomeEnum {
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void enumClassThrows() {
+        FunkyExecutor<SomeEnum> executor = new FunkyExecutor<SomeEnum>(SomeEnum.class, "Yes", 0);
+        executor.createExecutedInstance();
+    }
+
+    interface SomeInterface {
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void interfaceClassThrows() {
+        FunkyExecutor<SomeInterface> executor = new FunkyExecutor<SomeInterface>(SomeInterface.class, "Yes", 0);
+        executor.createExecutedInstance();
+    }
+
+    @Test
+    public void isSerializable() throws IOException {
+        // @off
+        class Instantiated {{ }}
+        // @on
+
+        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class);
+
+        ByteArrayOutputStream out = serialize(executor);
+        assertTrue(out.toByteArray().length > 0);
+    }
+
+    private ByteArrayOutputStream serialize(Object original) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(out);
+        oos.writeObject(original);
+        oos.close();
+        return out;
+    }
+
+    private static boolean checked;
+
+    @Test
+    public void isDeserializable() throws IOException, ClassNotFoundException {
+
+        checked = false;
+
+        // @off
+        class Instantiated {{ checked = true; }}
+        // @on
+
+        FunkyExecutor<Instantiated> original = new FunkyExecutor<Instantiated>(Instantiated.class);
+
+        ByteArrayOutputStream out = serialize(original);
+
+        FunkyExecutor<Instantiated> copy = deserialize(out);
+
+        copy.createExecutedInstance();
+
+        assertTrue(checked);
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> T deserialize(ByteArrayOutputStream out) throws IOException, ClassNotFoundException {
+        byte[] pickled = out.toByteArray();
+        InputStream in = new ByteArrayInputStream(pickled);
+        ObjectInputStream ois = new ObjectInputStream(in);
+        return (T) ois.readObject();
+    }
+
+    static class SerializableHolder implements Serializable {
+        private static final long serialVersionUID = 1L;
+
+        boolean checked = false;
+    }
+
+    @Test
+    public void argumentsAreDeserializables() throws IOException, ClassNotFoundException {
+
+        final SerializableHolder holder = new SerializableHolder();
+
+        class Instantiated {
+            {
+                holder.checked = true;
+            }
+
+            SerializableHolder getHolder() {
+                return holder;
+            }
+        }
+
+        FunkyExecutor<Instantiated> original = new FunkyExecutor<Instantiated>(Instantiated.class, null, holder);
+
+        ByteArrayOutputStream out = serialize(original);
+
+        FunkyExecutor<Instantiated> copy = deserialize(out);
+
+        Instantiated inst = copy.createExecutedInstance();
+
+        assertTrue(inst.getHolder().checked);
     }
 
 }

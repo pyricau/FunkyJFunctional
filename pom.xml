@@ -1,4 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -70,6 +73,7 @@
         <module>funkyjfunctional-swing</module>
         <module>funkyjfunctional-wicket</module>
         <module>funkyjfunctional-fest-assert</module>
+        <module>funkyjfunctional-demo</module>
     </modules>
 
     <dependencyManagement>
@@ -77,6 +81,31 @@
             <dependency>
                 <groupId>info.piwai.funkyjfunctional</groupId>
                 <artifactId>funkyjfunctional-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.piwai.funkyjfunctional</groupId>
+                <artifactId>funkyjfunctional-java</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.piwai.funkyjfunctional</groupId>
+                <artifactId>funkyjfunctional-guava</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.piwai.funkyjfunctional</groupId>
+                <artifactId>funkyjfunctional-swing</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.piwai.funkyjfunctional</groupId>
+                <artifactId>funkyjfunctional-wicket</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.piwai.funkyjfunctional</groupId>
+                <artifactId>funkyjfunctional-fest-assert</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -158,6 +187,16 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <findbugsXmlOutput>true</findbugsXmlOutput>
+                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+                    <xmlOutput>true</xmlOutput>
+                </configuration>
             </plugin>
         </plugins>
     </build>

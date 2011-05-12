@@ -46,32 +46,16 @@ import com.google.common.collect.Constraint;
  */
 public abstract class FunkyGuava {
 
-    public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass) {
-        return new ClassFunction<From, To, U>(classExecutorWithInput(applyingClass));
-    }
-
     public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassFunction<From, To, U>(classExecutorWithInput(applyingClass, constructorParameters));
-    }
-
-    public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass) {
-        return new ClassPredicate<T, U>(classExecutorWithInput(applyingClass));
     }
 
     public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassPredicate<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
     }
 
-    public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass) {
-        return new ClassSupplier<T, U>(classExecutor(applyingClass));
-    }
-
     public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassSupplier<T, U>(classExecutor(applyingClass, constructorParameters));
-    }
-
-    public static <T, U extends Const<T>> Constraint<T> withConst(Class<U> applyingClass) {
-        return new ClassConstraint<T, U>(classExecutorWithInput(applyingClass));
     }
 
     public static <T, U extends Const<T>> Constraint<T> withConst(Class<U> applyingClass, Object... constructorParameters) {

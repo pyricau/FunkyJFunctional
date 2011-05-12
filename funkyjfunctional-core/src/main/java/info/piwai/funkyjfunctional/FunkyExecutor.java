@@ -15,10 +15,16 @@
  */
 package info.piwai.funkyjfunctional;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -33,23 +39,55 @@ import java.util.Arrays;
  */
 final class FunkyExecutor<T> implements ClassExecutor<T> {
 
+    private static final long serialVersionUID = 1L;
+
     private static final Object[] NO_PARAMETER_ARRAY = new Object[] {};
 
-    private final Constructor<T> constructor;
+    private static final Object[] NULL_PARAM_ARRAY = new Object[] { null };
+
+    private static final Map<Class<?>, Class<?>> wrapperByPrimitiveClasses = buildWrapperByPrimitiveClass();
+
+    private static Map<Class<?>, Class<?>> buildWrapperByPrimitiveClass() {
+        Map<Class<?>, Class<?>> wrapperByPrimitiveClasses = new HashMap<Class<?>, Class<?>>();
+        wrapperByPrimitiveClasses.put(Integer.TYPE, Integer.class);
+        wrapperByPrimitiveClasses.put(Boolean.TYPE, Boolean.class);
+        wrapperByPrimitiveClasses.put(Float.TYPE, Float.class);
+        wrapperByPrimitiveClasses.put(Double.TYPE, Double.class);
+        wrapperByPrimitiveClasses.put(Character.TYPE, Character.class);
+        wrapperByPrimitiveClasses.put(Byte.TYPE, Byte.class);
+        wrapperByPrimitiveClasses.put(Short.TYPE, Short.class);
+        wrapperByPrimitiveClasses.put(Long.TYPE, Long.class);
+        return wrapperByPrimitiveClasses;
+    }
+
+    private transient Constructor<T> constructor;
 
     private final Object[] constructionArguments;
 
+    private final Class<T> applyingClass;
+
+    /**
+     * @param constructorArguments
+     *            if you want the {@link ClassExecutor} to be serialized, all
+     *            constructorArguments elements should be {@link Serializable}.
+     */
     FunkyExecutor(Class<T> applyingClass, Object... constructorArguments) {
+        this.applyingClass = applyingClass;
         constructor = extractConstructor(applyingClass);
         constructionArguments = extractConstructionArguments(constructor, constructorArguments);
     }
 
-    @SuppressWarnings("unchecked")
-    private Constructor<T> extractConstructor(Class<T> applyingClass) {
-        checkNotNull(applyingClass);
-        checkNotAbstract(applyingClass);
+    private void checkNotNull(String paramName, Object param) {
+        if (param == null) {
+            throw new IllegalArgumentException("The " + paramName + " parameter should not be null");
+        }
+    }
 
-        Constructor<T>[] declaredConstructors = (Constructor<T>[]) applyingClass.getDeclaredConstructors();
+    private Constructor<T> extractConstructor(Class<T> applyingClass) {
+        checkNotNull("applyingClass", applyingClass);
+        checkIsInstanciable(applyingClass);
+
+        Constructor<T>[] declaredConstructors = getDeclaredConstructors(applyingClass);
 
         if (declaredConstructors.length > 1) {
             throw new IllegalArgumentException("The applyingClass should not have more than one constructor");
@@ -67,38 +105,36 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
         return constructor;
     }
 
-    private void checkNotNull(Class<T> applyingClass) {
-        if (applyingClass == null) {
-            throw new IllegalArgumentException("The applyingClass parameter should not be null");
+    private void checkIsInstanciable(Class<T> applyingClass) {
+        if (Modifier.isAbstract(applyingClass.getModifiers())) {
+            throw new IllegalArgumentException("The applyingClass parameter should not be an abstract class, nor an interface");
+        }
+        if (applyingClass.isEnum()) {
+            throw new IllegalArgumentException("The applyingClass parameter should not be an enum");
         }
     }
 
-    private void checkNotAbstract(Class<T> applyingClass) {
-        if (Modifier.isAbstract(applyingClass.getModifiers())) {
-            throw new IllegalArgumentException("The applyingClass parameter should not be abstract");
-        }
+    @SuppressWarnings("unchecked")
+    private Constructor<T>[] getDeclaredConstructors(Class<T> applyingClass) {
+        return (Constructor<T>[]) applyingClass.getDeclaredConstructors();
     }
 
     private Object[] extractConstructionArguments(Constructor<T> constructor, Object[] constructorArguments) {
+        checkNotNull("constructorArguments", constructorArguments);
+
         Class<?>[] parameterTypes = constructor.getParameterTypes();
 
         if (parameterTypes.length == 0) {
             return NO_PARAMETER_ARRAY;
+        } else if (parameterTypes.length == 1 && constructorArguments.length == 0) {
+            // Check is inner class
+            return NULL_PARAM_ARRAY;
         } else {
-            checkNullArgumentArray(constructorArguments, parameterTypes);
-
             checkNumberOfArguments(constructorArguments, parameterTypes);
 
             checkArgumentsType(constructorArguments, parameterTypes);
 
             return constructorArguments;
-        }
-    }
-
-    private void checkNullArgumentArray(Object[] constructorArguments, Class<?>[] parameterTypes) {
-        if (constructorArguments == null) {
-            String neededArguments = Arrays.toString(parameterTypes);
-            throw new IllegalArgumentException("The constructor arguments array should not be null. Please provide the following argument(s): " + neededArguments);
         }
     }
 
@@ -113,10 +149,20 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
         int i = 0;
         for (Class<?> parameterType : parameterTypes) {
             Object constructorArgument = constructorArguments[i];
+
+            if (parameterType.isPrimitive()) {
+                if (constructorArgument == null) {
+                    String neededArguments = Arrays.toString(parameterTypes);
+                    throw new IllegalArgumentException("The constructor parameter " + i + " is a " + parameterType.getName() + ", which is a primitive and should not be null. Please provide the following argument(s): " + neededArguments);
+                }
+                parameterType = wrapperByPrimitiveClasses.get(parameterType);
+            }
+
             if (constructorArgument != null && !parameterType.isInstance(constructorArgument)) {
                 String neededArguments = Arrays.toString(parameterTypes);
-                throw new IllegalArgumentException("The constructor argument " + i + " should be a " + parameterType.getName() + ". Please provide the following argument(s): " + neededArguments);
+                throw new IllegalArgumentException("The constructor argument " + i + " should be a " + parameterType.getName() + ", not a " + constructorArgument.getClass().getName() + ". Please provide the following argument(s): " + neededArguments);
             }
+
             i++;
         }
     }
@@ -136,13 +182,7 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
                 throw ((RuntimeException) cause);
             }
         } catch (Exception e) {
-            /*
-             * SHOULD NEVER HAPPEN.
-             * 
-             * Due to previously checked constraints, no exception may actually
-             * be caught here.
-             */
-            throw new RuntimeException(e);
+            throw new IllegalStateException("This should never happen. Due to previously checked constraints (see extractConstructor()), no exception may actually be caught here.", e);
         }
     }
 
@@ -150,4 +190,14 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
     public String getClassSimpleName() {
         return constructor.getDeclaringClass().getSimpleName();
     }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        constructor = extractConstructor(applyingClass);
+    }
+
 }

@@ -40,10 +40,6 @@ import org.fest.assertions.Condition;
  */
 public abstract class FunkyFestAssert {
 
-    public static <T, U extends Cond<T>> Condition<T> withCond(Class<U> applyingClass) {
-        return new ClassCondition<T, U>(classExecutorWithInput(applyingClass));
-    }
-
     public static <T, U extends Cond<T>> Condition<T> withCond(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassCondition<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
     }
