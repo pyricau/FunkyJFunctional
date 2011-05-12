@@ -39,9 +39,10 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
 
     private static final Object[] NULL_PARAM_ARRAY = new Object[] { null };
 
-    private static final Map<Class<?>, Class<?>> wrapperByPrimitiveClasses = new HashMap<Class<?>, Class<?>>();
-
-    static {
+    private static final Map<Class<?>, Class<?>> wrapperByPrimitiveClasses = buildWrapperByPrimitiveClass();
+    
+    private static Map<Class<?>, Class<?>> buildWrapperByPrimitiveClass() {
+        Map<Class<?>, Class<?>> wrapperByPrimitiveClasses = new HashMap<Class<?>, Class<?>>();
         wrapperByPrimitiveClasses.put(Integer.TYPE, Integer.class);
         wrapperByPrimitiveClasses.put(Boolean.TYPE, Boolean.class);
         wrapperByPrimitiveClasses.put(Float.TYPE, Float.class);
@@ -50,7 +51,8 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
         wrapperByPrimitiveClasses.put(Byte.TYPE, Byte.class);
         wrapperByPrimitiveClasses.put(Short.TYPE, Short.class);
         wrapperByPrimitiveClasses.put(Long.TYPE, Long.class);
-    };
+        return wrapperByPrimitiveClasses;
+    }
 
     private final Constructor<T> constructor;
 
