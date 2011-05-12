@@ -19,6 +19,9 @@ import info.piwai.funkyjfunctional.Funky;
 
 import org.junit.Test;
 
+/**
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ */
 public class FunkyTest {
     
     @Test(expected = Exception.class)
