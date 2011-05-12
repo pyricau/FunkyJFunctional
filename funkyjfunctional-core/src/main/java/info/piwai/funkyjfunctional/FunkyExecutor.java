@@ -19,6 +19,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -37,6 +39,19 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
 
     private static final Object[] NULL_PARAM_ARRAY = new Object[] { null };
 
+    private static final Map<Class<?>, Class<?>> wrapperByPrimitiveClasses = new HashMap<Class<?>, Class<?>>();
+
+    static {
+        wrapperByPrimitiveClasses.put(Integer.TYPE, Integer.class);
+        wrapperByPrimitiveClasses.put(Boolean.TYPE, Boolean.class);
+        wrapperByPrimitiveClasses.put(Float.TYPE, Float.class);
+        wrapperByPrimitiveClasses.put(Double.TYPE, Double.class);
+        wrapperByPrimitiveClasses.put(Character.TYPE, Character.class);
+        wrapperByPrimitiveClasses.put(Byte.TYPE, Byte.class);
+        wrapperByPrimitiveClasses.put(Short.TYPE, Short.class);
+        wrapperByPrimitiveClasses.put(Long.TYPE, Long.class);
+    };
+
     private final Constructor<T> constructor;
 
     private final Object[] constructionArguments;
@@ -54,7 +69,7 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
 
     private Constructor<T> extractConstructor(Class<T> applyingClass) {
         checkNotNull("applyingClass", applyingClass);
-        checkNotAbstract(applyingClass);
+        checkIsInstanciable(applyingClass);
 
         Constructor<T>[] declaredConstructors = getDeclaredConstructors(applyingClass);
 
@@ -74,9 +89,12 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
         return constructor;
     }
 
-    private void checkNotAbstract(Class<T> applyingClass) {
+    private void checkIsInstanciable(Class<T> applyingClass) {
         if (Modifier.isAbstract(applyingClass.getModifiers())) {
-            throw new IllegalArgumentException("The applyingClass parameter should not be abstract");
+            throw new IllegalArgumentException("The applyingClass parameter should not be an abstract class, nor an interface");
+        }
+        if (applyingClass.isEnum()) {
+            throw new IllegalArgumentException("The applyingClass parameter should not be an enum");
         }
     }
 
@@ -115,10 +133,20 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
         int i = 0;
         for (Class<?> parameterType : parameterTypes) {
             Object constructorArgument = constructorArguments[i];
+
+            if (parameterType.isPrimitive()) {
+                if (constructorArgument == null) {
+                    String neededArguments = Arrays.toString(parameterTypes);
+                    throw new IllegalArgumentException("The constructor parameter " + i + " is a " + parameterType.getName() + ", which is a primitive and should not be null. Please provide the following argument(s): " + neededArguments);
+                }
+                parameterType = wrapperByPrimitiveClasses.get(parameterType);
+            }
+            
             if (constructorArgument != null && !parameterType.isInstance(constructorArgument)) {
                 String neededArguments = Arrays.toString(parameterTypes);
                 throw new IllegalArgumentException("The constructor argument " + i + " should be a " + parameterType.getName() + ", not a " + constructorArgument.getClass().getName() + ". Please provide the following argument(s): " + neededArguments);
             }
+
             i++;
         }
     }

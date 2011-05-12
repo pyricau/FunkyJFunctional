@@ -237,24 +237,48 @@ public class FunkyExecutorTest {
     }
 
     @Test
-    public void intLocalParamWorks() {
+    public void primitiveConstantIsDirectlyCopied() {
         final int test = 2;
 
-        class Holder {
-            int result;
-        }
-
-        final Holder holder = new Holder();
-
         // @off
-        class Instantiated {{ holder.result = test; }}
+        class Instantiated {{ assertEquals(2, test); }}
         // @on
 
-        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, this, holder);
+        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class);
 
         executor.createExecutedInstance();
+    }
 
-        assertSame(test, holder.result);
+    @Test
+    public void primitiveIsWrapped() {
+
+        int a = 1;
+
+        final int total = a + 1;
+
+        // @off
+        class Instantiated {{ assertEquals(2, total); }}
+        // @on
+
+        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, null, total);
+
+        executor.createExecutedInstance();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void primitiveWithNullThrows() {
+
+        int a = 1;
+
+        final int total = a + 1;
+
+        // @off
+        class Instantiated {{ assertEquals(2, total); }}
+        // @on
+
+        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class, null, null);
+
+        executor.createExecutedInstance();
     }
 
     @Test
@@ -284,9 +308,18 @@ public class FunkyExecutorTest {
     enum SomeEnum {
     }
 
-    @Test
-    public void enumClassThrowsException() {
+    @Test(expected = IllegalArgumentException.class)
+    public void enumClassThrows() {
         FunkyExecutor<SomeEnum> executor = new FunkyExecutor<SomeEnum>(SomeEnum.class, "Yes", 0);
+        executor.createExecutedInstance();
+    }
+
+    interface SomeInterface {
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void interfaceClassThrows() {
+        FunkyExecutor<SomeInterface> executor = new FunkyExecutor<SomeInterface>(SomeInterface.class, "Yes", 0);
         executor.createExecutedInstance();
     }
 

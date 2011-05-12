@@ -114,7 +114,7 @@ package info.piwai.funkyjfunctional;
  * <li>FunkyJFunctional was inspired by a <a href=
  * "https://groups.google.com/forum/#!msg/google-guice/Eu-cJ1N2Q_A/jtiRfGlg3G4J"
  * >message</a> on the Google Guice forum.
- * <li>Code coverage of the core module: 100% (94.5% according to EclEmma)
+ * <li>Code coverage of the core module: 100% (95.8% according to EclEmma)
  * <li>FunkyJFunctional has a good code coverage, and we're trying to reach 100% for all modules
  * (in fact, almost 100% since there is unreachable code such as the private
  * constructor of this class).
