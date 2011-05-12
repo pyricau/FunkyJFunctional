@@ -63,7 +63,7 @@ Iterable<Integer> minors = Iterables.filter(values, minorPredicate);
 System.out.println(minors); // prints [16]
 ```
 	
-With FunkyJFunctional our [predicate](https://github.com/pyricau/FunkyJFunctional/blob/master/funkyjfunctional-guava/src/test/java/info/piwai/funkyjfunctional/guava/test/PredTest.java) is much shorter:
+With FunkyJFunctional our [predicate](https://github.com/pyricau/FunkyJFunctional/blob/master/funkyjfunctional-demo/src/test/java/info/piwai/funkyjfunctional/demo/guava/PredDemo.java) is much shorter:
 
 ``` java
 List<Integer> values = Arrays.asList(16, 21);
