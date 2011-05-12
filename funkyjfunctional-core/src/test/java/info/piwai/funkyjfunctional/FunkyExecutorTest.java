@@ -17,6 +17,14 @@ package info.piwai.funkyjfunctional;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -321,6 +329,88 @@ public class FunkyExecutorTest {
     public void interfaceClassThrows() {
         FunkyExecutor<SomeInterface> executor = new FunkyExecutor<SomeInterface>(SomeInterface.class, "Yes", 0);
         executor.createExecutedInstance();
+    }
+
+    @Test
+    public void isSerializable() throws IOException {
+        // @off
+        class Instantiated {{ }}
+        // @on
+
+        FunkyExecutor<Instantiated> executor = new FunkyExecutor<Instantiated>(Instantiated.class);
+
+        ByteArrayOutputStream out = serialize(executor);
+        assertTrue(out.toByteArray().length > 0);
+    }
+
+    private ByteArrayOutputStream serialize(Object original) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(out);
+        oos.writeObject(original);
+        oos.close();
+        return out;
+    }
+
+    private static boolean checked;
+
+    @Test
+    public void isDeserializable() throws IOException, ClassNotFoundException {
+
+        checked = false;
+
+        // @off
+        class Instantiated {{ checked = true; }}
+        // @on
+
+        FunkyExecutor<Instantiated> original = new FunkyExecutor<Instantiated>(Instantiated.class);
+
+        ByteArrayOutputStream out = serialize(original);
+
+        FunkyExecutor<Instantiated> copy = deserialize(out);
+
+        copy.createExecutedInstance();
+
+        assertTrue(checked);
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> T deserialize(ByteArrayOutputStream out) throws IOException, ClassNotFoundException {
+        byte[] pickled = out.toByteArray();
+        InputStream in = new ByteArrayInputStream(pickled);
+        ObjectInputStream ois = new ObjectInputStream(in);
+        return (T) ois.readObject();
+    }
+
+    static class SerializableHolder implements Serializable {
+        private static final long serialVersionUID = 1L;
+
+        boolean checked = false;
+    }
+
+    @Test
+    public void argumentsAreDeserializables() throws IOException, ClassNotFoundException {
+
+        final SerializableHolder holder = new SerializableHolder();
+
+        class Instantiated {
+            {
+                holder.checked = true;
+            }
+
+            SerializableHolder getHolder() {
+                return holder;
+            }
+        }
+
+        FunkyExecutor<Instantiated> original = new FunkyExecutor<Instantiated>(Instantiated.class, null, holder);
+
+        ByteArrayOutputStream out = serialize(original);
+
+        FunkyExecutor<Instantiated> copy = deserialize(out);
+
+        Instantiated inst = copy.createExecutedInstance();
+
+        assertTrue(inst.getHolder().checked);
     }
 
 }

@@ -15,6 +15,10 @@
  */
 package info.piwai.funkyjfunctional;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -35,12 +39,14 @@ import java.util.Map;
  */
 final class FunkyExecutor<T> implements ClassExecutor<T> {
 
+    private static final long serialVersionUID = 1L;
+
     private static final Object[] NO_PARAMETER_ARRAY = new Object[] {};
 
     private static final Object[] NULL_PARAM_ARRAY = new Object[] { null };
 
     private static final Map<Class<?>, Class<?>> wrapperByPrimitiveClasses = buildWrapperByPrimitiveClass();
-    
+
     private static Map<Class<?>, Class<?>> buildWrapperByPrimitiveClass() {
         Map<Class<?>, Class<?>> wrapperByPrimitiveClasses = new HashMap<Class<?>, Class<?>>();
         wrapperByPrimitiveClasses.put(Integer.TYPE, Integer.class);
@@ -54,11 +60,19 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
         return wrapperByPrimitiveClasses;
     }
 
-    private final Constructor<T> constructor;
+    private transient Constructor<T> constructor;
 
     private final Object[] constructionArguments;
 
+    private final Class<T> applyingClass;
+
+    /**
+     * @param constructorArguments
+     *            if you want the {@link ClassExecutor} to be serialized, all
+     *            constructorArguments elements should be {@link Serializable}.
+     */
     FunkyExecutor(Class<T> applyingClass, Object... constructorArguments) {
+        this.applyingClass = applyingClass;
         constructor = extractConstructor(applyingClass);
         constructionArguments = extractConstructionArguments(constructor, constructorArguments);
     }
@@ -143,7 +157,7 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
                 }
                 parameterType = wrapperByPrimitiveClasses.get(parameterType);
             }
-            
+
             if (constructorArgument != null && !parameterType.isInstance(constructorArgument)) {
                 String neededArguments = Arrays.toString(parameterTypes);
                 throw new IllegalArgumentException("The constructor argument " + i + " should be a " + parameterType.getName() + ", not a " + constructorArgument.getClass().getName() + ". Please provide the following argument(s): " + neededArguments);
@@ -176,4 +190,14 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
     public String getClassSimpleName() {
         return constructor.getDeclaringClass().getSimpleName();
     }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        constructor = extractConstructor(applyingClass);
+    }
+
 }

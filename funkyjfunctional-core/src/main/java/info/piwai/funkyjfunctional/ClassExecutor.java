@@ -15,9 +15,11 @@
  */
 package info.piwai.funkyjfunctional;
 
+import java.io.Serializable;
+
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public interface ClassExecutor<T> extends HasClassSimpleName<T> {
+public interface ClassExecutor<T> extends HasClassSimpleName<T>, Serializable {
     T createExecutedInstance();
 }
