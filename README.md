@@ -47,6 +47,14 @@ Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau
 
 Any question? Please ask them on the dedicated [Google Group](https://groups.google.com/group/funkyjfunctional).
 
+# Quality
+
+![Built on CloudBees](http://static-www.cloudbees.com/images/badges/CBbadge_builton_125.png)
+
+FunkyJFunctional has continuous integration thanks to CloudBees [DEV@Cloud free plan](http://www.cloudbees.com/foss/foss-dev.cb) for FOSS projects.
+
+Also note that **funkyjfunctional-core** has 100% test coverage, and that other modules do not fall under 75%.
+
 # Detailed example
 
 With Guava:
