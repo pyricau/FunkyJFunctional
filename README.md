@@ -49,12 +49,12 @@ Any question? Please ask them on the dedicated [Google Group](https://groups.goo
 
 # Quality
 
-FunkyJFunctional has continuous integration thanks to **CloudBees** [DEV@Cloud free plan](http://www.cloudbees.com/foss/foss-dev.cb) for [FOSS](http://en.wikipedia.org/wiki/Free_and_open_source_software) projects.
+FunkyJFunctional has continuous integration thanks to **CloudBees** DEV@Cloud [free plan](http://www.cloudbees.com/foss/foss-dev.cb) for [FOSS](http://en.wikipedia.org/wiki/Free_and_open_source_software) projects.
 
 ![Built on CloudBees](http://static-www.cloudbees.com/images/badges/CBbadge_builton_125.png)
 
 ## Test result trend
-![Unit tests](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/test/trend)
+![Test result trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/test/trend) ![Build Trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/buildTimeGraph/png)
 
 Note that **funkyjfunctional-core** has **100% test coverage**, and that other modules do not fall under **75%**.
 
