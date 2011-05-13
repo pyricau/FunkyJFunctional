@@ -32,14 +32,14 @@ import java.awt.event.ActionListener;
  * API.
  * 
  * <p>
- * Code coverage of this module: 85.7%
+ * Code coverage of this module: 100%
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public final class FunkySwing {
 
-    public static <U extends ActL> ActionListener withActL(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassActionListener<U>(classExecutorWithInput(applyingClass, constructorParameters));
+    public static <U extends ActL> ActionListener withActL(Class<U> applyingClass, Object... constructorArguments) {
+        return new ClassActionListener<U>(classExecutorWithInput(applyingClass, constructorArguments));
     }
 
     /**

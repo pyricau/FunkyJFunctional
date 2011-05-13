@@ -39,26 +39,26 @@ import com.google.common.collect.Constraint;
  * collections).
  * 
  * <p>
- * Code coverage of this module: 88.3%
+ * Code coverage of this module: 100%
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public final class FunkyGuava {
 
-    public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassFunction<From, To, U>(classExecutorWithInput(applyingClass, constructorParameters));
+    public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass, Object... constructorArguments) {
+        return new ClassFunction<From, To, U>(classExecutorWithInput(applyingClass, constructorArguments));
     }
 
-    public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassPredicate<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
+    public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass, Object... constructorArguments) {
+        return new ClassPredicate<T, U>(classExecutorWithInput(applyingClass, constructorArguments));
     }
 
-    public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassSupplier<T, U>(classExecutor(applyingClass, constructorParameters));
+    public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object... constructorArguments) {
+        return new ClassSupplier<T, U>(classExecutor(applyingClass, constructorArguments));
     }
 
-    public static <T, U extends Const<T>> Constraint<T> withConst(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassConstraint<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
+    public static <T, U extends Const<T>> Constraint<T> withConst(Class<U> applyingClass, Object... constructorArguments) {
+        return new ClassConstraint<T, U>(classExecutorWithInput(applyingClass, constructorArguments));
     }
 
     /**

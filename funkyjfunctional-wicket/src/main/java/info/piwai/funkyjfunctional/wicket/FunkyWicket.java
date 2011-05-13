@@ -34,18 +34,18 @@ import org.apache.wicket.model.LoadableDetachableModel;
  * href="http://wicket.apache.org/">Wicket</a>.
  * 
  * <p>
- * Code coverage of this module: 80%
+ * Code coverage of this module: 100%
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public final class FunkyWicket {
 
-    public static <T, U extends LDM<T>> LoadableDetachableModel<T> withLDM(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassLoadableDetachableModel<T, U>(classExecutor(applyingClass, constructorParameters));
+    public static <T, U extends LDM<T>> LoadableDetachableModel<T> withLDM(Class<U> applyingClass, Object... constructorArguments) {
+        return new ClassLoadableDetachableModel<T, U>(classExecutor(applyingClass, constructorArguments));
     }
     
-    public static <T, U extends ARON<T>> AbstractReadOnlyModel<T> withARON(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassAbstractReadOnlyModel<T, U>(classExecutor(applyingClass, constructorParameters));
+    public static <T, U extends ARON<T>> AbstractReadOnlyModel<T> withARON(Class<U> applyingClass, Object... constructorArguments) {
+        return new ClassAbstractReadOnlyModel<T, U>(classExecutor(applyingClass, constructorArguments));
     }
 
     /**

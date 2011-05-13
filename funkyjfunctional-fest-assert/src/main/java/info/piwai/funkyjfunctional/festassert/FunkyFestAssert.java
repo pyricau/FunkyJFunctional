@@ -36,19 +36,19 @@ import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
  * api).
  * 
  * <p>
- * Code coverage of this module: 76.1%
+ * Code coverage of this module: 93%
  * 
  * @author Nicolas Francois (nicolas.franc at gmail.com)
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public final class FunkyFestAssert {
 
-    public static <T, U extends Cond<T>> Condition<T> withCond(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassCondition<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
+    public static <T, U extends Cond<T>> Condition<T> withCond(Class<U> applyingClass, Object... constructorArguments) {
+        return new ClassCondition<T, U>(classExecutorWithInput(applyingClass, constructorArguments));
     }
 
-    public static <T, U extends Desc> Description withDesc(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassDescription<U>(classExecutor(applyingClass, constructorParameters));
+    public static <T, U extends Desc> Description withDesc(Class<U> applyingClass, Object... constructorArguments) {
+        return new ClassDescription<U>(classExecutor(applyingClass, constructorArguments));
     }
 
     /**
