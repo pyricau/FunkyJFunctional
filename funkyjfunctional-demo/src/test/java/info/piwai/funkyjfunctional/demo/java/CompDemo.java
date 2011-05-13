@@ -13,34 +13,37 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.java.apitest;
+package info.piwai.funkyjfunctional.demo.java;
 
-import static info.piwai.funkyjfunctional.java.FunkyJava.*;
-import static org.junit.Assert.*;
-
-import java.util.Comparator;
-
+import static info.piwai.funkyjfunctional.java.FunkyJava.withComp;
+import static java.util.Arrays.asList;
+import static java.util.Collections.sort;
+import static org.junit.Assert.assertEquals;
 import info.piwai.funkyjfunctional.java.Comp;
+
+import java.util.List;
 
 import org.junit.Test;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class CompTest {
+public class CompDemo {
 
     @Test
     public void ordering() {
+        Person john = new Person("John");
+        Person joe = new Person("Joe");
         
+        List<Person> persons = asList(john, joe);
+
         // @off
-        class IntCompt extends Comp<Integer> {{ r = t1.compareTo(t2); }}
+        class Sort extends Comp<Person> {{ r = t1.getName().compareTo(t2.getName()); }}
         // @on
         
-        Comparator<Integer> comp = withComp(IntCompt.class);
-        
-        assertEquals(comp.compare(1, 2), Integer.valueOf(1).compareTo(2));
-        assertEquals(comp.compare(2, 1), Integer.valueOf(2).compareTo(1));
-        assertEquals(comp.compare(1, 1), Integer.valueOf(1).compareTo(1));
+        sort(persons, withComp(Sort.class));
+
+        assertEquals(asList(joe, john), persons);
     }
 
 }
