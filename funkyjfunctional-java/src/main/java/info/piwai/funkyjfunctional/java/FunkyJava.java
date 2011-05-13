@@ -58,29 +58,29 @@ public abstract class FunkyJava {
      *            The type that is compared.
      * @param <U> The local class type. Must extend {@link Comp}.
      * 
-     * @param constructorParameters
-     *            The constructor parameters to give to the created instance.
-     *            The first parameter will usually be 'this' or 'null' if the
+     * @param constructorArguments
+     *            The constructor arguments to give to the created instance.
+     *            The first argument will usually be 'this' or 'null' if the
      *            applyingClass has been declared in an instance method, and the
-     *            other parameters will be the local variables that you use from
+     *            other arguments will be the local variables that you use from
      *            the local class.
      * @throws IllegalArgumentException
      *             if the applyingClass does not provide a default constructor
-     *             <b>or</b> if the instance parameter does not have the
+     *             <b>or</b> if the instance argument does not have the
      *             expected type
      *             
      * @return A {@link Comparator} based on the applyingClass parameter.
      */
-    public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass, Object... constructorParameters) throws IllegalArgumentException {
-        return new ClassComparator<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
+    public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass, Object... constructorArguments) throws IllegalArgumentException {
+        return new ClassComparator<T, U>(classExecutorWithInput(applyingClass, constructorArguments));
     }
 
-    public static <U> Runnable withRun(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassRunnable<U>(classExecutor(applyingClass, constructorParameters));
+    public static <U> Runnable withRun(Class<U> applyingClass, Object... constructorArguments) {
+        return new ClassRunnable<U>(classExecutor(applyingClass, constructorArguments));
     }
 
-    public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object... constructorParameters) {
-        return new ClassCallable<T, U>(classExecutor(applyingClass, constructorParameters));
+    public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object... constructorArguments) {
+        return new ClassCallable<T, U>(classExecutor(applyingClass, constructorArguments));
     }
 
     /**
