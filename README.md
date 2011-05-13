@@ -45,7 +45,7 @@ jButton.addActionListener(withActL(BtonClick.class));
 
 ## It's pure Java!
 
-No extra [compilation step](http://download.oracle.com/javase/1.5.0/docs/guide/apt/GettingStarted.html), no bytecode [instrumentation](http://www.eclipse.org/aspectj/), no Java [proxy](http://download.oracle.com/javase/1.3/docs/guide/reflection/proxy.html). 
+No extra [compilation step](http://download.oracle.com/javase/1.5.0/docs/guide/apt/GettingStarted.html), no bytecode [instrumentation](http://www.eclipse.org/aspectj/), no Java [proxy](http://download.oracle.com/javase/1.3/docs/guide/reflection/proxy.html). You can use it straight away, anywhere!
 
 We use good old Java features:
 
