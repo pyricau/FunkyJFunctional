@@ -34,11 +34,12 @@ import java.util.concurrent.Callable;
  * This module is dedicated to FunkyJFunctional integration with the Java API.
  * 
  * <p>
- * Code coverage of this module: 100% (96.8% according to <a href="http://emma.sourceforge.net/">Emma</a>)
+ * Code coverage of this module: 100% (96.8% according to <a
+ * href="http://emma.sourceforge.net/">Emma</a>)
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class FunkyJava {
+public final class FunkyJava {
 
     /**
      * <p>
@@ -46,29 +47,32 @@ public abstract class FunkyJava {
      * 
      * <p>
      * If the init block of the applyingClass references an instance member or a
-     * local variable, you should give it the instance as the first constructorParameter.
+     * local variable, you should give it the instance as the first
+     * constructorParameter.
      * 
      * <p>
      * If the init block of the applyingClass does not reference an instance
-     * member or a local variable, you should not give any object to the constructorParameter vararg.
+     * member or a local variable, you should not give any object to the
+     * constructorParameter vararg.
      * 
      * @param applyingClass
      *            the local class that represents a {@link Comparator}.
      * @param <T>
      *            The type that is compared.
-     * @param <U> The local class type. Must extend {@link Comp}.
+     * @param <U>
+     *            The local class type. Must extend {@link Comp}.
      * 
      * @param constructorArguments
-     *            The constructor arguments to give to the created instance.
-     *            The first argument will usually be 'this' or 'null' if the
+     *            The constructor arguments to give to the created instance. The
+     *            first argument will usually be 'this' or 'null' if the
      *            applyingClass has been declared in an instance method, and the
      *            other arguments will be the local variables that you use from
      *            the local class.
      * @throws IllegalArgumentException
      *             if the applyingClass does not provide a default constructor
-     *             <b>or</b> if the instance argument does not have the
-     *             expected type
-     *             
+     *             <b>or</b> if the instance argument does not have the expected
+     *             type
+     * 
      * @return A {@link Comparator} based on the applyingClass parameter.
      */
     public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass, Object... constructorArguments) throws IllegalArgumentException {
@@ -84,11 +88,11 @@ public abstract class FunkyJava {
     }
 
     /**
-     * The constructor is private to make sure this class won't be instantiated.
-     * The class itself is abstract so that it even cannot be instantiated using
-     * the reflection API.
+     * The constructor is protected and throws an exception to make sure this
+     * class won't be instantiated.
      */
-    private FunkyJava() {
+    FunkyJava() {
+        throw new UnsupportedOperationException();
     }
 
 }
