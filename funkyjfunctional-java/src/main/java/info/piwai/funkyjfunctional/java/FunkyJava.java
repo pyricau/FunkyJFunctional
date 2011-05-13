@@ -34,7 +34,7 @@ import java.util.concurrent.Callable;
  * This module is dedicated to FunkyJFunctional integration with the Java API.
  * 
  * <p>
- * Code coverage of this module: 87.7%
+ * Code coverage of this module: 100% (96.8% according to <a href="http://emma.sourceforge.net/">Emma</a>)
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
