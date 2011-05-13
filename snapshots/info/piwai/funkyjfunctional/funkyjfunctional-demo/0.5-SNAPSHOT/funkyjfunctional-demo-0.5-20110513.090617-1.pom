@@ -1,0 +1,47 @@
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>funkyjfunctional-parent</artifactId>
+        <groupId>info.piwai.funkyjfunctional</groupId>
+        <version>0.5-SNAPSHOT</version>
+    </parent>
+
+    <groupId>info.piwai.funkyjfunctional</groupId>
+    <artifactId>funkyjfunctional-demo</artifactId>
+
+    <name>FunkyJFunctional Demo</name>
+    <description>This project contains example code for all FunkyJFunctional modules</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>info.piwai.funkyjfunctional</groupId>
+            <artifactId>funkyjfunctional-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.piwai.funkyjfunctional</groupId>
+            <artifactId>funkyjfunctional-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.piwai.funkyjfunctional</groupId>
+            <artifactId>funkyjfunctional-guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.piwai.funkyjfunctional</groupId>
+            <artifactId>funkyjfunctional-swing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.piwai.funkyjfunctional</groupId>
+            <artifactId>funkyjfunctional-wicket</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.piwai.funkyjfunctional</groupId>
+            <artifactId>funkyjfunctional-fest-assert</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
