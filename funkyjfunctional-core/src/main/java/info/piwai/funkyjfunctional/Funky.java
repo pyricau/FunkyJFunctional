@@ -116,17 +116,18 @@ import java.io.Serializable;
  * <li>FunkyJFunctional was inspired by a <a href=
  * "https://groups.google.com/d/msg/google-guice/Eu-cJ1N2Q_A/jtiRfGlg3G4J"
  * >message</a> on the Google Guice forum.
- * <li>Code coverage of the core module: 100% (96% according to <a href="http://emma.sourceforge.net/">Emma</a>)
- * <li>FunkyJFunctional has a good code coverage, and we're trying to reach 100% for all modules
- * (in fact, almost 100% since there is unreachable code such as the private
- * constructor of this class).
+ * <li>Code coverage of the core module: 100% (96.8% according to <a
+ * href="http://emma.sourceforge.net/">Emma</a>)
+ * <li>FunkyJFunctional has a good code coverage, and we're trying to reach 100%
+ * for all modules (in fact, almost 100% since there is unreachable code such as
+ * the private constructor of this class).
  * 
  * </ul>
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  * @author Florent Rami&egrave;re
  */
-public abstract class Funky {
+public final class Funky {
 
     /**
      * @param constructorArguments
@@ -146,11 +147,11 @@ public abstract class Funky {
     }
 
     /**
-     * The constructor is private to make sure this class won't be instantiated.
-     * The class itself is abstract so that it even cannot be instantiated using
-     * the reflection API.
+     * The constructor throws an UnsupportedOperationException to make sure this
+     * class won't be instantiated. It is not public to avoid any mistake, but still protected to allow for testing.
      */
-    private Funky() {
+    Funky() {
+        throw new UnsupportedOperationException();
     }
 
 }

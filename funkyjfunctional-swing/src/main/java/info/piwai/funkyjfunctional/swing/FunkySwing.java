@@ -28,25 +28,25 @@ import java.awt.event.ActionListener;
  * Please see the {@link Funky} javadoc to learn how to use FunkyJFunctional.
  * 
  * <p>
- * This module is dedicated to FunkyJFunctional integration with the Java Swing API.
+ * This module is dedicated to FunkyJFunctional integration with the Java Swing
+ * API.
  * 
  * <p>
  * Code coverage of this module: 85.7%
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class FunkySwing {
+public final class FunkySwing {
 
     public static <U extends ActL> ActionListener withActL(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassActionListener<U>(classExecutorWithInput(applyingClass, constructorParameters));
     }
 
     /**
-     * The constructor is private to make sure this class won't be instantiated.
-     * The class itself is abstract so that it even cannot be instantiated using
-     * the reflection API.
+     * @see {@link Funky} constructor
      */
-    private FunkySwing() {
+    FunkySwing() {
+        throw new UnsupportedOperationException();
     }
 
 }

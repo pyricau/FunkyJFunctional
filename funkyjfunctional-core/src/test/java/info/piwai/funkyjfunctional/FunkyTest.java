@@ -26,34 +26,34 @@ import org.mockito.stubbing.Answer;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public class FunkyTest {
-    
+
     @Test
     public void classExecutorReturnsFunkyExecutor() {
         // @off
         class Instantiated {}
         // @on
         ClassExecutor<Instantiated> classExecutor = Funky.classExecutor(Instantiated.class);
-        
+
         assertTrue(classExecutor instanceof FunkyExecutor);
     }
-    
+
     @Test
     public void classExecutorWithInputReturnsFunkyExecutorWithInput() {
         // @off
         class Instantiated {}
         // @on
         ClassExecutorWithInput<Instantiated> classExecutor = Funky.classExecutorWithInput(Instantiated.class);
-        
+
         assertTrue(classExecutor instanceof FunkyExecutorWithInput);
     }
-    
+
     @Test
     @SuppressWarnings("unchecked")
     public void getThreadLocalParameterDelegatesToFunkyExecutorWithInput() {
-        
+
         ClassExecutor<Object> executor = mock(ClassExecutor.class);
         ClassExecutorWithInput<Object> executorWithInput = new FunkyExecutorWithInput<Object>(executor);
-        
+
         final Object parameter = new Object();
         when(executor.createExecutedInstance()).thenAnswer(new Answer<Object>() {
             @Override
@@ -63,6 +63,11 @@ public class FunkyTest {
             }
         });
         executorWithInput.createExecutedInstance(parameter);
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void funkyCannotBeInstanciated() {
+        new Funky();
     }
 
 }

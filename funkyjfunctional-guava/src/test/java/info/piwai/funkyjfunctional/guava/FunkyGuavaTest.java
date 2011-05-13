@@ -13,20 +13,18 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.test;
-
-import info.piwai.funkyjfunctional.Funky;
+package info.piwai.funkyjfunctional.guava;
 
 import org.junit.Test;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class FunkyTest {
-    
-    @Test(expected = Exception.class)
-    public void funkyCannotBeInstanciated() throws Exception{
-        Funky.class.newInstance();
+public class FunkyGuavaTest {
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void funkyGuavaCannotBeInstanciated() {
+        new FunkyGuava();
     }
 
 }

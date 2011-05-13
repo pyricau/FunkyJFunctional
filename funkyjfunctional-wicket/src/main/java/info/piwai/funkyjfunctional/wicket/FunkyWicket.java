@@ -38,7 +38,7 @@ import org.apache.wicket.model.LoadableDetachableModel;
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class FunkyWicket {
+public final class FunkyWicket {
 
     public static <T, U extends LDM<T>> LoadableDetachableModel<T> withLDM(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassLoadableDetachableModel<T, U>(classExecutor(applyingClass, constructorParameters));
@@ -49,11 +49,10 @@ public abstract class FunkyWicket {
     }
 
     /**
-     * The constructor is private to make sure this class won't be instantiated.
-     * The class itself is abstract so that it even cannot be instantiated using
-     * the reflection API.
+     * @see {@link Funky} constructor
      */
-    private FunkyWicket() {
+    FunkyWicket() {
+        throw new UnsupportedOperationException();
     }
 
 }

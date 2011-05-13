@@ -34,8 +34,7 @@ import java.util.concurrent.Callable;
  * This module is dedicated to FunkyJFunctional integration with the Java API.
  * 
  * <p>
- * Code coverage of this module: 100% (96.8% according to <a
- * href="http://emma.sourceforge.net/">Emma</a>)
+ * Code coverage of this module: 100%
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
@@ -88,8 +87,7 @@ public final class FunkyJava {
     }
 
     /**
-     * The constructor is protected and throws an exception to make sure this
-     * class won't be instantiated.
+     * @see {@link Funky} constructor
      */
     FunkyJava() {
         throw new UnsupportedOperationException();

@@ -41,23 +41,21 @@ import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
  * @author Nicolas Francois (nicolas.franc at gmail.com)
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class FunkyFestAssert {
+public final class FunkyFestAssert {
 
     public static <T, U extends Cond<T>> Condition<T> withCond(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassCondition<T, U>(classExecutorWithInput(applyingClass, constructorParameters));
     }
-
 
     public static <T, U extends Desc> Description withDesc(Class<U> applyingClass, Object... constructorParameters) {
         return new ClassDescription<U>(classExecutor(applyingClass, constructorParameters));
     }
 
     /**
-     * The constructor is private to make sure this class won't be instantiated.
-     * The class itself is abstract so that it even cannot be instantiated using
-     * the reflection API.
+     * @see {@link Funky} constructor
      */
-    private FunkyFestAssert() {
+    FunkyFestAssert() {
+        throw new UnsupportedOperationException();
     }
 
 }
