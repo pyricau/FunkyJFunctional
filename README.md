@@ -64,18 +64,18 @@ class SomeClass {
 
 ``` java
 class SomeClass {
-    {
-        // This is an init block
-        // Code executed in the constructor, after super() and before doSomething();
-    }
     SomeClass() {
         super();
         doSomething();
     }
+    {
+        // This is an init block
+        // It is executed in the constructor, after super() and before doSomething();
+    }
 }
 ```
 
-* a bit of [reflection](http://java.sun.com/developer/technicalArticles/ALT/Reflection/)  (```java constructor.newInstance()```),
+* a bit of [reflection](http://java.sun.com/developer/technicalArticles/ALT/Reflection/)  (``` constructor.newInstance()```),
 * a [ThreadLocal](http://download.oracle.com/javase/6/docs/api/java/lang/ThreadLocal.html) for input parameters.
 
 ## Help
