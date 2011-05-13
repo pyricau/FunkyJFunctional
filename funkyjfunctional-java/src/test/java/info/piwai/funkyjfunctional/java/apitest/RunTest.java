@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.java.test;
+package info.piwai.funkyjfunctional.java.apitest;
 
 import static info.piwai.funkyjfunctional.java.FunkyJava.withRun;
 import static org.junit.Assert.assertEquals;
