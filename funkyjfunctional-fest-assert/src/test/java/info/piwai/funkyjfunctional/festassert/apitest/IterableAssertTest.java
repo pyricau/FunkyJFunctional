@@ -13,10 +13,12 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.festassert;
+package info.piwai.funkyjfunctional.festassert.apitest;
 
 import static info.piwai.funkyjfunctional.festassert.FunkyIterableAssert.assertThat;
 import static org.junit.Assert.*;
+
+import info.piwai.funkyjfunctional.festassert.Cond;
 
 import java.util.Arrays;
 
