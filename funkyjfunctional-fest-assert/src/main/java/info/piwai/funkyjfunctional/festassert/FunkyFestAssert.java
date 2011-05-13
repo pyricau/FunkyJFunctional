@@ -36,7 +36,7 @@ import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
  * api).
  * 
  * <p>
- * Code coverage of this module: 93%
+ * Code coverage of this module: 100%
  * 
  * @author Nicolas Francois (nicolas.franc at gmail.com)
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)

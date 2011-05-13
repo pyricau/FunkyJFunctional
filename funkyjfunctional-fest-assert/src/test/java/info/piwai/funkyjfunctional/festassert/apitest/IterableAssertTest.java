@@ -37,6 +37,15 @@ public class IterableAssertTest {
 
         assertThat(Arrays.asList(19, 21, 69)).eachSatisfies(Adult.class);
     }
+    
+    @Test
+    public void eachIs() {
+        // @off
+       class Adult extends Cond<Integer> {{ r = t >= 18; }}
+       // @on
+
+        assertThat(Arrays.asList(19, 21, 69)).eachIs(Adult.class);
+    }
 
     @Test
     public void eachSatisfiesThrowsWhenOneDoesNot() {
@@ -59,6 +68,15 @@ public class IterableAssertTest {
        // @on
 
         assertThat(Arrays.asList(14, -2, 17)).noneSatisfies(Adult.class);
+    }
+    
+    @Test
+    public void noneIs() {
+        // @off
+       class Adult extends Cond<Integer> {{ r = t >= 18; }}
+       // @on
+
+        assertThat(Arrays.asList(14, -2, 17)).noneIs(Adult.class);
     }
 
     @Test

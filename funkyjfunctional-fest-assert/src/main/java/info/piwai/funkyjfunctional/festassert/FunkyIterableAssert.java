@@ -83,11 +83,11 @@ public class FunkyIterableAssert<T> extends IteratorAssert {
     }
     
     public <U extends Cond<T>> FunkyIterableAssert<T> eachIs(Class<U> applyingClass) {
-        return eachSatisfies(applyingClass);
+        return eachIs(withCond(applyingClass));
     }
     
     public <U extends Cond<T>> FunkyIterableAssert<T> noneIs(Class<U> applyingClass) {
-        return noneSatisfies(applyingClass);
+        return noneIs(withCond(applyingClass));
     }
     
     public FunkyIterableAssert<T> noneIs(Condition<T> condition) {
