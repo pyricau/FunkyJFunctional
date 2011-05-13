@@ -43,6 +43,43 @@ class BtonClick extends ActL {{ doSomething(e); }}
 jButton.addActionListener(withActL(BtonClick.class));
 ```
 
+## It's pure Java!
+
+No extra [compilation step](http://download.oracle.com/javase/1.5.0/docs/guide/apt/GettingStarted.html), no bytecode [instrumentation](http://www.eclipse.org/aspectj/), no Java [proxy](http://download.oracle.com/javase/1.3/docs/guide/reflection/proxy.html). 
+
+We use good old Java features:
+
+* [local classes](http://stackoverflow.com/questions/3247654/when-should-you-use-a-local-class-in-java),
+
+``` java
+class SomeClass {
+    void myMethod() {
+        class MyMethodLocalClass {
+        }
+        new MyMethodLocalClass();
+    }
+}
+```
+* [init blocks](http://download.oracle.com/javase/tutorial/java/javaOO/initial.html),
+
+``` java
+class SomeClass {
+    {
+        // This is an init block
+        // Code executed in the constructor, after super() and before doSomething();
+    }
+    SomeClass() {
+        super();
+        doSomething();
+    }
+}
+```
+
+* a bit of [reflection](http://java.sun.com/developer/technicalArticles/ALT/Reflection/)  (```java constructor.newInstance()```),
+* a [ThreadLocal](http://download.oracle.com/javase/6/docs/api/java/lang/ThreadLocal.html) for input parameters.
+
+## Help
+
 [![Javadoc](https://github.com/pyricau/FunkyJFunctional/raw/master/javadoc_screenshot.png)](http://pyricau.github.com/FunkyJFunctional/javadoc/releases/0.4/index.html?info/piwai/funkyjfunctional/Funky.html)
 
 [![Google Group](http://global742.org/sites/default/files/google-groups-logo.png)](https://groups.google.com/group/funkyjfunctional)
