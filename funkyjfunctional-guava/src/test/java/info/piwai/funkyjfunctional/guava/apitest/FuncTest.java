@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.guava.test;
+package info.piwai.funkyjfunctional.guava.apitest;
 
 import static com.google.common.collect.Lists.transform;
 import static info.piwai.funkyjfunctional.guava.FunkyGuava.withFunc;

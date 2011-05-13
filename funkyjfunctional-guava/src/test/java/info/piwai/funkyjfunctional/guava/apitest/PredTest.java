@@ -13,30 +13,34 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.wicket.test;
+package info.piwai.funkyjfunctional.guava.apitest;
 
-import static info.piwai.funkyjfunctional.wicket.FunkyWicket.withARON;
+import static com.google.common.collect.Iterables.filter;
+import static com.google.common.collect.Lists.newArrayList;
+import static info.piwai.funkyjfunctional.guava.FunkyGuava.withPred;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import info.piwai.funkyjfunctional.wicket.ARON;
+import info.piwai.funkyjfunctional.guava.Pred;
 
-import org.apache.wicket.model.AbstractReadOnlyModel;
+import java.util.List;
+
 import org.junit.Test;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class ARONTest {
-	
+public class PredTest {
+
     @Test
-    public void callableReturnsFortyTwo() throws Exception {
+    public void filtering() {
+        List<Integer> ages = asList(16, 21);
+
         // @off
-        class FortyTwo extends ARON<String> {{ r = "42"; }}
-        // @on
+		class Adult extends Pred<Integer> {{ r = t > 18; }}
+		// @on
 
-        AbstractReadOnlyModel<String> aron = withARON(FortyTwo.class);
+        List<Integer> adults = newArrayList(filter(ages, withPred(Adult.class)));
 
-        assertEquals("42",  aron.getObject());
+        assertEquals(asList(21), adults);
     }
-
-
 }

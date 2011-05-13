@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.wicket.test;
+package info.piwai.funkyjfunctional.wicket.apitest;
 
 import static info.piwai.funkyjfunctional.wicket.FunkyWicket.withLDM;
 import static org.junit.Assert.assertEquals;
