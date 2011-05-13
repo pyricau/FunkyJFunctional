@@ -57,7 +57,7 @@ FunkyJFunctional has continuous integration thanks to **CloudBees** DEV@Cloud [f
 [![Build Trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/buildTimeGraph/png?width=400&height=200)](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/)
 [![Test result trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/test/trend?width=400&height=200)](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/)
 
-Note that **funkyjfunctional-core** has **100% test coverage**, and that other modules do not fall under **75%**.
+Note that **all modules** have **100% code coverage**
 
 
 # Detailed example
