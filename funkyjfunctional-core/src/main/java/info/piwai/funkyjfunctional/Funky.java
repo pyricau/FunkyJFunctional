@@ -114,7 +114,7 @@ import java.io.Serializable;
  * <h2 id="4">4. Some more info</h2>
  * <ul>
  * <li>FunkyJFunctional was inspired by a <a href=
- * "https://groups.google.com/forum/#!msg/google-guice/Eu-cJ1N2Q_A/jtiRfGlg3G4J"
+ * "https://groups.google.com/d/msg/google-guice/Eu-cJ1N2Q_A/jtiRfGlg3G4J"
  * >message</a> on the Google Guice forum.
  * <li>Code coverage of the core module: 100% (96% according to <a href="http://emma.sourceforge.net/">Emma</a>)
  * <li>FunkyJFunctional has a good code coverage, and we're trying to reach 100% for all modules
