@@ -15,11 +15,11 @@
  */
 package info.piwai.funkyjfunctional.festassert;
 
-import org.junit.Test;
+import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.*;
+import static org.fest.assertions.Assertions.*;
+import static org.junit.Assert.*;
 
-import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.withDesc;
-import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 /**
  * @author Nicolas Francois (nicolas.franc at gmail.com)
@@ -28,7 +28,6 @@ public class DescTest {
 
     @Test
     public void values(){
-        Object dummy = new Object();
         // @off
         class NotEquals extends Desc {{ r = "We're not equals";}};
         // @on
@@ -38,9 +37,6 @@ public class DescTest {
              String message = error.getMessage();
              assertTrue(message.startsWith("[We're not equals]"));
         }
-
-
-
     };
 
 }
