@@ -43,6 +43,10 @@ class BtonClick extends ActL {{ doSomething(e); }}
 jButton.addActionListener(withActL(BtonClick.class));
 ```
 
+[![Javadoc](https://github.com/pyricau/FunkyJFunctional/raw/master/javadoc_screenshot.png)](http://pyricau.github.com/FunkyJFunctional/javadoc/releases/0.4/index.html?info/piwai/funkyjfunctional/Funky.html)
+
+[![Google Group](http://global742.org/sites/default/files/google-groups-logo.png)](https://groups.google.com/group/funkyjfunctional)
+
 Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau.github.com/FunkyJFunctional/javadoc/releases/0.4/index.html?info/piwai/funkyjfunctional/Funky.html)!
 
 Any question? Please ask them on the dedicated [Google Group](https://groups.google.com/group/funkyjfunctional).
@@ -57,7 +61,7 @@ FunkyJFunctional has continuous integration thanks to **CloudBees** DEV@Cloud [f
 [![Build Trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/buildTimeGraph/png?width=400&height=200)](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/)
 [![Test result trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/test/trend?width=400&height=200)](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/)
 
-Note that **all modules** have **100% code coverage**
+Note that **all modules** have **100% code coverage**.
 
 
 # Detailed example
