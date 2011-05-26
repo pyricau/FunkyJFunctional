@@ -15,16 +15,14 @@
  */
 package info.piwai.funkyjfunctional.guava.apitest;
 
-import static com.google.common.collect.Iterables.filter;
-import static com.google.common.collect.Lists.newArrayList;
 import static info.piwai.funkyjfunctional.guava.FunkyGuava.withPred;
-import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import info.piwai.funkyjfunctional.guava.Pred;
 
-import java.util.List;
-
 import org.junit.Test;
+
+import com.google.common.base.Predicate;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
@@ -33,14 +31,13 @@ public class PredTest {
 
     @Test
     public void filtering() {
-        List<Integer> ages = asList(16, 21);
-
         // @off
 		class Adult extends Pred<Integer> {{ r = t > 18; }}
 		// @on
 
-        List<Integer> adults = newArrayList(filter(ages, withPred(Adult.class)));
-
-        assertEquals(asList(21), adults);
+        Predicate<Integer> predicate = withPred(Adult.class);
+        
+        assertFalse(predicate.apply(16));
+        assertTrue(predicate.apply(19));
     }
 }

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.guava.apitest;
+package info.piwai.funkyjfunctional.demo.guava;
 
 import static info.piwai.funkyjfunctional.guava.FunkyGuava.withConst;
 import static org.junit.Assert.assertEquals;
@@ -21,35 +21,45 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import info.piwai.funkyjfunctional.guava.Const;
 
+import java.util.Collection;
+import java.util.List;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Constraint;
+import com.google.common.collect.Constraints;
+import com.google.common.collect.Lists;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class ConstTest {
+public class ConstDemo {
     
-    @Test(expected = IllegalArgumentException.class)
-    public void invalidInput() {
+    private Collection<String> strings;
+    private Constraint<String> constraint;
+
+    @Before
+    public void setup() {
         // @off
         class NotFortyTwo extends Const<String> {{ if("42".equals(t)) invalid("Should not be 42!"); }}
         // @on
+
+        List<String> list = Lists.newArrayList();
+
+        constraint = withConst(NotFortyTwo.class);
         
-        Constraint<String> constraint = withConst(NotFortyTwo.class);
-        
-        constraint.checkElement("42");
+        strings = Constraints.constrainedCollection(list, constraint);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidInput() {
+        strings.add("42");
     }
 
     @Test
     public void validInput() {
-        // @off
-        class NotFortyTwo extends Const<String> {{ if("42".equals(t)) invalid("Should not be 42!"); }}
-        // @on
-        
-        Constraint<String> constraint = withConst(NotFortyTwo.class);
-        
-        constraint.checkElement("43");
+        strings.add("43");
     }
     
     @Test

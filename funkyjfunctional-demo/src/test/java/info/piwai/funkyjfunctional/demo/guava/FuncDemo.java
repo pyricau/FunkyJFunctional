@@ -13,21 +13,22 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.guava.apitest;
+package info.piwai.funkyjfunctional.demo.guava;
 
+import static com.google.common.collect.Lists.transform;
 import static info.piwai.funkyjfunctional.guava.FunkyGuava.withFunc;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 import info.piwai.funkyjfunctional.guava.Func;
 
-import org.junit.Test;
+import java.util.List;
 
-import com.google.common.base.Function;
+import org.junit.Test;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class FuncTest {
+public class FuncDemo {
 
     static class Person {
         final String firstName;
@@ -40,25 +41,17 @@ public class FuncTest {
     }
 
     @Test
-    public void returnsResult() {
+    public void transforming() {
+        Person johnSmith = new Person("John", "Smith");
+        Person joeBar = new Person("Joe", "Bar");
+        List<Person> persons = asList(johnSmith, joeBar);
+
         // @off
-        class ReturnsResult extends Func<Object, Integer> {{ r = 42; }}
-        // @on
+		class FullName extends Func<Person, String> {{ r = t.firstName + " " + t.lastName; }}
+		// @on
 
-        Function<Object, Integer> function = withFunc(ReturnsResult.class);
+        List<String> fullNames = transform(persons, withFunc(FullName.class));
 
-        assertEquals((Integer) 42, function.apply(null));
-    }
-
-    public void returnsInput() {
-        // @off
-        class Identity extends Func<Object, Object> {{ r = t; }}
-        // @on
-
-        Function<Object, Object> function = withFunc(Identity.class);
-
-        Object input = new Object();
-
-        assertSame(input, function.apply(input));
+        assertEquals(asList("John Smith", "Joe Bar"), fullNames);
     }
 }
