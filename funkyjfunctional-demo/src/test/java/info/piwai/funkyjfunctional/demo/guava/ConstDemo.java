@@ -15,51 +15,47 @@
  */
 package info.piwai.funkyjfunctional.demo.guava;
 
+import static com.google.common.collect.Constraints.constrainedList;
 import static info.piwai.funkyjfunctional.guava.FunkyGuava.withConst;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import info.piwai.funkyjfunctional.guava.Const;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Constraint;
-import com.google.common.collect.Constraints;
-import com.google.common.collect.Lists;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public class ConstDemo {
-    
-    private Collection<String> strings;
-    private Constraint<String> constraint;
-
-    @Before
-    public void setup() {
-        // @off
-        class NotFortyTwo extends Const<String> {{ if("42".equals(t)) invalid("Should not be 42!"); }}
-        // @on
-
-        List<String> list = Lists.newArrayList();
-
-        constraint = withConst(NotFortyTwo.class);
-        
-        strings = Constraints.constrainedCollection(list, constraint);
-    }
 
     @Test(expected = IllegalArgumentException.class)
-    public void invalidInput() {
-        strings.add("42");
+    public void invalidInputThrows() {
+        // @off
+        class NotFortyTwo extends Const<String> {{ if ("42".equals(t)) invalid("Should not be 42!"); }}
+        // @on
+
+        List<String> no42List = constrainedList(new ArrayList<String>(), withConst(NotFortyTwo.class));
+        
+        no42List.add("42");
     }
 
     @Test
-    public void validInput() {
-        strings.add("43");
+    public void validInputAccepted() {
+        // @off
+        class NotFortyTwo extends Const<String> {{ if ("42".equals(t)) invalid("Should not be 42!"); }}
+        // @on
+
+        List<String> no42List = constrainedList(new ArrayList<String>(), withConst(NotFortyTwo.class));
+        
+        no42List.add("43");
+        
+        assertTrue(no42List.contains("43"));
     }
     
     @Test
@@ -74,18 +70,19 @@ public class ConstDemo {
     }
     
     @Test
-    public void mayChangeReturned() {
+    public void changesInput() {
         // @off
-        class ChangeReturn extends Const<String> {{ r = "43"; }}
+        class AddEuroSign extends Const<String> {{ r = t.endsWith("Û") ? t : t + "Û"; }}
         // @on
         
-        String input = "42";
-        String returned = withConst(ChangeReturn.class).checkElement(input);
-        assertNotSame(input, returned);
+        Constraint<String> euroConstraint = withConst(AddEuroSign.class);
+        
+        assertEquals("42Û", euroConstraint.checkElement("42"));
+        
     }
     
     @Test
-    public void printsCorrectString() {
+    public void constraintIsNamed() {
         // @off
         class SomeName extends Const<String> {{}}
         // @on

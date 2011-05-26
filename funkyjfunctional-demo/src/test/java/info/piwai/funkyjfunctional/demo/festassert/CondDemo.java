@@ -24,36 +24,43 @@ import info.piwai.funkyjfunctional.festassert.Cond;
 
 import java.util.List;
 
+import org.fest.assertions.Condition;
 import org.junit.Test;
 
 /**
  * @author Nicolas Francois (nicolas.franc at gmail.com)
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public class CondDemo{
 
     @Test
-    public void condition() {
+    public void majorAssertion() {
 
         // @off
-        class Adult extends Cond<Integer> {{ r = t > 18; }}
+        class Major extends Cond<Integer> {{ r = t >= 18; }}
         // @on
 
-        assertThat(20).satisfies(withCond(Adult.class)).is(withCond(Adult.class));
-        assertThat(5).doesNotSatisfy(withCond(Adult.class)).isNot(withCond(Adult.class));
+        assertThat(20).satisfies(withCond(Major.class));
 
+        assertThat(5).doesNotSatisfy(withCond(Major.class));
     }
 
 
     @Test
-    public void conditionOnList() {
+    public void evenListAssertion() {
+        
         List<Integer> evenList = asList(16, 21);
         List<Integer> oddList = asList(16, 21, 38);
+        
         // @off
         class EvenSize extends Cond<List<?>> {{ r = t != null && t.size() %2 == 0; }};
         // @on
-        assertThat(evenList).satisfies(withCond(EvenSize.class)).is(withCond(EvenSize.class));
-        assertThat(oddList).doesNotSatisfy(withCond(EvenSize.class)).isNot(withCond(EvenSize.class));
         
+        Condition<List<?>> even = withCond(EvenSize.class);
+        
+        assertThat(evenList).is(even);
+        
+        assertThat(oddList).isNot(even);
     }
     
     @Test

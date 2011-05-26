@@ -39,10 +39,10 @@ public class PredDemo {
         List<User> users = asList(minor, major);
 
         // @off
-        class Majors extends Pred<User> {{ r = t.age >= 18; }}
+        class Major extends Pred<User> {{ r = t.age >= 18; }}
         // @on
 
-        List<User> majors = newArrayList(filter(users, withPred(Majors.class)));
+        List<User> majors = newArrayList(filter(users, withPred(Major.class)));
 
         assertEquals(asList(major), majors);
     }
