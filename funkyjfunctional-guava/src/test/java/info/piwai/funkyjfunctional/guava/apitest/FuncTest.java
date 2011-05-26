@@ -42,7 +42,7 @@ public class FuncTest {
     @Test
     public void returnsResult() {
         // @off
-        class ReturnsResult extends Func<Object, Integer> {{ r = 42; }}
+        class ReturnsResult extends Func<Object, Integer> {{ out = 42; }}
         // @on
 
         Function<Object, Integer> function = withFunc(ReturnsResult.class);
@@ -52,7 +52,7 @@ public class FuncTest {
 
     public void returnsInput() {
         // @off
-        class Identity extends Func<Object, Object> {{ r = t; }}
+        class Identity extends Func<Object, Object> {{ out = in; }}
         // @on
 
         Function<Object, Object> function = withFunc(Identity.class);

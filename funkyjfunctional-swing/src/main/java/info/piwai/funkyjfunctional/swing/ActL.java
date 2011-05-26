@@ -31,39 +31,18 @@ package info.piwai.funkyjfunctional.swing;
  */
 
 
-import info.piwai.funkyjfunctional.ClassExecutorWithInput;
 import info.piwai.funkyjfunctional.Funky;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class ActL {
 
-    /**
-     * <p>
-     * {@link ClassActionListener} is not part of the API, which is why it has
-     * package-private scope.
-     */
-    static class ClassActionListener<U extends ActL> implements ActionListener {
-
-        private final ClassExecutorWithInput<U> executor;
-
-        ClassActionListener(ClassExecutorWithInput<U> executor) {
-            this.executor = executor;
-        }
-
-		@Override
-		public void actionPerformed(ActionEvent event) {
-			executor.createExecutedInstance(event);
-		}
-    }
-
-    protected ActionEvent e;
+    protected final ActionEvent in;
 
     public ActL() {
-        e = Funky.<ActionEvent>getThreadLocalParameter();
+        in = Funky.<ActionEvent>getThreadLocalParameter();
     }
 }

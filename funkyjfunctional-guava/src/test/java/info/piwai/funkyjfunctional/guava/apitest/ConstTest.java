@@ -33,7 +33,7 @@ public class ConstTest {
     @Test(expected = IllegalArgumentException.class)
     public void invalidInput() {
         // @off
-        class NotFortyTwo extends Const<String> {{ if("42".equals(t)) invalid("Should not be 42!"); }}
+        class NotFortyTwo extends Const<String> {{ if("42".equals(in)) invalid("Should not be 42!"); }}
         // @on
         
         Constraint<String> constraint = withConst(NotFortyTwo.class);
@@ -44,7 +44,7 @@ public class ConstTest {
     @Test
     public void validInput() {
         // @off
-        class NotFortyTwo extends Const<String> {{ if("42".equals(t)) invalid("Should not be 42!"); }}
+        class NotFortyTwo extends Const<String> {{ if("42".equals(in)) invalid("Should not be 42!"); }}
         // @on
         
         Constraint<String> constraint = withConst(NotFortyTwo.class);
@@ -66,7 +66,7 @@ public class ConstTest {
     @Test
     public void mayChangeReturned() {
         // @off
-        class ChangeReturn extends Const<String> {{ r = "43"; }}
+        class ChangeReturn extends Const<String> {{ out = "43"; }}
         // @on
         
         String input = "42";

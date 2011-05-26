@@ -38,7 +38,7 @@ public class CompDemo {
         List<Person> persons = asList(john, joe);
 
         // @off
-        class Sort extends Comp<Person> {{ r = t1.getName().compareTo(t2.getName()); }}
+        class Sort extends Comp<Person> {{ out = in1.getName().compareTo(in2.getName()); }}
         // @on
         
         sort(persons, withComp(Sort.class));

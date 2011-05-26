@@ -58,7 +58,7 @@ public class ActLTest {
     	ActionEvent event = mock(ActionEvent.class);
     	
         // @off
-        class Increment extends ActL{{ e.getActionCommand(); }}
+        class Increment extends ActL{{ in.getActionCommand(); }}
         // @on
 
         withActL(Increment.class).actionPerformed(event);

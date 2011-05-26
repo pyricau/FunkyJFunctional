@@ -15,12 +15,9 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import static info.piwai.funkyjfunctional.Funky.*;
+import static info.piwai.funkyjfunctional.Funky.classExecutor;
+import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
 import info.piwai.funkyjfunctional.Funky;
-import info.piwai.funkyjfunctional.guava.Const.ClassConstraint;
-import info.piwai.funkyjfunctional.guava.Func.ClassFunction;
-import info.piwai.funkyjfunctional.guava.Pred.ClassPredicate;
-import info.piwai.funkyjfunctional.guava.Supp.ClassSupplier;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;

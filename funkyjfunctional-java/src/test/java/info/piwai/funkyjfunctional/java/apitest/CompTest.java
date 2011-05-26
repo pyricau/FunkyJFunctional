@@ -33,7 +33,7 @@ public class CompTest {
     public void ordering() {
         
         // @off
-        class IntCompt extends Comp<Integer> {{ r = t1.compareTo(t2); }}
+        class IntCompt extends Comp<Integer> {{ out = in1.compareTo(in2); }}
         // @on
         
         Comparator<Integer> comp = withComp(IntCompt.class);

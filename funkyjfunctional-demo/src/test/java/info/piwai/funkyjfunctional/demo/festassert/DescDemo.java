@@ -30,7 +30,7 @@ public class DescDemo {
     @Test
     public void values(){
         // @off
-        class NotEquals extends Desc {{ r = "We're not equals";}};
+        class NotEquals extends Desc {{ out = "We're not equals";}};
         // @on
         try{
            assertThat(1).as(withDesc(NotEquals.class)).isEqualTo(2);

@@ -13,18 +13,18 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.wicket;
-
-import org.apache.wicket.model.AbstractReadOnlyModel;
-
+package info.piwai.funkyjfunctional.java;
 
 /**
- * A Funky {@link AbstractReadOnlyModel}
- * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class ARON<T> {
+final class Compared<T> {
 
-    protected T out;
+    protected final T t1;
+    protected final T t2;
 
+    public Compared(T t1, T t2) {
+        this.t1 = t1;
+        this.t2 = t2;
+    }
 }

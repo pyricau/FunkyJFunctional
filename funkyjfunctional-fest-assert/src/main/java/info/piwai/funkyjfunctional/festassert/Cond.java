@@ -15,52 +15,27 @@
  */
 package info.piwai.funkyjfunctional.festassert;
 
-import info.piwai.funkyjfunctional.ClassExecutorWithInput;
-import info.piwai.funkyjfunctional.Funky;
 import org.fest.assertions.Condition;
 
+import info.piwai.funkyjfunctional.Funky;
+
 /**
+ * Funky {@link Condition} to be met by an Object.
+ * @param <T> the type of Object this condition accepts.
+ * 
  * @author Nicolas Francois (nicolas.franc at gmail.com)
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Cond<T> {
 
-    /**
-     * <p>
-     * {@link ClassCondition} is not part of the API, which is why it has
-     * package-private scope.
-     */
-    static class ClassCondition<T, U extends Cond<T>> extends Condition<T> {
+    protected final T in;
 
-        private final ClassExecutorWithInput<U> executor;
+    protected boolean out;
 
-        ClassCondition(ClassExecutorWithInput<U> executor) {
-            this.executor = executor;
-        }
-
-        @Override
-        public boolean matches(T input) {
-            U instance = executor.createExecutedInstance(input);
-
-            if (instance.d != null) {
-                as(instance.d);
-            } else {
-                as(executor.getClassSimpleName());
-            }
-
-            return instance.r;
-        }
-
-    }
-
-    protected T t;
-
-    protected boolean r;
-
-    protected String d;
+    protected String as;
 
     public Cond() {
-        t = Funky.<T> getThreadLocalParameter();
+        in = Funky.<T> getThreadLocalParameter();
     }
 
 }

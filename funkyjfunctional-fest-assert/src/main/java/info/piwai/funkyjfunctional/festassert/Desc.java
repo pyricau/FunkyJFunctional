@@ -15,34 +15,17 @@
  */
 package info.piwai.funkyjfunctional.festassert;
 
-import info.piwai.funkyjfunctional.ClassExecutor;
 import org.fest.assertions.Description;
 
+
 /**
+ * A Funky {@link Description} of something.
+ * 
  * @author Nicolas Francois (nicolas.franc at gmail.com)
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Desc {
 
-    /**
-     * <p>
-     * {@link ClassDescription} is not part of the API, which is why it has
-     * package-private scope.
-     */
-    static class ClassDescription<U extends Desc> implements Description {
-
-        private final ClassExecutor<U> executor;
-
-        ClassDescription(ClassExecutor<U> executor) {
-            this.executor = executor;
-        }
-
-        @Override
-        public String value() {
-            U instance = executor.createExecutedInstance();
-            return instance.r;
-        }
-    }
-
-    protected String r;
+    protected String out;
 
 }

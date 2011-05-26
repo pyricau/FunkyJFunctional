@@ -13,18 +13,30 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.wicket;
+package info.piwai.funkyjfunctional.java;
 
-import org.apache.wicket.model.AbstractReadOnlyModel;
+import info.piwai.funkyjfunctional.ClassExecutor;
 
+import java.util.concurrent.Callable;
 
 /**
- * A Funky {@link AbstractReadOnlyModel}
+ * <p>
+ * {@link ClassCallable} is not part of the API, which is why it has
+ * package-private scope.
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class ARON<T> {
+final class ClassCallable<T, U extends Call<T>> implements Callable<T> {
 
-    protected T out;
+    private final ClassExecutor<U> executor;
+    
+    ClassCallable(ClassExecutor<U> executor) {
+        this.executor = executor;
+    }
 
+    @Override
+    public T call() throws Exception {
+        U instance = executor.createExecutedInstance();
+        return instance.out;
+    }
 }

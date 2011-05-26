@@ -15,14 +15,12 @@
  */
 package info.piwai.funkyjfunctional.festassert;
 
-import info.piwai.funkyjfunctional.Funky;
-import info.piwai.funkyjfunctional.festassert.Cond.ClassCondition;
-import info.piwai.funkyjfunctional.festassert.Desc.ClassDescription;
-import org.fest.assertions.Condition;
-import org.fest.assertions.Description;
-
 import static info.piwai.funkyjfunctional.Funky.classExecutor;
 import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
+import info.piwai.funkyjfunctional.Funky;
+
+import org.fest.assertions.Condition;
+import org.fest.assertions.Description;
 
 /**
  * FunkyJFunctional enables Java functional programming using method local class

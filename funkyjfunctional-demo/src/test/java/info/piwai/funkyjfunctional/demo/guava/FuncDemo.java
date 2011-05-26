@@ -47,7 +47,7 @@ public class FuncDemo {
         List<Person> persons = asList(johnSmith, joeBar);
 
         // @off
-		class FullName extends Func<Person, String> {{ r = t.firstName + " " + t.lastName; }}
+		class FullName extends Func<Person, String> {{ out = in.firstName + " " + in.lastName; }}
 		// @on
 
         List<String> fullNames = transform(persons, withFunc(FullName.class));

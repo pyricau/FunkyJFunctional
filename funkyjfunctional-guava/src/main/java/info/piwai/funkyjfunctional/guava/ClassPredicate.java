@@ -13,18 +13,30 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.wicket;
+package info.piwai.funkyjfunctional.guava;
 
-import org.apache.wicket.model.AbstractReadOnlyModel;
+import info.piwai.funkyjfunctional.ClassExecutorWithInput;
 
+import com.google.common.base.Predicate;
 
 /**
- * A Funky {@link AbstractReadOnlyModel}
+ * <p>
+ * {@link ClassPredicate} is not part of the API, which is why it has
+ * package-private scope.
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class ARON<T> {
+final class ClassPredicate<T, U extends Pred<T>> implements Predicate<T> {
 
-    protected T out;
+    private final ClassExecutorWithInput<U> executor;
 
+    ClassPredicate(ClassExecutorWithInput<U> executor) {
+        this.executor = executor;
+    }
+
+    @Override
+    public boolean apply(T input) {
+        U instance = executor.createExecutedInstance(input);
+        return instance.out;
+    }
 }

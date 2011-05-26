@@ -35,7 +35,7 @@ public class CondTest {
     public void simplePositiveCondition() {
 
         // @off
-        class Positive extends Cond<Integer> {{ r = t > 0; }}
+        class Positive extends Cond<Integer> {{ out = in > 0; }}
         // @on
 
         Condition<Integer> condition = withCond(Positive.class);
@@ -47,7 +47,7 @@ public class CondTest {
     @Test
     public void noDescriptionBeforeMatches() {
         // @off
-        class AlwaysFalse extends Cond<Object> {{ r = false; }};
+        class AlwaysFalse extends Cond<Object> {{ out = false; }};
         // @on
 
         Condition<Object> condition = withCond(AlwaysFalse.class);
@@ -58,7 +58,7 @@ public class CondTest {
     @Test
     public void defaultDescriptionAfterMatches() {
         // @off
-        class AlwaysFalse extends Cond<Object> {{ r = false; }};
+        class AlwaysFalse extends Cond<Object> {{ out = false; }};
         // @on
 
         Condition<Object> condition = withCond(AlwaysFalse.class);
@@ -72,7 +72,7 @@ public class CondTest {
     public void customDescriptionAfterMatches() {
 
         // @off
-        class AlwaysFalse extends Cond<Object> {{ d="I'm always false!"; r = false; }};
+        class AlwaysFalse extends Cond<Object> {{ as = "I'm always false!"; out = false; }};
         // @on
 
         Condition<Object> condition = withCond(AlwaysFalse.class);
@@ -85,7 +85,7 @@ public class CondTest {
     @Test
     public void overrideDefaultDescription() {
         // @off
-        class AlwaysFalse extends Cond<Object> {{ r = false; }};
+        class AlwaysFalse extends Cond<Object> {{ out = false; }};
         // @on
 
         Condition<Object> condition = withCond(AlwaysFalse.class);
@@ -100,7 +100,7 @@ public class CondTest {
     @Test
     public void overrideCustomDescription() {
         // @off
-        class AlwaysFalse extends Cond<Object> {{ d="I'm always false!"; r = false; }};
+        class AlwaysFalse extends Cond<Object> {{ as = "I'm always false!"; out = false; }};
         // @on
 
         Condition<Object> condition = withCond(AlwaysFalse.class);

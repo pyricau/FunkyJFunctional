@@ -30,8 +30,8 @@ final class FunkyExecutorWithInput<T> implements ClassExecutorWithInput<T> {
     private final ClassExecutor<T> executor;
 
     @SuppressWarnings("unchecked")
-    static <T> T getThreadLocalParameter() {
-        return (T) holder.get();
+    static <PARAM> PARAM getThreadLocalParameter() {
+        return (PARAM) holder.get();
     }
 
     FunkyExecutorWithInput(ClassExecutor<T> executor) {

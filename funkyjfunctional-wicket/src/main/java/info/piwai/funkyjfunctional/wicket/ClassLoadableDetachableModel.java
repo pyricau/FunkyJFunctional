@@ -15,16 +15,31 @@
  */
 package info.piwai.funkyjfunctional.wicket;
 
-import org.apache.wicket.model.AbstractReadOnlyModel;
+import info.piwai.funkyjfunctional.ClassExecutor;
 
+import org.apache.wicket.model.LoadableDetachableModel;
 
 /**
- * A Funky {@link AbstractReadOnlyModel}
+ * <p>
+ * {@link ClassLoadableDetachableModel} is not part of the API, which is why it
+ * has package-private scope.
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class ARON<T> {
+final class ClassLoadableDetachableModel<T, U extends LDM<T>> extends LoadableDetachableModel<T> {
 
-    protected T out;
+    private static final long serialVersionUID = 1L;
+
+    private final ClassExecutor<U> executor;
+
+    ClassLoadableDetachableModel(ClassExecutor<U> executor) {
+        this.executor = executor;
+    }
+
+    @Override
+    protected T load() {
+        U instance = executor.createExecutedInstance();
+        return instance.out;
+    }
 
 }

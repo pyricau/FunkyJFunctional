@@ -15,16 +15,33 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import com.google.common.base.Supplier;
+import info.piwai.funkyjfunctional.ClassExecutorWithInput;
 
+import com.google.common.collect.Constraint;
 
 /**
- * A Funky {@link Supplier}
+ * <p>
+ * {@link ClassConstraint} is not part of the API, which is why it has
+ * package-private scope.
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class Supp<T> {
+final class ClassConstraint<T, U extends Const<T>> implements Constraint<T> {
 
-    protected T out;
+    private final ClassExecutorWithInput<U> executor;
 
+    ClassConstraint(ClassExecutorWithInput<U> executor) {
+        this.executor = executor;
+    }
+
+    @Override
+    public T checkElement(T element) {
+        U instance = executor.createExecutedInstance(element);
+        return instance.out;
+    }
+
+    @Override
+    public String toString() {
+        return executor.getClassSimpleName() + " constraint";
+    }
 }

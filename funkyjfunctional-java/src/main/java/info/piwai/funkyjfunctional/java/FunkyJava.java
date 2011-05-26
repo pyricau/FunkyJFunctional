@@ -18,8 +18,6 @@ package info.piwai.funkyjfunctional.java;
 import static info.piwai.funkyjfunctional.Funky.classExecutor;
 import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
 import info.piwai.funkyjfunctional.Funky;
-import info.piwai.funkyjfunctional.java.Call.ClassCallable;
-import info.piwai.funkyjfunctional.java.Comp.ClassComparator;
 
 import java.util.Comparator;
 import java.util.concurrent.Callable;

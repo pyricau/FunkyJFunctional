@@ -15,42 +15,23 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import info.piwai.funkyjfunctional.ClassExecutorWithInput;
-import info.piwai.funkyjfunctional.Funky;
-
 import com.google.common.base.Predicate;
 
+import info.piwai.funkyjfunctional.Funky;
+
 /**
+ * A Funky {@link Predicate}
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Pred<T> {
 
-    /**
-     * <p>
-     * {@link ClassPredicate} is not part of the API, which is why it has
-     * package-private scope.
-     */
-    static class ClassPredicate<T, U extends Pred<T>> implements Predicate<T> {
+    protected final T in;
 
-        private final ClassExecutorWithInput<U> executor;
-
-        ClassPredicate(ClassExecutorWithInput<U> executor) {
-            this.executor = executor;
-        }
-
-        @Override
-        public boolean apply(T input) {
-            U instance = executor.createExecutedInstance(input);
-            return instance.r;
-        }
-    }
-
-    protected T t;
-
-    protected boolean r;
+    protected boolean out;
 
     public Pred() {
-        t = Funky.<T> getThreadLocalParameter();
+        in = Funky.<T> getThreadLocalParameter();
     }
 
 }

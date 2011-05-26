@@ -39,7 +39,7 @@ public class PredDemo {
         List<User> users = asList(minor, major);
 
         // @off
-        class Major extends Pred<User> {{ r = t.age >= 18; }}
+        class Major extends Pred<User> {{ out = in.age >= 18; }}
         // @on
 
         List<User> majors = newArrayList(filter(users, withPred(Major.class)));

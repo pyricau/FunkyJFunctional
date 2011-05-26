@@ -15,41 +15,22 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import info.piwai.funkyjfunctional.ClassExecutorWithInput;
-import info.piwai.funkyjfunctional.Funky;
-
 import com.google.common.base.Function;
 
+import info.piwai.funkyjfunctional.Funky;
+
 /**
+ * A Funky {@link Function}
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Func<From, To> {
 
-    /**
-     * <p>
-     * {@link ClassFunction} is not part of the API, which is why it has
-     * package-private scope.
-     */
-    static class ClassFunction<From, To, U extends Func<From, To>> implements Function<From, To> {
+    protected final From in;
 
-        private final ClassExecutorWithInput<U> executor;
-
-        ClassFunction(ClassExecutorWithInput<U> executor) {
-            this.executor = executor;
-        }
-
-        @Override
-        public To apply(From input) {
-            U instance = executor.createExecutedInstance(input);
-            return instance.r;
-        }
-    }
-
-    protected From t;
-
-    protected To r;
+    protected To out;
 
     public Func() {
-        t = Funky.<From> getThreadLocalParameter();
+        in = Funky.<From> getThreadLocalParameter();
     }
 }

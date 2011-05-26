@@ -37,7 +37,7 @@ public class ConstDemo {
     @Test(expected = IllegalArgumentException.class)
     public void invalidInputThrows() {
         // @off
-        class NotFortyTwo extends Const<String> {{ if ("42".equals(t)) invalid("Should not be 42!"); }}
+        class NotFortyTwo extends Const<String> {{ if ("42".equals(in)) invalid("Should not be 42!"); }}
         // @on
 
         List<String> no42List = constrainedList(new ArrayList<String>(), withConst(NotFortyTwo.class));
@@ -48,7 +48,7 @@ public class ConstDemo {
     @Test
     public void validInputAccepted() {
         // @off
-        class NotFortyTwo extends Const<String> {{ if ("42".equals(t)) invalid("Should not be 42!"); }}
+        class NotFortyTwo extends Const<String> {{ if ("42".equals(in)) invalid("Should not be 42!"); }}
         // @on
 
         List<String> no42List = constrainedList(new ArrayList<String>(), withConst(NotFortyTwo.class));
@@ -72,12 +72,12 @@ public class ConstDemo {
     @Test
     public void changesInput() {
         // @off
-        class AddEuroSign extends Const<String> {{ r = t.endsWith("Û") ? t : t + "Û"; }}
+        class AddSlash extends Const<String> {{ out = in.startsWith("/") ? in : "/" + in; }}
         // @on
         
-        Constraint<String> euroConstraint = withConst(AddEuroSign.class);
+        Constraint<String> euroConstraint = withConst(AddSlash.class);
         
-        assertEquals("42Û", euroConstraint.checkElement("42"));
+        assertEquals("/path", euroConstraint.checkElement("path"));
         
     }
     

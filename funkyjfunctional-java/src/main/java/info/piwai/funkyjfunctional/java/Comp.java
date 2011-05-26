@@ -15,55 +15,25 @@
  */
 package info.piwai.funkyjfunctional.java;
 
-import info.piwai.funkyjfunctional.ClassExecutorWithInput;
-import info.piwai.funkyjfunctional.Funky;
-
 import java.util.Comparator;
 
+import info.piwai.funkyjfunctional.Funky;
+
 /**
+ * A Funky {@link Comparator}
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Comp<T> {
 
-    private static class Compared<T> {
-
-        public final T t1;
-        public final T t2;
-
-        public Compared(T t1, T t2) {
-            this.t1 = t1;
-            this.t2 = t2;
-        }
-    }
-
-    /**
-     * <p>
-     * {@link ClassComparator} is not part of the API, which is why it has
-     * package-private scope.
-     */
-    static class ClassComparator<T, U extends Comp<T>> implements Comparator<T> {
-
-        private final ClassExecutorWithInput<U> executor;
-
-        ClassComparator(ClassExecutorWithInput<U> executor) {
-            this.executor = executor;
-        }
-
-        @Override
-        public int compare(T t1, T t2) {
-            U instance = executor.createExecutedInstance(new Compared<T>(t1, t2));
-            return instance.r;
-        }
-        
-    }
-
-    protected T t1;
-    protected T t2;
-    protected int r;
+    protected T in1;
+    protected T in2;
+    
+    protected int out;
 
     public Comp() {
         Compared<T> compared = Funky.getThreadLocalParameter();
-        t1 = compared.t1;
-        t2 = compared.t2;
+        in1 = compared.t1;
+        in2 = compared.t2;
     }
 }

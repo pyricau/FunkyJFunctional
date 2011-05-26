@@ -17,7 +17,6 @@ package info.piwai.funkyjfunctional.swing;
 
 import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
 import info.piwai.funkyjfunctional.Funky;
-import info.piwai.funkyjfunctional.swing.ActL.ClassActionListener;
 
 import java.awt.event.ActionListener;
 

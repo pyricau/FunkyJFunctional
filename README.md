@@ -18,21 +18,21 @@ executorService.execute(withRun(Hello.class));
 * [Guava](http://code.google.com/p/guava-libraries/), with a funky [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html) (Guava is the former google collections)
 
 ``` java
-class Minor extends Pred<Integer> {{ r = t < 18; }}
+class Minor extends Pred<Integer> {{ out = in < 18; }}
 minors = filter(ages, withPred(Minor.class));
 ```
 
 * [FEST-Assert](http://docs.codehaus.org/display/FEST/Fluent+Assertions+Module), with a funky [Condition](http://docs.codehaus.org/display/FEST/Extending+FEST-Assert+with+Custom+Conditions)
 
 ``` java
-class Minor extends Cond<User> {{ r = t.getAge() < 18; }}
+class Minor extends Cond<User> {{ out = in.getAge() < 18; }}
 assertThat(userList).noneSatisfies(Minor.class);
 ```
 
 * [Wicket](http://wicket.apache.org/), with a funky  [AbstractReadOnlyModel](http://wicket.apache.org/apidocs/1.4/org/apache/wicket/model/AbstractReadOnlyModel.html)
 
 ``` java
-class FortyTwo extends ARON<String> {{ r = "42"; }}
+class FortyTwo extends ARON<String> {{ out = "42"; }}
 AbstractReadOnlyModel<String> aron = withARON(FortyTwo.class);
 ```
 
@@ -120,7 +120,7 @@ With FunkyJFunctional our [predicate](https://github.com/pyricau/FunkyJFunctiona
 
 ``` java
 List<Integer> values = Arrays.asList(16, 21);
-class Minor extends Pred<Integer> {{ r = t < 18; }}
+class Minor extends Pred<Integer> {{ out = in < 18; }}
 Iterable<Integer> minors = Iterables.filter(values, FunkyGuava.withPred(Minor.class));
 System.out.println(minors); // prints [16]
 ```

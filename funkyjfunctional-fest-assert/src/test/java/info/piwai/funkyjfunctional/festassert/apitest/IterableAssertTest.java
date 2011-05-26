@@ -32,17 +32,17 @@ public class IterableAssertTest {
     @Test
     public void eachSatisfies() {
         // @off
-       class Adult extends Cond<Integer> {{ r = t >= 18; }}
-       // @on
+        class Adult extends Cond<Integer> {{ out = in >= 18; }}
+        // @on
 
         assertThat(Arrays.asList(19, 21, 69)).eachSatisfies(Adult.class);
     }
-    
+
     @Test
     public void eachIs() {
         // @off
-       class Adult extends Cond<Integer> {{ r = t >= 18; }}
-       // @on
+        class Adult extends Cond<Integer> {{ out = in >= 18; }}
+        // @on
 
         assertThat(Arrays.asList(19, 21, 69)).eachIs(Adult.class);
     }
@@ -50,8 +50,8 @@ public class IterableAssertTest {
     @Test
     public void eachSatisfiesThrowsWhenOneDoesNot() {
         // @off
-       class Adult extends Cond<Integer> {{ r = t >= 18; }}
-       // @on
+        class Adult extends Cond<Integer> {{ out = in >= 18; }}
+        // @on
 
         try {
             assertThat(Arrays.asList(17, 21, 69)).eachSatisfies(Adult.class);
@@ -64,17 +64,17 @@ public class IterableAssertTest {
     @Test
     public void noneSatisfies() {
         // @off
-       class Adult extends Cond<Integer> {{ r = t >= 18; }}
-       // @on
+        class Adult extends Cond<Integer> {{ out = in >= 18; }}
+        // @on
 
         assertThat(Arrays.asList(14, -2, 17)).noneSatisfies(Adult.class);
     }
-    
+
     @Test
     public void noneIs() {
         // @off
-       class Adult extends Cond<Integer> {{ r = t >= 18; }}
-       // @on
+        class Adult extends Cond<Integer> {{ out = in >= 18; }}
+        // @on
 
         assertThat(Arrays.asList(14, -2, 17)).noneIs(Adult.class);
     }
@@ -82,8 +82,8 @@ public class IterableAssertTest {
     @Test
     public void noneSatisfiesThrowsWhenOneDoes() {
         // @off
-       class Adult extends Cond<Integer> {{ r = t >= 18; }}
-       // @on
+        class Adult extends Cond<Integer> {{ out = in >= 18; }}
+        // @on
 
         try {
             assertThat(Arrays.asList(14, -2, 18)).noneSatisfies(Adult.class);

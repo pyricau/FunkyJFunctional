@@ -13,27 +13,36 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.java;
+package info.piwai.funkyjfunctional.festassert;
 
-import info.piwai.funkyjfunctional.ClassExecutor;
+import info.piwai.funkyjfunctional.ClassExecutorWithInput;
+
+import org.fest.assertions.Condition;
 
 /**
  * <p>
- * {@link ClassRunnable} is not part of the API, which is why it has
+ * {@link ClassCondition} is not part of the API, which is why it has
  * package-private scope.
- * 
- * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-final class ClassRunnable<T> implements Runnable {
+final class ClassCondition<T, U extends Cond<T>> extends Condition<T> {
 
-    private final ClassExecutor<T> executor;
+    private final ClassExecutorWithInput<U> executor;
 
-    ClassRunnable(ClassExecutor<T> executor) {
+    ClassCondition(ClassExecutorWithInput<U> executor) {
         this.executor = executor;
     }
 
     @Override
-    public void run() {
-        executor.createExecutedInstance();
+    public boolean matches(T input) {
+        U instance = executor.createExecutedInstance(input);
+
+        if (instance.as != null) {
+            as(instance.as);
+        } else {
+            as(executor.getClassSimpleName());
+        }
+
+        return instance.out;
     }
+
 }

@@ -31,7 +31,7 @@ public class CallTest {
     @Test
     public void callableReturnsFortyTwo() throws Exception {
         // @off
-        class FortyTwo extends Call<String> {{ r = "42"; }}
+        class FortyTwo extends Call<String> {{ out = "42"; }}
         // @on
 
         Callable<String> callable = withCall(FortyTwo.class);

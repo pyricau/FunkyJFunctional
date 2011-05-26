@@ -37,7 +37,7 @@ public class CondDemo{
     public void majorAssertion() {
 
         // @off
-        class Major extends Cond<Integer> {{ r = t >= 18; }}
+        class Major extends Cond<Integer> {{ out = in >= 18; }}
         // @on
 
         assertThat(20).satisfies(withCond(Major.class));
@@ -53,7 +53,7 @@ public class CondDemo{
         List<Integer> oddList = asList(16, 21, 38);
         
         // @off
-        class EvenSize extends Cond<List<?>> {{ r = t != null && t.size() %2 == 0; }};
+        class EvenSize extends Cond<List<?>> {{ out = in != null && in.size() %2 == 0; }};
         // @on
         
         Condition<List<?>> even = withCond(EvenSize.class);
@@ -66,7 +66,7 @@ public class CondDemo{
     @Test
     public void defaultDescription() {
         // @off
-        class AlwaysFalse extends Cond<Object> {{ r = false; }};
+        class AlwaysFalse extends Cond<Object> {{ out = false; }};
         // @on
         
         try {
@@ -83,7 +83,7 @@ public class CondDemo{
     public void customDescription() {
         
         // @off
-        class AlwaysFalse extends Cond<Object> {{ d="I'm always false!"; r = false; }};
+        class AlwaysFalse extends Cond<Object> {{ as="I'm always false!"; out = false; }};
         // @on
         
         try {

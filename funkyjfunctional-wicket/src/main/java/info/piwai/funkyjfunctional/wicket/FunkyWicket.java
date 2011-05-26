@@ -17,8 +17,6 @@ package info.piwai.funkyjfunctional.wicket;
 
 import static info.piwai.funkyjfunctional.Funky.classExecutor;
 import info.piwai.funkyjfunctional.Funky;
-import info.piwai.funkyjfunctional.wicket.ARON.ClassAbstractReadOnlyModel;
-import info.piwai.funkyjfunctional.wicket.LDM.ClassLoadableDetachableModel;
 
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.LoadableDetachableModel;

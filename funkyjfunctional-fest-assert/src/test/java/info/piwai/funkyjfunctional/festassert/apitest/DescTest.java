@@ -31,7 +31,7 @@ public class DescTest {
     @Test
     public void values(){
         // @off
-        class NotEquals extends Desc {{ r = "We're not equals";}};
+        class NotEquals extends Desc {{ out = "We're not equals";}};
         // @on
         Description description = withDesc(NotEquals.class);
         

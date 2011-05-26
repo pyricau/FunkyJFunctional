@@ -13,18 +13,28 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.wicket;
+package info.piwai.funkyjfunctional.swing;
 
-import org.apache.wicket.model.AbstractReadOnlyModel;
+import info.piwai.funkyjfunctional.ClassExecutorWithInput;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
- * A Funky {@link AbstractReadOnlyModel}
- * 
- * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ * <p>
+ * {@link ClassActionListener} is not part of the API, which is why it has
+ * package-private scope.
  */
-public abstract class ARON<T> {
+final class ClassActionListener<T extends ActL> implements ActionListener {
 
-    protected T out;
+    private final ClassExecutorWithInput<T> executor;
 
+    ClassActionListener(ClassExecutorWithInput<T> executor) {
+        this.executor = executor;
+    }
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		executor.createExecutedInstance(event);
+	}
 }

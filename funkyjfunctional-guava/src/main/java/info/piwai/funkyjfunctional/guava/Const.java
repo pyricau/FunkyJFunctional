@@ -15,48 +15,24 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import info.piwai.funkyjfunctional.ClassExecutorWithInput;
-import info.piwai.funkyjfunctional.Funky;
-
 import com.google.common.collect.Constraint;
 
+import info.piwai.funkyjfunctional.Funky;
+
 /**
+ * A Funky {@link Constraint}
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Const<T> {
 
-    /**
-     * <p>
-     * {@link ClassConstraint} is not part of the API, which is why it has
-     * package-private scope.
-     */
-    static class ClassConstraint<T, U extends Const<T>> implements Constraint<T> {
+    protected final T in;
 
-        private final ClassExecutorWithInput<U> executor;
-
-        ClassConstraint(ClassExecutorWithInput<U> executor) {
-            this.executor = executor;
-        }
-
-        @Override
-        public T checkElement(T element) {
-            U instance = executor.createExecutedInstance(element);
-            return instance.r;
-        }
-
-        @Override
-        public String toString() {
-            return executor.getClassSimpleName() + " constraint";
-        }
-    }
-
-    protected T t;
-
-    protected T r;
+    protected T out;
 
     public Const() {
-        t = Funky.<T> getThreadLocalParameter();
-        r = t;
+        in = Funky.<T> getThreadLocalParameter();
+        out = in;
     }
 
     public void invalid(String msg) {

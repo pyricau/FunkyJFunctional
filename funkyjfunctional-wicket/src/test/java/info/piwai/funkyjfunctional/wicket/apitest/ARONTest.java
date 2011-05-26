@@ -30,7 +30,7 @@ public class ARONTest {
     @Test
     public void callableReturnsFortyTwo() throws Exception {
         // @off
-        class FortyTwo extends ARON<String> {{ r = "42"; }}
+        class FortyTwo extends ARON<String> {{ out = "42"; }}
         // @on
 
         AbstractReadOnlyModel<String> aron = withARON(FortyTwo.class);

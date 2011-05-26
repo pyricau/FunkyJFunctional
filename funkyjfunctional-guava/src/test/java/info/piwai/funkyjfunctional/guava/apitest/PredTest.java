@@ -32,7 +32,7 @@ public class PredTest {
     @Test
     public void filtering() {
         // @off
-		class Adult extends Pred<Integer> {{ r = t > 18; }}
+		class Adult extends Pred<Integer> {{ out = in > 18; }}
 		// @on
 
         Predicate<Integer> predicate = withPred(Adult.class);

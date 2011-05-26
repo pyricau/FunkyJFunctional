@@ -31,7 +31,7 @@ public class SuppTest {
     @Test
     public void supplierReturnsFortyTwo() {
         // @off
-        class FortyTwo extends Supp<String> {{ r = "42"; }}
+        class FortyTwo extends Supp<String> {{ out = "42"; }}
         // @on
 
         Supplier<String> supplier = withSupp(FortyTwo.class);

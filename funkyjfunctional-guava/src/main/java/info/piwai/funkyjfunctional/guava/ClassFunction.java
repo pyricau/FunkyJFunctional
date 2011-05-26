@@ -13,18 +13,30 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.wicket;
+package info.piwai.funkyjfunctional.guava;
 
-import org.apache.wicket.model.AbstractReadOnlyModel;
+import info.piwai.funkyjfunctional.ClassExecutorWithInput;
 
+import com.google.common.base.Function;
 
 /**
- * A Funky {@link AbstractReadOnlyModel}
+ * <p>
+ * {@link ClassFunction} is not part of the API, which is why it has
+ * package-private scope.
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class ARON<T> {
+final class ClassFunction<From, To, T extends Func<From, To>> implements Function<From, To> {
 
-    protected T out;
+    private final ClassExecutorWithInput<T> executor;
 
+    ClassFunction(ClassExecutorWithInput<T> executor) {
+        this.executor = executor;
+    }
+
+    @Override
+    public To apply(From input) {
+        T instance = executor.createExecutedInstance(input);
+        return instance.out;
+    }
 }
