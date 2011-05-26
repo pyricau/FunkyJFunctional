@@ -38,9 +38,9 @@ public class CompTest {
         
         Comparator<Integer> comp = withComp(IntCompt.class);
         
-        assertEquals(comp.compare(1, 2), Integer.valueOf(1).compareTo(2));
-        assertEquals(comp.compare(2, 1), Integer.valueOf(2).compareTo(1));
-        assertEquals(comp.compare(1, 1), Integer.valueOf(1).compareTo(1));
+        assertEquals(Integer.valueOf(1).compareTo(2), comp.compare(1, 2));
+        assertEquals(Integer.valueOf(2).compareTo(1), comp.compare(2, 1));
+        assertEquals(Integer.valueOf(1).compareTo(1), comp.compare(1, 1));
     }
 
 }
