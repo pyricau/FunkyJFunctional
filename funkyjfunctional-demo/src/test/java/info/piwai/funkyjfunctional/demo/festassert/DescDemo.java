@@ -13,29 +13,31 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.festassert.apitest;
+package info.piwai.funkyjfunctional.demo.festassert;
 
-import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.withDesc;
-import static org.junit.Assert.assertEquals;
+import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.*;
+import static org.fest.assertions.Assertions.*;
+import static org.junit.Assert.*;
 import info.piwai.funkyjfunctional.festassert.Desc;
 
-import org.fest.assertions.Description;
 import org.junit.Test;
 
 /**
  * @author Nicolas Francois (nicolas.franc at gmail.com)
- * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class DescTest {
+public class DescDemo {
 
     @Test
     public void values(){
         // @off
         class NotEquals extends Desc {{ r = "We're not equals";}};
         // @on
-        Description description = withDesc(NotEquals.class);
-        
-        assertEquals("We're not equals", description.value());
+        try{
+           assertThat(1).as(withDesc(NotEquals.class)).isEqualTo(2);
+        } catch (AssertionError error){
+             String message = error.getMessage();
+             assertTrue(message.startsWith("[We're not equals]"));
+        }
     };
 
 }

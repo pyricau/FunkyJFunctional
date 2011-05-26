@@ -16,77 +16,100 @@
 package info.piwai.funkyjfunctional.festassert.apitest;
 
 import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.withCond;
-import static java.util.Arrays.*;
-import static org.fest.assertions.Assertions.*;
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import info.piwai.funkyjfunctional.festassert.Cond;
 
-import java.util.List;
-
+import org.fest.assertions.Condition;
 import org.junit.Test;
 
 /**
  * @author Nicolas Francois (nicolas.franc at gmail.com)
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class CondTest{
+public class CondTest {
 
     @Test
-    public void condition() {
+    public void simplePositiveCondition() {
 
         // @off
-        class Adult extends Cond<Integer> {{ r = t > 18; }}
+        class Positive extends Cond<Integer> {{ r = t > 0; }}
         // @on
 
-        assertThat(20).satisfies(withCond(Adult.class)).is(withCond(Adult.class));
-        assertThat(5).doesNotSatisfy(withCond(Adult.class)).isNot(withCond(Adult.class));
+        Condition<Integer> condition = withCond(Positive.class);
 
-    }
-
-
-    @Test
-    public void conditionOnList() {
-        List<Integer> evenList = asList(16, 21);
-        List<Integer> oddList = asList(16, 21, 38);
-        // @off
-        class EvenSize extends Cond<List<?>> {{ r = t != null && t.size() %2 == 0; }};
-        // @on
-        assertThat(evenList).satisfies(withCond(EvenSize.class)).is(withCond(EvenSize.class));
-        assertThat(oddList).doesNotSatisfy(withCond(EvenSize.class)).isNot(withCond(EvenSize.class));
-        
+        assertTrue(condition.matches(1));
+        assertFalse(condition.matches(-1));
     }
     
     @Test
-    public void defaultDescription() {
+    public void noDescriptionBeforeMatches() {
         // @off
         class AlwaysFalse extends Cond<Object> {{ r = false; }};
         // @on
+
+        Condition<Object> condition = withCond(AlwaysFalse.class);
         
-        try {
-            assertThat(new Object()).satisfies(withCond(AlwaysFalse.class));
-        } catch (AssertionError e) {
-            String message = e.getMessage();
-            assertTrue(message.contains("<AlwaysFalse>"));
-            return;
-        }
-        fail("Assertion should have throw an AssertionError");
+        assertNull(condition.description());
     }
-    
+
     @Test
-    public void customDescription() {
+    public void defaultDescriptionAfterMatches() {
+        // @off
+        class AlwaysFalse extends Cond<Object> {{ r = false; }};
+        // @on
+
+        Condition<Object> condition = withCond(AlwaysFalse.class);
         
+        condition.matches(null);
+
+        assertEquals("AlwaysFalse", condition.description());
+    }
+
+    @Test
+    public void customDescriptionAfterMatches() {
+
         // @off
         class AlwaysFalse extends Cond<Object> {{ d="I'm always false!"; r = false; }};
         // @on
+
+        Condition<Object> condition = withCond(AlwaysFalse.class);
         
-        try {
-            assertThat(new Object()).satisfies(withCond(AlwaysFalse.class));
-        } catch (AssertionError e) {
-            String message = e.getMessage();
-            assertTrue(message.contains("<I'm always false!>"));
-            return;
-        }
-        fail("Assertion should have throw an AssertionError");
+        condition.matches(null);
+
+        assertEquals("I'm always false!", condition.description());
+    }
+    
+    @Test
+    public void overrideDefaultDescription() {
+        // @off
+        class AlwaysFalse extends Cond<Object> {{ r = false; }};
+        // @on
+
+        Condition<Object> condition = withCond(AlwaysFalse.class);
+        
+        condition.matches(null);
+        
+        condition.as("Overrides");
+
+        assertEquals("Overrides", condition.description());
     }
 
+    @Test
+    public void overrideCustomDescription() {
+        // @off
+        class AlwaysFalse extends Cond<Object> {{ d="I'm always false!"; r = false; }};
+        // @on
+
+        Condition<Object> condition = withCond(AlwaysFalse.class);
+        
+        condition.matches(null);
+        
+        condition.as("Overrides");
+
+        assertEquals("Overrides", condition.description());
+    }
+    
 }
