@@ -25,6 +25,8 @@ package info.piwai.funkyjfunctional;
  */
 final class FunkyExecutorWithInput<T> implements ClassExecutorWithInput<T> {
 
+    private static final long serialVersionUID = 1L;
+
     private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
 
     private final ClassExecutor<T> executor;

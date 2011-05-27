@@ -15,10 +15,14 @@
  */
 package info.piwai.funkyjfunctional;
 
+import java.io.Serializable;
+
 /**
+ * 
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public interface ClassExecutorWithInput<T> extends HasClassSimpleName{
+public interface ClassExecutorWithInput<T> extends HasClassSimpleName, Serializable{
 
     T createExecutedInstance(Object parameter);
     
