@@ -15,9 +15,9 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import com.google.common.base.Predicate;
-
 import info.piwai.funkyjfunctional.Funky;
+
+import com.google.common.base.Predicate;
 
 /**
  * A Funky {@link Predicate}
@@ -31,7 +31,7 @@ public abstract class Pred<T> {
     protected boolean out;
 
     public Pred() {
-        in = Funky.<T> getThreadLocalParameter();
+        in = Funky.<T> getInput();
     }
 
 }

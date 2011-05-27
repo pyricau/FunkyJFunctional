@@ -15,8 +15,8 @@
  */
 package info.piwai.funkyjfunctional.festassert;
 
-import static info.piwai.funkyjfunctional.Funky.classExecutor;
-import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
+import static info.piwai.funkyjfunctional.Funky.newFunction;
+import static info.piwai.funkyjfunctional.Funky.newFunctionWithInput;
 import info.piwai.funkyjfunctional.Funky;
 
 import org.fest.assertions.Condition;
@@ -40,18 +40,15 @@ import org.fest.assertions.Description;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public final class FunkyFestAssert {
-
+    
     public static <T, U extends Cond<T>> Condition<T> withCond(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassCondition<T, U>(classExecutorWithInput(applyingClass, constructorArguments));
+        return new ClassCondition<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
     }
 
     public static <T, U extends Desc> Description withDesc(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassDescription<U>(classExecutor(applyingClass, constructorArguments));
+        return new ClassDescription<U>(newFunction(applyingClass, constructorArguments));
     }
-
-    /**
-     * @see {@link Funky} constructor
-     */
+    
     FunkyFestAssert() {
         throw new UnsupportedOperationException();
     }

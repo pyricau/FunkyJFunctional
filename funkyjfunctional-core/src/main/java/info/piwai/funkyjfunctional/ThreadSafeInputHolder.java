@@ -16,40 +16,25 @@
 package info.piwai.funkyjfunctional;
 
 /**
- * <p>
- * {@link ClassExecutorWithInput} Funky implementation 
- * 
- * @see ClassExecutorWithInput
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-final class FunkyExecutorWithInput<T> implements ClassExecutorWithInput<T> {
-
+public final class ThreadSafeInputHolder extends AbstractInputHolder implements InputHolder {
+    
+    public static final InputHolder INSTANCE = new ThreadSafeInputHolder();
+    
     private static final long serialVersionUID = 1L;
 
-    private static ThreadLocal<Object> holder = new ThreadLocal<Object>();
-
-    private final ClassExecutor<T> executor;
-
-    @SuppressWarnings("unchecked")
-    static <PARAM> PARAM getThreadLocalParameter() {
-        return (PARAM) holder.get();
-    }
-
-    FunkyExecutorWithInput(ClassExecutor<T> executor) {
-        this.executor = executor;
-    }
-
-    public T createExecutedInstance(Object input) {
+    private final ThreadLocal<Object> holder = new ThreadLocal<Object>();
+    
+    private ThreadSafeInputHolder() {}
+    
+    @Override
+    public void set(Object input) {
         holder.set(input);
-        try {
-            return executor.createExecutedInstance();
-        } finally {
-            holder.set(null);
-        }
     }
 
     @Override
-    public String getClassSimpleName() {
-        return executor.getClassSimpleName();
+    public <T> T get() {
+        return this.<T>cast(holder.get());
     }
 }

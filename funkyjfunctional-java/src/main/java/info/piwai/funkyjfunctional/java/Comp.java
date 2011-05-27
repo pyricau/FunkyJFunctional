@@ -15,9 +15,9 @@
  */
 package info.piwai.funkyjfunctional.java;
 
-import java.util.Comparator;
-
 import info.piwai.funkyjfunctional.Funky;
+
+import java.util.Comparator;
 
 /**
  * A Funky {@link Comparator}
@@ -32,7 +32,7 @@ public abstract class Comp<T> {
     protected int out;
 
     public Comp() {
-        Compared<T> compared = Funky.getThreadLocalParameter();
+        Compared<T> compared = Funky.getInput();
         in1 = compared.t1;
         in2 = compared.t2;
     }

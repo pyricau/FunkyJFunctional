@@ -28,52 +28,54 @@ import org.mockito.stubbing.Answer;
  */
 public class FunkyExecutorWithInputTest {
 
-    private ClassExecutor<Object> executor;
-    private ClassExecutorWithInput<Object> executorWithInput;
+    private ClassFunction<Object> executor;
+    private ClassFunctionWithInput<Object> executorWithInput;
+    
+    private InputHolder inputHolder = new SingleThreadInputHolder();
 
     @SuppressWarnings("unchecked")
     @Before
     public void setup() {
-        executor = mock(ClassExecutor.class);
-        executorWithInput = new FunkyExecutorWithInput<Object>(executor);
+        executor = mock(ClassFunction.class);
+        executorWithInput = new FunkyFunctionWithInput<Object>(executor, inputHolder);
     }
 
     @Test
     public void delegatesCall() {
-        executorWithInput.createExecutedInstance(null);
-        verify(executor).createExecutedInstance();
+        executorWithInput.execute(null);
+        verify(executor).execute();
     }
 
     @Test
     public void inputStoredInThreadLocal() {
         final Object parameter = new Object();
-        when(executor.createExecutedInstance()).thenAnswer(new Answer<Object>() {
+        when(executor.execute()).thenAnswer(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
-                assertSame(parameter, FunkyExecutorWithInput.getThreadLocalParameter());
+                assertSame(parameter, inputHolder.get());
                 return null;
             }
         });
-        executorWithInput.createExecutedInstance(parameter);
+        executorWithInput.execute(parameter);
     }
 
     @Test
     public void threadLocalCleaned() {
-        assertNull(FunkyExecutorWithInput.getThreadLocalParameter());
-        when(executor.createExecutedInstance()).thenAnswer(new Answer<Object>() {
+        assertNull(inputHolder.get());
+        when(executor.execute()).thenAnswer(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
-                assertNotNull(FunkyExecutorWithInput.getThreadLocalParameter());
+                assertNotNull(inputHolder.get());
                 return null;
             }
         });
-        executorWithInput.createExecutedInstance(new Object());
-        assertNull(FunkyExecutorWithInput.getThreadLocalParameter());
+        executorWithInput.execute(new Object());
+        assertNull(inputHolder.get());
     }
 
     @Test
     public void simpleExecutorWithInputDoesNotThrow() {
-        new FunkyExecutorWithInput<Object>(executor);
+        new FunkyFunctionWithInput<Object>(executor, inputHolder);
     }
 
     @Test

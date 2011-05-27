@@ -15,28 +15,27 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import info.piwai.funkyjfunctional.ClassExecutor;
+import info.piwai.funkyjfunctional.ClassFunction;
 
 import com.google.common.base.Supplier;
 
 /**
  * <p>
- * {@link ClassSupplier} is not part of the API, which is why it has
- * package-private scope.
+ * {@link ClassSupplier}
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 final class ClassSupplier<T, U extends Supp<T>> implements Supplier<T> {
 
-    private ClassExecutor<U> executor;
+    private ClassFunction<U> function;
 
-    ClassSupplier(ClassExecutor<U> executor) {
-        this.executor = executor;
+    ClassSupplier(ClassFunction<U> function) {
+        this.function = function;
     }
 
     @Override
     public T get() {
-        U instance = executor.createExecutedInstance();
+        U instance = function.execute();
         return instance.out;
     }
 

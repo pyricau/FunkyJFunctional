@@ -13,29 +13,25 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.festassert;
-
-import info.piwai.funkyjfunctional.Funky;
-
-import org.fest.assertions.Condition;
+package info.piwai.funkyjfunctional;
 
 /**
- * Funky {@link Condition} to be met by an Object.
- * @param <T> the type of Object this condition accepts.
- * 
- * @author Nicolas Francois (nicolas.franc at gmail.com)
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class Cond<T> {
+public final class SingleThreadInputHolder extends AbstractInputHolder implements InputHolder {
 
-    protected final T in;
+    private static final long serialVersionUID = 1L;
 
-    protected boolean out;
+    private Object input;
 
-    protected String as;
+    @Override
+    public void set(Object input) {
+        this.input = input;
+    }
 
-    public Cond() {
-        in = Funky.<T>getInput();
+    @Override
+    public <T> T get() {
+        return this.<T>cast(input);
     }
 
 }

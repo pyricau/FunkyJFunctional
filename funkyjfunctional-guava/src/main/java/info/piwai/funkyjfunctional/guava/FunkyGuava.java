@@ -15,8 +15,8 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import static info.piwai.funkyjfunctional.Funky.classExecutor;
-import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
+import static info.piwai.funkyjfunctional.Funky.newFunction;
+import static info.piwai.funkyjfunctional.Funky.newFunctionWithInput;
 import info.piwai.funkyjfunctional.Funky;
 
 import com.google.common.base.Function;
@@ -43,19 +43,19 @@ import com.google.common.collect.Constraint;
 public final class FunkyGuava {
 
     public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassFunction<From, To, U>(classExecutorWithInput(applyingClass, constructorArguments));
+        return new ClassFunction<From, To, U>(newFunctionWithInput(applyingClass, constructorArguments));
     }
 
     public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassPredicate<T, U>(classExecutorWithInput(applyingClass, constructorArguments));
+        return new ClassPredicate<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
     }
 
     public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassSupplier<T, U>(classExecutor(applyingClass, constructorArguments));
+        return new ClassSupplier<T, U>(newFunction(applyingClass, constructorArguments));
     }
 
     public static <T, U extends Const<T>> Constraint<T> withConst(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassConstraint<T, U>(classExecutorWithInput(applyingClass, constructorArguments));
+        return new ClassConstraint<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
     }
 
     /**

@@ -43,6 +43,6 @@ public abstract class ActL {
     protected final ActionEvent in;
 
     public ActL() {
-        in = Funky.<ActionEvent>getThreadLocalParameter();
+        in = Funky.getInput();
     }
 }

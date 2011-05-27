@@ -15,28 +15,27 @@
  */
 package info.piwai.funkyjfunctional.java;
 
-import info.piwai.funkyjfunctional.ClassExecutor;
+import info.piwai.funkyjfunctional.ClassFunction;
 
 import java.util.concurrent.Callable;
 
 /**
  * <p>
- * {@link ClassCallable} is not part of the API, which is why it has
- * package-private scope.
+ * {@link ClassCallable}
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 final class ClassCallable<T, U extends Call<T>> implements Callable<T> {
 
-    private final ClassExecutor<U> executor;
+    private final ClassFunction<U> function;
     
-    ClassCallable(ClassExecutor<U> executor) {
-        this.executor = executor;
+    ClassCallable(ClassFunction<U> function) {
+        this.function = function;
     }
 
     @Override
     public T call() throws Exception {
-        U instance = executor.createExecutedInstance();
+        U instance = function.execute();
         return instance.out;
     }
 }

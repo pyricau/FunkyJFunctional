@@ -27,7 +27,7 @@ import java.io.Serializable;
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public interface ClassExecutor<T> extends HasClassSimpleName, Serializable {
+public interface ClassFunction<T> extends HasClassSimpleName, Serializable {
 
     /**
      * Creates a new T instance, which also means that the functional code is
@@ -37,5 +37,5 @@ public interface ClassExecutor<T> extends HasClassSimpleName, Serializable {
      *         executed. This is useful to extract the result data set by the
      *         functional code.
      */
-    T createExecutedInstance();
+    T execute();
 }

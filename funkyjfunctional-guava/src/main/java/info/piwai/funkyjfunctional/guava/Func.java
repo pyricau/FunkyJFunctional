@@ -15,9 +15,9 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import com.google.common.base.Function;
-
 import info.piwai.funkyjfunctional.Funky;
+
+import com.google.common.base.Function;
 
 /**
  * A Funky {@link Function}
@@ -31,6 +31,6 @@ public abstract class Func<From, To> {
     protected To out;
 
     public Func() {
-        in = Funky.<From> getThreadLocalParameter();
+        in = Funky.<From> getInput();
     }
 }

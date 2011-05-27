@@ -15,14 +15,13 @@
  */
 package info.piwai.funkyjfunctional.wicket;
 
-import info.piwai.funkyjfunctional.ClassExecutor;
+import info.piwai.funkyjfunctional.ClassFunction;
 
 import org.apache.wicket.model.AbstractReadOnlyModel;
 
 /**
  * <p>
- * {@link ClassAbstractReadOnlyModel} is not part of the API, which is why it has
- * package-private scope.
+ * {@link ClassAbstractReadOnlyModel}
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
@@ -30,15 +29,15 @@ final class ClassAbstractReadOnlyModel<T, U extends ARON<T>> extends AbstractRea
 
 	private static final long serialVersionUID = 1L;
 	
-	private final ClassExecutor<U> executor;
+	private final ClassFunction<U> function;
     
-    ClassAbstractReadOnlyModel(ClassExecutor<U> executor) {
-        this.executor = executor;
+    ClassAbstractReadOnlyModel(ClassFunction<U> function) {
+        this.function = function;
     }
 
 	@Override
 	public T getObject() {
-        U instance = executor.createExecutedInstance();
+        U instance = function.execute();
         return instance.out;
 	}
 }

@@ -15,8 +15,6 @@
  */
 package info.piwai.funkyjfunctional;
 
-import java.io.Serializable;
-
 /**
  * FunkyJFunctional enables Java functional programming using method local class
  * declarations and init blocks.
@@ -27,7 +25,7 @@ import java.io.Serializable;
  * love!
  * 
  * <p>
- * The {@link Funky} class is the main entry point to FunkyJFunctional.
+ * The {@link Funky}ain entry point to FunkyJFunctional.
  * 
  * <h1>Contents</h1>
  * 
@@ -45,10 +43,7 @@ import java.io.Serializable;
  * 
  * <ul>
  * <li>function declaration, as a method local class,
- * <li>function instantiation, using the {@link Funky} class.
- * </ul>
- * 
- * <h3>Function declaration</h3>
+ * <li>function instantiation, using the {@link Funky} c{@link Funky}nction declaration</h3>
  * 
  * <p>
  * Let's declare a Minor predicate, that returns true if the given integer
@@ -103,9 +98,9 @@ import java.io.Serializable;
  * 
  * <p>
  * You may create your own Funky implementations, using the
- * {@link #classExecutor(Class, Object...)} method, or the
- * {@link #classExecutorWithInput(Class, Object...)} and
- * {@link #getThreadLocalParameter()}) methods if you need input parameters.
+ * {@link #newFunction(Class, Object...)} method, or the
+ * {@link #newFunctionWithInput(Class, Object...)} and
+ * {@link #getInput()}) methods if you need input parameters.
  * 
  * <p>
  * To learn more about how to create custom Funky functions, please have a look
@@ -129,28 +124,41 @@ import java.io.Serializable;
  */
 public final class Funky {
 
-    /**
-     * @param constructorArguments
-     *            if you want the {@link ClassExecutor} to be serialized, all
-     *            constructorArguments elements should be {@link Serializable}.
-     */
-    public static <T> ClassExecutor<T> classExecutor(Class<T> applyingClass, Object... constructorArguments) {
-        return new FunkyExecutor<T>(applyingClass, constructorArguments);
+    private static FunctionFactory factory = createThreadSafeFactory();
+
+    public static <T> ClassFunction<T> newFunction(Class<T> applyingClass, Object... constructorArguments) {
+        return factory.newFunction(applyingClass, constructorArguments);
     }
 
-    public static <T> ClassExecutorWithInput<T> classExecutorWithInput(Class<T> applyingClass, Object... constructorArguments) {
-        return new FunkyExecutorWithInput<T>(classExecutor(applyingClass, constructorArguments));
-    }
-
-    public static <T> T getThreadLocalParameter() {
-        return FunkyExecutorWithInput.<T> getThreadLocalParameter();
+    public static <T> ClassFunctionWithInput<T> newFunctionWithInput(Class<T> applyingClass, Object... constructorArguments) {
+        return factory.newFunctionWithInput(applyingClass, constructorArguments);
     }
 
     /**
-     * The constructor throws an UnsupportedOperationException to make sure this
-     * class won't be instantiated. It is not public to avoid any mistake, but still protected to allow for testing.
+     * This method is not thread safe. Should be called prior to using any FJF
+     * functionnality.
      */
-    Funky() {
+    public static void setThreadSafeInput(boolean threadSafe) {
+        if (threadSafe) {
+            factory = createThreadSafeFactory();
+        } else {
+            factory = createSingleThreadFactory();
+        }
+    }
+    
+    public static <T> T getInput() {
+        return factory.getInputHolder().<T>get();
+    }
+
+    private static FunctionFactory createThreadSafeFactory() {
+        return new FunctionFactory(ThreadSafeInputHolder.INSTANCE);
+    }
+
+    private static FunctionFactory createSingleThreadFactory() {
+        return new FunctionFactory(new SingleThreadInputHolder());
+    }
+    
+    private Funky() {
         throw new UnsupportedOperationException();
     }
 

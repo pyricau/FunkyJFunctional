@@ -15,8 +15,8 @@
  */
 package info.piwai.funkyjfunctional.java;
 
-import static info.piwai.funkyjfunctional.Funky.classExecutor;
-import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
+import static info.piwai.funkyjfunctional.Funky.newFunction;
+import static info.piwai.funkyjfunctional.Funky.newFunctionWithInput;
 import info.piwai.funkyjfunctional.Funky;
 
 import java.util.Comparator;
@@ -73,15 +73,15 @@ public final class FunkyJava {
      * @return A {@link Comparator} based on the applyingClass parameter.
      */
     public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass, Object... constructorArguments) throws IllegalArgumentException {
-        return new ClassComparator<T, U>(classExecutorWithInput(applyingClass, constructorArguments));
+        return new ClassComparator<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
     }
 
     public static <U> Runnable withRun(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassRunnable<U>(classExecutor(applyingClass, constructorArguments));
+        return new ClassRunnable<U>(newFunction(applyingClass, constructorArguments));
     }
 
     public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassCallable<T, U>(classExecutor(applyingClass, constructorArguments));
+        return new ClassCallable<T, U>(newFunction(applyingClass, constructorArguments));
     }
 
     /**

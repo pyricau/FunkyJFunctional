@@ -15,7 +15,7 @@
  */
 package info.piwai.funkyjfunctional.wicket;
 
-import static info.piwai.funkyjfunctional.Funky.classExecutor;
+import static info.piwai.funkyjfunctional.Funky.newFunction;
 import info.piwai.funkyjfunctional.Funky;
 
 import org.apache.wicket.model.AbstractReadOnlyModel;
@@ -39,11 +39,11 @@ import org.apache.wicket.model.LoadableDetachableModel;
 public final class FunkyWicket {
 
     public static <T, U extends LDM<T>> LoadableDetachableModel<T> withLDM(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassLoadableDetachableModel<T, U>(classExecutor(applyingClass, constructorArguments));
+        return new ClassLoadableDetachableModel<T, U>(newFunction(applyingClass, constructorArguments));
     }
     
     public static <T, U extends ARON<T>> AbstractReadOnlyModel<T> withARON(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassAbstractReadOnlyModel<T, U>(classExecutor(applyingClass, constructorArguments));
+        return new ClassAbstractReadOnlyModel<T, U>(newFunction(applyingClass, constructorArguments));
     }
 
     /**

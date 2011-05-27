@@ -15,28 +15,27 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import info.piwai.funkyjfunctional.ClassExecutorWithInput;
+import info.piwai.funkyjfunctional.ClassFunctionWithInput;
 
 import com.google.common.base.Predicate;
 
 /**
  * <p>
- * {@link ClassPredicate} is not part of the API, which is why it has
- * package-private scope.
+ * {@link ClassPredicate}
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 final class ClassPredicate<T, U extends Pred<T>> implements Predicate<T> {
 
-    private final ClassExecutorWithInput<U> executor;
+    private final ClassFunctionWithInput<U> function;
 
-    ClassPredicate(ClassExecutorWithInput<U> executor) {
-        this.executor = executor;
+    ClassPredicate(ClassFunctionWithInput<U> function) {
+        this.function = function;
     }
 
     @Override
     public boolean apply(T input) {
-        U instance = executor.createExecutedInstance(input);
+        U instance = function.execute(input);
         return instance.out;
     }
 }

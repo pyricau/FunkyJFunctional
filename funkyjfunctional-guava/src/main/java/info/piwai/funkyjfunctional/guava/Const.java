@@ -15,9 +15,9 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import com.google.common.collect.Constraint;
-
 import info.piwai.funkyjfunctional.Funky;
+
+import com.google.common.collect.Constraint;
 
 /**
  * A Funky {@link Constraint}
@@ -31,7 +31,7 @@ public abstract class Const<T> {
     protected T out;
 
     public Const() {
-        in = Funky.<T> getThreadLocalParameter();
+        in = Funky.<T> getInput();
         out = in;
     }
 

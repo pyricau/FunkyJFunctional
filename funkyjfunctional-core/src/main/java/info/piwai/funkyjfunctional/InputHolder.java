@@ -13,29 +13,18 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.festassert;
+package info.piwai.funkyjfunctional;
 
-import info.piwai.funkyjfunctional.Funky;
-
-import org.fest.assertions.Condition;
+import java.io.Serializable;
 
 /**
- * Funky {@link Condition} to be met by an Object.
- * @param <T> the type of Object this condition accepts.
- * 
- * @author Nicolas Francois (nicolas.franc at gmail.com)
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class Cond<T> {
+public interface InputHolder extends Serializable {
 
-    protected final T in;
+    void set(Object input);
 
-    protected boolean out;
+    void clean();
 
-    protected String as;
-
-    public Cond() {
-        in = Funky.<T>getInput();
-    }
-
+    <T> T get();
 }

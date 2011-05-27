@@ -13,31 +13,39 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.java;
-
-import info.piwai.funkyjfunctional.ClassFunctionWithInput;
-
-import java.util.Comparator;
+package info.piwai.funkyjfunctional;
 
 /**
  * <p>
- * {@link ClassComparator} is not part of the API, which is why it has
- * package-private scope.
+ * {@link ClassFunctionWithInput} Funky implementation 
  * 
+ * @see ClassFunctionWithInput
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-final class ClassComparator<T, U extends Comp<T>> implements Comparator<T> {
+final class FunkyFunctionWithInput<T> implements ClassFunctionWithInput<T> {
 
-    private final ClassFunctionWithInput<U> executor;
+    private static final long serialVersionUID = 1L;
 
-    ClassComparator(ClassFunctionWithInput<U> executor) {
+    private final ClassFunction<T> executor;
+
+    private final InputHolder inputHolder;
+
+    FunkyFunctionWithInput(ClassFunction<T> executor, InputHolder inputHolder) {
         this.executor = executor;
+        this.inputHolder = inputHolder;
+    }
+
+    public T execute(Object input) {
+        inputHolder.set(input);
+        try {
+            return executor.execute();
+        } finally {
+            inputHolder.clean();
+        }
     }
 
     @Override
-    public int compare(T in1, T in2) {
-        U instance = executor.execute(new Compared<T>(in1, in2));
-        return instance.out;
+    public String getClassSimpleName() {
+        return executor.getClassSimpleName();
     }
-    
 }

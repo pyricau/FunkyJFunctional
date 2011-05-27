@@ -15,26 +15,25 @@
  */
 package info.piwai.funkyjfunctional.swing;
 
-import info.piwai.funkyjfunctional.ClassExecutorWithInput;
+import info.piwai.funkyjfunctional.ClassFunctionWithInput;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * <p>
- * {@link ClassActionListener} is not part of the API, which is why it has
- * package-private scope.
+ * {@link ClassActionListener}
  */
 final class ClassActionListener<T extends ActL> implements ActionListener {
 
-    private final ClassExecutorWithInput<T> executor;
+    private final ClassFunctionWithInput<T> function;
 
-    ClassActionListener(ClassExecutorWithInput<T> executor) {
-        this.executor = executor;
+    ClassActionListener(ClassFunctionWithInput<T> function) {
+        this.function = function;
     }
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		executor.createExecutedInstance(event);
+		function.execute(event);
 	}
 }

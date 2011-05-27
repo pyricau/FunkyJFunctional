@@ -27,12 +27,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * {@link ClassExecutor} Funky implementation
+ * {@link ClassFunction} Funky implementation
  * 
- * @see ClassExecutor
+ * @see ClassFunction
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-final class FunkyExecutor<T> implements ClassExecutor<T> {
+final class FunkyFunction<T> implements ClassFunction<T> {
 
     private static final long serialVersionUID = 1L;
 
@@ -63,10 +63,10 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
 
     /**
      * @param constructorArguments
-     *            if you want the {@link ClassExecutor} to be serialized, all
+     *            if you want the {@link ClassFunction} to be serialized, all
      *            constructorArguments elements should be {@link Serializable}.
      */
-    FunkyExecutor(Class<T> applyingClass, Object... constructorArguments) {
+    FunkyFunction(Class<T> applyingClass, Object... constructorArguments) {
         this.applyingClass = applyingClass;
         constructor = extractConstructor(applyingClass);
         constructionArguments = extractConstructionArguments(constructor, constructorArguments);
@@ -162,7 +162,7 @@ final class FunkyExecutor<T> implements ClassExecutor<T> {
         }
     }
 
-    public T createExecutedInstance() {
+    public T execute() {
         try {
             return constructor.newInstance(constructionArguments);
         } catch (InvocationTargetException e) {

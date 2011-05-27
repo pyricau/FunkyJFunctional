@@ -15,7 +15,7 @@
  */
 package info.piwai.funkyjfunctional.swing;
 
-import static info.piwai.funkyjfunctional.Funky.classExecutorWithInput;
+import static info.piwai.funkyjfunctional.Funky.newFunctionWithInput;
 import info.piwai.funkyjfunctional.Funky;
 
 import java.awt.event.ActionListener;
@@ -38,7 +38,7 @@ import java.awt.event.ActionListener;
 public final class FunkySwing {
 
     public static <U extends ActL> ActionListener withActL(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassActionListener<U>(classExecutorWithInput(applyingClass, constructorArguments));
+        return new ClassActionListener<U>(newFunctionWithInput(applyingClass, constructorArguments));
     }
 
     /**

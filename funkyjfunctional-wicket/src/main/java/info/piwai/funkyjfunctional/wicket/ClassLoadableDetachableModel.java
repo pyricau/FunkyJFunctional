@@ -15,14 +15,13 @@
  */
 package info.piwai.funkyjfunctional.wicket;
 
-import info.piwai.funkyjfunctional.ClassExecutor;
+import info.piwai.funkyjfunctional.ClassFunction;
 
 import org.apache.wicket.model.LoadableDetachableModel;
 
 /**
  * <p>
- * {@link ClassLoadableDetachableModel} is not part of the API, which is why it
- * has package-private scope.
+ * {@link ClassLoadableDetachableModel}
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
@@ -30,15 +29,15 @@ final class ClassLoadableDetachableModel<T, U extends LDM<T>> extends LoadableDe
 
     private static final long serialVersionUID = 1L;
 
-    private final ClassExecutor<U> executor;
+    private final ClassFunction<U> executor;
 
-    ClassLoadableDetachableModel(ClassExecutor<U> executor) {
-        this.executor = executor;
+    ClassLoadableDetachableModel(ClassFunction<U> function) {
+        this.executor = function;
     }
 
     @Override
     protected T load() {
-        U instance = executor.createExecutedInstance();
+        U instance = executor.execute();
         return instance.out;
     }
 

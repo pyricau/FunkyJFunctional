@@ -15,28 +15,27 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import info.piwai.funkyjfunctional.ClassExecutorWithInput;
+import info.piwai.funkyjfunctional.ClassFunctionWithInput;
 
 import com.google.common.base.Function;
 
 /**
  * <p>
- * {@link ClassFunction} is not part of the API, which is why it has
- * package-private scope.
+ * {@link ClassFunction}
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 final class ClassFunction<From, To, T extends Func<From, To>> implements Function<From, To> {
 
-    private final ClassExecutorWithInput<T> executor;
+    private final ClassFunctionWithInput<T> function;
 
-    ClassFunction(ClassExecutorWithInput<T> executor) {
-        this.executor = executor;
+    ClassFunction(ClassFunctionWithInput<T> function) {
+        this.function = function;
     }
 
     @Override
     public To apply(From input) {
-        T instance = executor.createExecutedInstance(input);
+        T instance = function.execute(input);
         return instance.out;
     }
 }

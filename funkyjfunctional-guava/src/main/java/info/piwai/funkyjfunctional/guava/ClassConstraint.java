@@ -15,33 +15,32 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import info.piwai.funkyjfunctional.ClassExecutorWithInput;
+import info.piwai.funkyjfunctional.ClassFunctionWithInput;
 
 import com.google.common.collect.Constraint;
 
 /**
  * <p>
- * {@link ClassConstraint} is not part of the API, which is why it has
- * package-private scope.
+ * {@link ClassConstraint}
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 final class ClassConstraint<T, U extends Const<T>> implements Constraint<T> {
 
-    private final ClassExecutorWithInput<U> executor;
+    private final ClassFunctionWithInput<U> function;
 
-    ClassConstraint(ClassExecutorWithInput<U> executor) {
-        this.executor = executor;
+    ClassConstraint(ClassFunctionWithInput<U> function) {
+        this.function = function;
     }
 
     @Override
     public T checkElement(T element) {
-        U instance = executor.createExecutedInstance(element);
+        U instance = function.execute(element);
         return instance.out;
     }
 
     @Override
     public String toString() {
-        return executor.getClassSimpleName() + " constraint";
+        return function.getClassSimpleName() + " constraint";
     }
 }

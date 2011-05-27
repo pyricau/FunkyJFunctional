@@ -15,31 +15,30 @@
  */
 package info.piwai.funkyjfunctional.festassert;
 
-import info.piwai.funkyjfunctional.ClassExecutorWithInput;
+import info.piwai.funkyjfunctional.ClassFunctionWithInput;
 
 import org.fest.assertions.Condition;
 
 /**
  * <p>
- * {@link ClassCondition} is not part of the API, which is why it has
- * package-private scope.
+ * {@link ClassCondition}
  */
 final class ClassCondition<T, U extends Cond<T>> extends Condition<T> {
 
-    private final ClassExecutorWithInput<U> executor;
+    private final ClassFunctionWithInput<U> function;
 
-    ClassCondition(ClassExecutorWithInput<U> executor) {
-        this.executor = executor;
+    ClassCondition(ClassFunctionWithInput<U> function) {
+        this.function = function;
     }
 
     @Override
     public boolean matches(T input) {
-        U instance = executor.createExecutedInstance(input);
+        U instance = function.execute(input);
 
         if (instance.as != null) {
             as(instance.as);
         } else {
-            as(executor.getClassSimpleName());
+            as(function.getClassSimpleName());
         }
 
         return instance.out;
