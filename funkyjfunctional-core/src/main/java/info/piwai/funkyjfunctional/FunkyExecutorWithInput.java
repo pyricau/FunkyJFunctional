@@ -16,11 +16,10 @@
 package info.piwai.funkyjfunctional;
 
 /**
- * 
  * <p>
- * {@link FunkyExecutorWithInput} is not part of the API, which is why it has
- * package-private scope.
+ * {@link ClassExecutorWithInput} Funky implementation 
  * 
+ * @see ClassExecutorWithInput
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 final class FunkyExecutorWithInput<T> implements ClassExecutorWithInput<T> {
@@ -40,8 +39,8 @@ final class FunkyExecutorWithInput<T> implements ClassExecutorWithInput<T> {
         this.executor = executor;
     }
 
-    public T createExecutedInstance(Object parameter) {
-        holder.set(parameter);
+    public T createExecutedInstance(Object input) {
+        holder.set(input);
         try {
             return executor.createExecutedInstance();
         } finally {

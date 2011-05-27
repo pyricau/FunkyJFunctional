@@ -18,8 +18,24 @@ package info.piwai.funkyjfunctional;
 import java.io.Serializable;
 
 /**
+ * Executor that creates executed instances. An "executed instance" means that
+ * the functional code is executed by creating a T instance. In fact, the
+ * functional code is located in an init block, ie in the constructor, and
+ * therefor you need to create a new instance to execute the functional code.
+ * 
+ * <T> The type of the class that will be instanciated, and therefore executed.
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public interface ClassExecutor<T> extends HasClassSimpleName, Serializable {
+
+    /**
+     * Creates a new T instance, which also means that the functional code is
+     * executed.
+     * 
+     * @return the created instance, after the functional code has been
+     *         executed. This is useful to extract the result data set by the
+     *         functional code.
+     */
     T createExecutedInstance();
 }

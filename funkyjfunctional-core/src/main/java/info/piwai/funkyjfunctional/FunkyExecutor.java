@@ -27,14 +27,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>
- * This class holds FunkyJFunctional's core behavior. It creates instances of
- * the given class each time its init block code needs to be executed.
+ * {@link ClassExecutor} Funky implementation
  * 
- * <p>
- * {@link FunkyExecutor} is not part of the API, which is why it has
- * package-private scope.
- * 
+ * @see ClassExecutor
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 final class FunkyExecutor<T> implements ClassExecutor<T> {

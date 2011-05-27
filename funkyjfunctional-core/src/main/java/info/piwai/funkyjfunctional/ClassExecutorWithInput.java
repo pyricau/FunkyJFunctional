@@ -18,12 +18,19 @@ package info.piwai.funkyjfunctional;
 import java.io.Serializable;
 
 /**
+ * Works the same way as a {@link ClassExecutor}, but the functional code can
+ * have input data, which is usually set as instance attribute right before the
+ * initblock is called.
  * 
- * 
+ * @see ClassExecutor
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public interface ClassExecutorWithInput<T> extends HasClassSimpleName, Serializable{
+public interface ClassExecutorWithInput<T> extends HasClassSimpleName, Serializable {
 
-    T createExecutedInstance(Object parameter);
-    
+    /**
+     * @param input The input that will be used by the functional code
+     * @see ClassExecutor#createExecutedInstance()
+     */
+    T createExecutedInstance(Object input);
+
 }

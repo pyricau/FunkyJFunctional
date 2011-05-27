@@ -15,8 +15,16 @@
  */
 package info.piwai.funkyjfunctional;
 
+/**
+ * The object implementing this interface has a class simple name and is able to return it.
+ * 
+ * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ */
 public interface HasClassSimpleName {
 
+    /**
+     * @return the class simple name, ie the last part of the class fully qualified name.
+     */
     String getClassSimpleName();
 
 }
