@@ -20,6 +20,6 @@ import java.io.Serializable;
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public interface ClassExecutor<T> extends HasClassSimpleName<T>, Serializable {
+public interface ClassExecutor<T> extends HasClassSimpleName, Serializable {
     T createExecutedInstance();
 }

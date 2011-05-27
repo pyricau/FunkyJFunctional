@@ -15,7 +15,7 @@
  */
 package info.piwai.funkyjfunctional;
 
-public interface HasClassSimpleName<T> {
+public interface HasClassSimpleName {
 
     String getClassSimpleName();
 
