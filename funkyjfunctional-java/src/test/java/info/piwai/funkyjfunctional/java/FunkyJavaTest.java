@@ -15,7 +15,8 @@
  */
 package info.piwai.funkyjfunctional.java;
 
-import info.piwai.funkyjfunctional.java.FunkyJava;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 import org.junit.Test;
 
@@ -25,8 +26,14 @@ import org.junit.Test;
 public class FunkyJavaTest {
 
     @Test(expected = UnsupportedOperationException.class)
-    public void funkyJavaCannotBeInstanciated() {
-        new FunkyJava();
+    public void cannotBeInstanciated() throws Throwable {
+        Constructor<?> constructor = FunkyJava.class.getDeclaredConstructors()[0];
+        constructor.setAccessible(true);
+        try {
+            constructor.newInstance();
+        } catch (InvocationTargetException e) {
+            throw e.getCause();
+        }
     }
 
 }

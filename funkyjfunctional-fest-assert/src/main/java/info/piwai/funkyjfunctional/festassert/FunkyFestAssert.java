@@ -49,7 +49,7 @@ public final class FunkyFestAssert {
         return new ClassDescription<U>(newFunction(applyingClass, constructorArguments));
     }
     
-    FunkyFestAssert() {
+    private FunkyFestAssert() {
         throw new UnsupportedOperationException();
     }
 

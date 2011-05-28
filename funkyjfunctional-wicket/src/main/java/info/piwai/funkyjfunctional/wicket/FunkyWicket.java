@@ -46,10 +46,7 @@ public final class FunkyWicket {
         return new ClassAbstractReadOnlyModel<T, U>(newFunction(applyingClass, constructorArguments));
     }
 
-    /**
-     * @see {@link Funky} constructor
-     */
-    FunkyWicket() {
+    private FunkyWicket() {
         throw new UnsupportedOperationException();
     }
 

@@ -13,9 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.swing;
-
-import info.piwai.funkyjfunctional.Funky;
+package info.piwai.funkyjfunctional;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -25,7 +23,7 @@ import org.junit.Test;
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class FunkySwingTest {
+public class FunkyTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void cannotBeInstanciated() throws Throwable {

@@ -15,6 +15,9 @@
  */
 package info.piwai.funkyjfunctional.festassert;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import org.junit.Test;
 
 /**
@@ -23,8 +26,14 @@ import org.junit.Test;
 public class FunkyFestAssertTest {
 
     @Test(expected = UnsupportedOperationException.class)
-    public void funkyFestCannotBeInstanciated() {
-        new FunkyFestAssert();
+    public void cannotBeInstanciated() throws Throwable {
+        Constructor<?> constructor = FunkyFestAssert.class.getDeclaredConstructors()[0];
+        constructor.setAccessible(true);
+        try {
+            constructor.newInstance();
+        } catch (InvocationTargetException e) {
+            throw e.getCause();
+        }
     }
 
 }

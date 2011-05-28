@@ -84,10 +84,7 @@ public final class FunkyJava {
         return new ClassCallable<T, U>(newFunction(applyingClass, constructorArguments));
     }
 
-    /**
-     * @see {@link Funky} constructor
-     */
-    FunkyJava() {
+    private FunkyJava() {
         throw new UnsupportedOperationException();
     }
 

@@ -58,10 +58,7 @@ public final class FunkyGuava {
         return new ClassConstraint<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
     }
 
-    /**
-     * @see {@link Funky} constructor
-     */
-    FunkyGuava() {
+    private FunkyGuava() {
         throw new UnsupportedOperationException();
     }
 

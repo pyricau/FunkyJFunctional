@@ -41,10 +41,7 @@ public final class FunkySwing {
         return new ClassActionListener<U>(newFunctionWithInput(applyingClass, constructorArguments));
     }
 
-    /**
-     * @see {@link Funky} constructor
-     */
-    FunkySwing() {
+    private FunkySwing() {
         throw new UnsupportedOperationException();
     }
 

@@ -15,6 +15,9 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import org.junit.Test;
 
 /**
@@ -23,8 +26,14 @@ import org.junit.Test;
 public class FunkyGuavaTest {
 
     @Test(expected = UnsupportedOperationException.class)
-    public void funkyGuavaCannotBeInstanciated() {
-        new FunkyGuava();
+    public void cannotBeInstanciated() throws Throwable {
+        Constructor<?> constructor = FunkyGuava.class.getDeclaredConstructors()[0];
+        constructor.setAccessible(true);
+        try {
+            constructor.newInstance();
+        } catch (InvocationTargetException e) {
+            throw e.getCause();
+        }
     }
 
 }
