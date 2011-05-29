@@ -11,7 +11,7 @@ A few examples:
 * Java, with a funky [Runnable](http://download.oracle.com/javase/6/docs/api/java/lang/Runnable.html)
 
 ``` java
-void sayHello(ExecutorService executor) {
+public void sayHelloInExecutor(ExecutorService executor) {
 	class Hello {{ System.out.println("Hello Funky World"); }}
 	executor.execute(withRun(Hello.class));
 }
@@ -20,7 +20,7 @@ void sayHello(ExecutorService executor) {
 * [Guava](http://code.google.com/p/guava-libraries/), with a funky [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html) (Guava is the former google collections)
 
 ``` java
-Iterable<User> filterMinors(Iterable<User> users) {
+public Iterable<User> filterMinors(Iterable<User> users) {
 	class Minor extends Pred<User> {{ out = in.getAge() < 18; }}
 	return filter(users, withPred(Minor.class));
 }
