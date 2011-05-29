@@ -96,6 +96,8 @@ Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau
 
 Any question? Please ask them on the dedicated [Google Group](https://groups.google.com/group/funkyjfunctional).
 
+The latest release is the 1.0 version, see the [release notes}(https://github.com/pyricau/FunkyJFunctional/wiki/Release-Notes) for more information.
+
 # Quality
 
 FunkyJFunctional has continuous integration thanks to **CloudBees** DEV@Cloud [free plan](http://www.cloudbees.com/foss/foss-dev.cb) for [FOSS](http://en.wikipedia.org/wiki/Free_and_open_source_software) projects.
@@ -162,6 +164,8 @@ Here is a list:
 * **funkyjfunctional-swing** for Funky Swing
 * **funkyjfunctional-fest-assert** for Funky FEST-Assert
 * **funkyjfunctional-core** FunkyJFunctional's core, if you want to create your own Funky implementation.
+
+Don't forget to read the [release notes}(https://github.com/pyricau/FunkyJFunctional/wiki/Release-Notes)!
 
 The following configuration examples are for **funkyjfunctional-guava**. You should just switch the **artifactId** to use other modules.
 
