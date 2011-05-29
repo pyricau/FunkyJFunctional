@@ -6,34 +6,42 @@ FunkyJFunctional provides a **new** way to do **functional** programming in Java
 
 FunkyJFunctional **integrates** with many different **frameworks**. If not already available, feel free to implement a new funky module for the framework you love!
 
-Short syntax examples:
+A few examples:
 
 * Java, with a funky [Runnable](http://download.oracle.com/javase/6/docs/api/java/lang/Runnable.html)
 
 ``` java
-class Hello {{ System.out.println("Hello Funky World"); }}
-executorService.execute(withRun(Hello.class));
+void sayHello(ExecutorService executor) {
+	class Hello {{ System.out.println("Hello Funky World"); }}
+	executor.execute(withRun(Hello.class));
+}
 ```
 
 * [Guava](http://code.google.com/p/guava-libraries/), with a funky [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html) (Guava is the former google collections)
 
 ``` java
-class Minor extends Pred<Integer> {{ out = in < 18; }}
-minors = filter(ages, withPred(Minor.class));
+Iterable<User> filterMinors(Iterable<User> users) {
+	class Minor extends Pred<User> {{ out = in.getAge() < 18; }}
+	return filter(users, withPred(Minor.class));
+}
 ```
 
 * [FEST-Assert](http://docs.codehaus.org/display/FEST/Fluent+Assertions+Module), with a funky [Condition](http://docs.codehaus.org/display/FEST/Extending+FEST-Assert+with+Custom+Conditions)
 
 ``` java
-class Minor extends Cond<User> {{ out = in.getAge() < 18; }}
-assertThat(userList).noneSatisfies(Minor.class);
+@Test
+public void getMajorUsersReturnsNoMinorUser() {
+	List<User> majorUsers = userService.getMajorUsers();
+	class Minor extends Cond<User> {{ out = in.getAge() < 18; }}
+	assertThat(majorUsers).noneSatisfies(Minor.class);
+}
 ```
 
 * [Wicket](http://wicket.apache.org/), with a funky  [AbstractReadOnlyModel](http://wicket.apache.org/apidocs/1.4/org/apache/wicket/model/AbstractReadOnlyModel.html)
 
 ``` java
 class FortyTwo extends ARON<String> {{ out = "42"; }}
-AbstractReadOnlyModel<String> aron = withARON(FortyTwo.class);
+AbstractReadOnlyModel<String> readOnlyModel = withARON(FortyTwo.class);
 ```
 
 * [Swing](http://java.sun.com/javase/technologies/desktop/), with a funky  [ActionListener](http://download.oracle.com/javase/6/docs/api/java/awt/event/ActionListener.html)
@@ -52,22 +60,23 @@ We use good old Java features:
 * [local classes](http://stackoverflow.com/questions/3247654/when-should-you-use-a-local-class-in-java),
 
 ``` java
-class SomeClass {
-    void myMethod() {
-        class MyMethodLocalClass {
+public class SomeClass {
+    public void myMethod() {
+        class MyMethodLocalClass { // This is a local class
         }
-        new MyMethodLocalClass();
+        new MyMethodLocalClass(); // It can only be instantiated in myMethod()
     }
 }
 ```
 * [init blocks](http://download.oracle.com/javase/tutorial/java/javaOO/initial.html),
 
 ``` java
-class SomeClass {
-    SomeClass() {
+public class SomeClass {
+    public SomeClass() { // a good old constructor
         super();
         doSomething();
     }
+    
     {
         // This is an init block
         // It is executed in the constructor, after super() and before doSomething();
