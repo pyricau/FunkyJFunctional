@@ -20,6 +20,8 @@ import org.apache.wicket.model.LoadableDetachableModel;
 /**
  * A Funky {@link LoadableDetachableModel}
  * 
+ * @see FunkyWicket FunkyWicket documentation
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class LDM<T> {

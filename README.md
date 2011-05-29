@@ -40,8 +40,8 @@ public void getMajorUsers_returns_no_minor_User() {
 * [Wicket](http://wicket.apache.org/), with a funky  [AbstractReadOnlyModel](http://wicket.apache.org/apidocs/1.4/org/apache/wicket/model/AbstractReadOnlyModel.html)
 
 ``` java
-class FortyTwo extends ARON<String> {{ out = "42"; }}
-AbstractReadOnlyModel<String> readOnlyModel = withARON(FortyTwo.class);
+class FortyTwo extends AROM<String> {{ out = "42"; }}
+AbstractReadOnlyModel<String> readOnlyModel = withAROM(FortyTwo.class);
 ```
 
 * [Swing](http://java.sun.com/javase/technologies/desktop/), with a funky  [ActionListener](http://download.oracle.com/javase/6/docs/api/java/awt/event/ActionListener.html)

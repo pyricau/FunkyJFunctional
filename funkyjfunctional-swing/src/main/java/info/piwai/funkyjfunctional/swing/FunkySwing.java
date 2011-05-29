@@ -30,6 +30,11 @@ import java.awt.event.ActionListener;
  * This module is dedicated to FunkyJFunctional integration with the Java Swing
  * API.
  * 
+ * <h1>Content</h1>
+ * <ul>
+ * <li> Swing {@link ActionListener} with {@link ActL} and {@link #withActL(Class, Object...)}
+ * </ul>
+ * 
  * <p>
  * Code coverage of this module: 100%
  * 
@@ -37,6 +42,9 @@ import java.awt.event.ActionListener;
  */
 public final class FunkySwing {
 
+    /**
+     * @see FunkySwing FunkySwing documentation
+     */
     public static <U extends ActL> ActionListener withActL(Class<U> applyingClass, Object... constructorArguments) {
         return new ClassActionListener<U>(newFunctionWithInput(applyingClass, constructorArguments));
     }

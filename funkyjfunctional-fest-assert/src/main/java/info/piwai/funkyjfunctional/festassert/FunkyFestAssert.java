@@ -33,6 +33,13 @@ import org.fest.assertions.Description;
  * href="http://fest.easytesting.org/">FEST-Assert</a> (the fluent assertions
  * api).
  * 
+ * <h1>Content</h1>
+ * <ul>
+ * <li> FEST-Assert {@link Condition} with {@link Cond} and {@link #withCond(Class, Object...)}
+ * <li> FEST-Assert {@link Description} with {@link Desc} and {@link #withDesc(Class, Object...)}
+ * <li> {@link FunkyIterableAssert} to apply {@link Condition}s on all elements of an iterable.
+ * </ul>
+ * 
  * <p>
  * Code coverage of this module: 100%
  * 
@@ -41,10 +48,16 @@ import org.fest.assertions.Description;
  */
 public final class FunkyFestAssert {
     
+    /**
+     * @see FunkyFestAssert FunkyFestAssert documentation
+     */
     public static <T, U extends Cond<T>> Condition<T> withCond(Class<U> applyingClass, Object... constructorArguments) {
         return new ClassCondition<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
     }
 
+    /**
+     * @see FunkyFestAssert FunkyFestAssert documentation
+     */
     public static <T, U extends Desc> Description withDesc(Class<U> applyingClass, Object... constructorArguments) {
         return new ClassDescription<U>(newFunction(applyingClass, constructorArguments));
     }

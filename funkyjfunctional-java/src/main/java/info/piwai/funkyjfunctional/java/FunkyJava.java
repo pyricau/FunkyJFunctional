@@ -31,6 +31,13 @@ import java.util.concurrent.Callable;
  * <p>
  * This module is dedicated to FunkyJFunctional integration with the Java API.
  * 
+ * <h1>Content</h1>
+ * <ul>
+ * <li> Java {@link Runnable} using {@link #withRun(Class, Object...)}
+ * <li> Java {@link Comparator} with {@link Comp} and {@link #withComp(Class, Object...)}
+ * <li> Java {@link Callable} with {@link Call} and {@link #withCall(Class, Object...)}
+ * </ul>
+ * 
  * <p>
  * Code coverage of this module: 100%
  * 
@@ -76,10 +83,16 @@ public final class FunkyJava {
         return new ClassComparator<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
     }
 
+    /**
+     * @see FunkyJava FunkyJava documentation
+     */
     public static <U> Runnable withRun(Class<U> applyingClass, Object... constructorArguments) {
         return new ClassRunnable<U>(newFunction(applyingClass, constructorArguments));
     }
 
+    /**
+     * @see FunkyJava FunkyJava documentation
+     */
     public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object... constructorArguments) {
         return new ClassCallable<T, U>(newFunction(applyingClass, constructorArguments));
     }

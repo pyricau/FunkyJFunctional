@@ -22,6 +22,8 @@ import com.google.common.base.Predicate;
 /**
  * A Funky {@link Predicate}
  * 
+ * @see FunkyGuava FunkyGuava documentation
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Pred<T> {

@@ -17,9 +17,10 @@ package info.piwai.funkyjfunctional.festassert;
 
 import org.fest.assertions.Description;
 
-
 /**
  * A Funky {@link Description} of something.
+ * 
+ * @see FunkyFestAssert FunkyFestAssert documentation
  * 
  * @author Nicolas Francois (nicolas.franc at gmail.com)
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)

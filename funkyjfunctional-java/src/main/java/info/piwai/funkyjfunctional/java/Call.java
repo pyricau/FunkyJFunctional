@@ -21,6 +21,8 @@ import java.util.concurrent.Callable;
 /**
  * A Funky {@link Callable}
  * 
+ * @see FunkyJava FunkyJava documentation
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Call<T> {

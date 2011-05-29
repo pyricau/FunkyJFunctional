@@ -22,11 +22,14 @@ import java.util.Comparator;
 /**
  * A Funky {@link Comparator}
  * 
+ * @see FunkyJava FunkyJava documentation
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Comp<T> {
 
     protected T in1;
+    
     protected T in2;
     
     protected int out;

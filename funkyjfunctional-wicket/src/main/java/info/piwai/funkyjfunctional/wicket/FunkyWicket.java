@@ -31,6 +31,12 @@ import org.apache.wicket.model.LoadableDetachableModel;
  * This module is dedicated to FunkyJFunctional integration with <a
  * href="http://wicket.apache.org/">Wicket</a>.
  * 
+ * <h1>Content</h1>
+ * <ul>
+ * <li> Wicket {@link LoadableDetachableModel} with {@link LDM} and {@link #withLDM(Class, Object...)}
+ * <li> Wicket {@link AbstractReadOnlyModel} with {@link AROM} and {@link #withAROM(Class, Object...)}
+ * </ul>
+ * 
  * <p>
  * Code coverage of this module: 100%
  * 
@@ -38,11 +44,17 @@ import org.apache.wicket.model.LoadableDetachableModel;
  */
 public final class FunkyWicket {
 
+    /**
+     * @see FunkyWicket FunkyWicket documentation
+     */
     public static <T, U extends LDM<T>> LoadableDetachableModel<T> withLDM(Class<U> applyingClass, Object... constructorArguments) {
         return new ClassLoadableDetachableModel<T, U>(newFunction(applyingClass, constructorArguments));
     }
     
-    public static <T, U extends ARON<T>> AbstractReadOnlyModel<T> withARON(Class<U> applyingClass, Object... constructorArguments) {
+    /**
+     * @see FunkyWicket FunkyWicket documentation
+     */
+    public static <T, U extends AROM<T>> AbstractReadOnlyModel<T> withAROM(Class<U> applyingClass, Object... constructorArguments) {
         return new ClassAbstractReadOnlyModel<T, U>(newFunction(applyingClass, constructorArguments));
     }
 

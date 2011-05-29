@@ -21,6 +21,8 @@ import com.google.common.base.Supplier;
 /**
  * A Funky {@link Supplier}
  * 
+ * @see FunkyGuava FunkyGuava documentation
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Supp<T> {

@@ -21,9 +21,11 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 /**
  * A Funky {@link AbstractReadOnlyModel}
  * 
+ * @see FunkyWicket FunkyWicket documentation
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public abstract class ARON<T> {
+public abstract class AROM<T> {
 
     protected T out;
 

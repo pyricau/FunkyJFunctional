@@ -35,6 +35,14 @@ import com.google.common.collect.Constraint;
  * href="http://code.google.com/p/guava-libraries/">Guava</a> (the former google
  * collections).
  * 
+ * <h1>Content</h1>
+ * <ul>
+ * <li> Guava {@link Function} with {@link Func} and {@link #withFunc(Class, Object...)}
+ * <li> Guava {@link Predicate} with {@link Pred} and {@link #withPred(Class, Object...)}
+ * <li> Guava {@link Supplier} with {@link Supp} and {@link #withSupp(Class, Object...)}
+ * <li> Guava {@link Constraint} with {@link Const} and {@link #withConst(Class, Object...)}
+ * </ul>
+ * 
  * <p>
  * Code coverage of this module: 100%
  * 
@@ -42,18 +50,30 @@ import com.google.common.collect.Constraint;
  */
 public final class FunkyGuava {
 
+    /**
+     * @see FunkyGuava FunkyGuava documentation
+     */
     public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass, Object... constructorArguments) {
         return new ClassFunction<From, To, U>(newFunctionWithInput(applyingClass, constructorArguments));
     }
 
+    /**
+     * @see FunkyGuava FunkyGuava documentation
+     */
     public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass, Object... constructorArguments) {
         return new ClassPredicate<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
     }
 
+    /**
+     * @see FunkyGuava FunkyGuava documentation
+     */
     public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object... constructorArguments) {
         return new ClassSupplier<T, U>(newFunction(applyingClass, constructorArguments));
     }
 
+    /**
+     * @see FunkyGuava FunkyGuava documentation
+     */
     public static <T, U extends Const<T>> Constraint<T> withConst(Class<U> applyingClass, Object... constructorArguments) {
         return new ClassConstraint<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
     }

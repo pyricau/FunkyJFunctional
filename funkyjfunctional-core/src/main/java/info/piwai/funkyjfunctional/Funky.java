@@ -15,6 +15,8 @@
  */
 package info.piwai.funkyjfunctional;
 
+import java.io.Serializable;
+
 /**
  * FunkyJFunctional enables Java functional programming using method local class
  * declarations and init blocks.
@@ -25,7 +27,7 @@ package info.piwai.funkyjfunctional;
  * love!
  * 
  * <p>
- * The {@link Funky}ain entry point to FunkyJFunctional.
+ * The {@link Funky} class is the main entry point to FunkyJFunctional.
  * 
  * <h1>Contents</h1>
  * 
@@ -43,15 +45,18 @@ package info.piwai.funkyjfunctional;
  * 
  * <ul>
  * <li>function declaration, as a method local class,
- * <li>function instantiation, using the {@link Funky} c{@link Funky}nction declaration</h3>
+ * <li>function instantiation, using the {@link Funky} class and the function
+ * declaration</h3>
+ * 
+ * <h3>Function declaration</h3>
  * 
  * <p>
  * Let's declare a Minor predicate, that returns true if the given integer
  * parameter is lower than 18.
  * 
  * <pre>
- * // t is the input parameter, and r is the returned value.
- * class Minor extends Pred&lt;Integer&gt; {{ r = t &lt; 18; }}
+ * // in is the input parameter, and out is the returned value.
+ * class Minor extends Pred&lt;Integer&gt; {{ out = in &lt; 18; }}
  * </pre>
  * 
  * <h3>Function instantiation</h3>
@@ -69,7 +74,10 @@ package info.piwai.funkyjfunctional;
  * // Nothing too complex here
  * List&lt;Integer&gt; values = Arrays.asList(16, 21);
  * 
- * // To use Guava's Iterables.filter() method, the withPred() method creates a Predicate from our Adult class.
+ * // the function declaration
+ * class Minor extends Pred&lt;Integer&gt; {{ out = in &lt; 18; }}
+ * 
+ * // To use Guava's Iterables.filter() method, the withPred() method creates a Predicate from our Minor class.
  * Iterable&lt;Integer&gt; minors = filter(values, withPred(Minor.class));
  * 
  * // the 'minors' Iterable contains only one element: '16'.
@@ -99,8 +107,8 @@ package info.piwai.funkyjfunctional;
  * <p>
  * You may create your own Funky implementations, using the
  * {@link #newFunction(Class, Object...)} method, or the
- * {@link #newFunctionWithInput(Class, Object...)} and
- * {@link #getInput()}) methods if you need input parameters.
+ * {@link #newFunctionWithInput(Class, Object...)} and {@link #getInput()})
+ * methods if you need input parameters.
  * 
  * <p>
  * To learn more about how to create custom Funky functions, please have a look
@@ -114,7 +122,8 @@ package info.piwai.funkyjfunctional;
  * <li>Code coverage of the core module: 100% (97.4% according to <a
  * href="http://emma.sourceforge.net/">Emma</a>)
  * <li>All FunkyJFunctional modules have 100% code coverage.
- * <li>FunkyJFunctional sources are <a href="https://github.com/pyricau/FunkyJFunctional">on GitHub</a>.
+ * <li>FunkyJFunctional sources are <a
+ * href="https://github.com/pyricau/FunkyJFunctional">on GitHub</a>.
  * </ul>
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
@@ -124,17 +133,52 @@ public final class Funky {
 
     private static FunctionFactory factory = createThreadSafeFactory();
 
+    /**
+     * Creates a new function instance from an applyingClass. This function
+     * cannot have any input argument.
+     * 
+     * @param applyingClass
+     *            the class that holds the functional behavior in its init block
+     *            declaration
+     * @param constructorArguments
+     *            if you want the {@link ClassFunction} to be serialized, all
+     *            constructorArguments elements should be {@link Serializable}.
+     */
     public static <T> ClassFunction<T> newFunction(Class<T> applyingClass, Object... constructorArguments) {
         return factory.newFunction(applyingClass, constructorArguments);
     }
 
+    /**
+     * Creates a new function instance from an applyingClass. This function may
+     * have input arguments.
+     * 
+     * @param applyingClass
+     *            the class that holds the functional behavior in its init block
+     *            declaration
+     * 
+     * @param constructorArguments
+     *            if you want the {@link ClassFunction} to be serialized, all
+     *            constructorArguments elements should be {@link Serializable}.
+     */
     public static <T> ClassFunctionWithInput<T> newFunctionWithInput(Class<T> applyingClass, Object... constructorArguments) {
         return factory.newFunctionWithInput(applyingClass, constructorArguments);
     }
 
     /**
+     * <p>
+     * Switches the holder used for input arguments. If true, a
+     * {@link ThreadSafeInputHolder} will be used, otherwise a
+     * {@link SingleThreadInputHolder} will be used. The default is a
+     * {@link ThreadSafeInputHolder}.
+     * 
+     * <p>
+     * Use with caution. Do not call this method unless you know what you are
+     * doing. A {@link SingleThreadInputHolder} may be used only if you are
+     * certain that FJF usage will happen on one and only one thread.
+     * 
+     * <p>
      * This method is not thread safe. Should be called prior to using any FJF
-     * functionnality.
+     * functionality.
      */
     public static void setThreadSafeInput(boolean threadSafe) {
         if (threadSafe) {
@@ -143,9 +187,20 @@ public final class Funky {
             factory = createSingleThreadFactory();
         }
     }
-    
+
+    /**
+     * This method is used by the various FJF modules to retrieve the input
+     * function parameter which is set prior to creating the instance. Should
+     * only be called from a FJF module.
+     * 
+     * @param <T>
+     *            any type you wish. The returned value will be cast to T. This
+     *            is a convenient feature to avoid polluting code with
+     *            unnecessary castings
+     * @return the input value set by the applyingClass
+     */
     public static <T> T getInput() {
-        return factory.getInputHolder().<T>get();
+        return factory.getInputHolder().<T> get();
     }
 
     private static FunctionFactory createThreadSafeFactory() {
@@ -155,7 +210,7 @@ public final class Funky {
     private static FunctionFactory createSingleThreadFactory() {
         return new FunctionFactory(new SingleThreadInputHolder());
     }
-    
+
     private Funky() {
         throw new UnsupportedOperationException();
     }

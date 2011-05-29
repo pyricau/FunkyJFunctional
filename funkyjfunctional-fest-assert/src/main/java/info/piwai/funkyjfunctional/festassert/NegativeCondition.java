@@ -20,7 +20,7 @@ import org.fest.assertions.Condition;
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class NegativeCondition<T> extends Condition<T> {
+final class NegativeCondition<T> extends Condition<T> {
 
     public static <T> Condition<T> not(Condition<T> condition) {
         return new NegativeCondition<T>(condition);

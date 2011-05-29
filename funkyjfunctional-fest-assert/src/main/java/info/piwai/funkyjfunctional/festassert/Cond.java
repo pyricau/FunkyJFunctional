@@ -21,7 +21,11 @@ import org.fest.assertions.Condition;
 
 /**
  * Funky {@link Condition} to be met by an Object.
- * @param <T> the type of Object this condition accepts.
+ * 
+ * @param <T>
+ *            the type of Object this condition accepts.
+ * 
+ * @see FunkyFestAssert FunkyFestAssert documentation
  * 
  * @author Nicolas Francois (nicolas.franc at gmail.com)
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
@@ -35,7 +39,7 @@ public abstract class Cond<T> {
     protected String as;
 
     public Cond() {
-        in = Funky.<T>getInput();
+        in = Funky.<T> getInput();
     }
 
 }

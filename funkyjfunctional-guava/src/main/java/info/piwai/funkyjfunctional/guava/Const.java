@@ -22,6 +22,8 @@ import com.google.common.collect.Constraint;
 /**
  * A Funky {@link Constraint}
  * 
+ * @see FunkyGuava FunkyGuava documentation
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Const<T> {

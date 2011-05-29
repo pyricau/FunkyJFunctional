@@ -25,7 +25,7 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-final class ClassAbstractReadOnlyModel<T, U extends ARON<T>> extends AbstractReadOnlyModel<T> {
+final class ClassAbstractReadOnlyModel<T, U extends AROM<T>> extends AbstractReadOnlyModel<T> {
 
 	private static final long serialVersionUID = 1L;
 	

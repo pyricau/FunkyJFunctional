@@ -22,6 +22,8 @@ import com.google.common.base.Function;
 /**
  * A Funky {@link Function}
  * 
+ * @see FunkyGuava FunkyGuava documentation
+ * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public abstract class Func<From, To> {
