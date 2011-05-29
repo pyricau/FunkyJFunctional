@@ -6,9 +6,9 @@ FunkyJFunctional provides a **new** way to do **functional** programming in Java
 
 FunkyJFunctional **integrates** with many different **frameworks**. If not already available, feel free to implement a new funky module for the framework you love!
 
-A few examples:
+A few examples with different frameworks:
 
-* Java, with a funky [Runnable](http://download.oracle.com/javase/6/docs/api/java/lang/Runnable.html)
+* Classic Java, with a funky [Runnable](http://download.oracle.com/javase/6/docs/api/java/lang/Runnable.html)
 
 ``` java
 public void sayHelloInExecutor(ExecutorService executor) {
@@ -30,10 +30,10 @@ public Iterable<User> filterMinors(Iterable<User> users) {
 
 ``` java
 @Test
-public void getMajorUsersReturnsNoMinorUser() {
+public void getMajorUsers_returns_no_minor_User() {
 	List<User> majorUsers = userService.getMajorUsers();
 	class Minor extends Cond<User> {{ out = in.getAge() < 18; }}
-	assertThat(majorUsers).noneSatisfies(Minor.class);
+	assertThat(majorUsers).noneIs(Minor.class);
 }
 ```
 
