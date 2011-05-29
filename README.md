@@ -207,7 +207,7 @@ As well as the following dependency:
 <dependency>
 	<groupId>info.piwai.funkyjfunctional</groupId>
 	<artifactId>funkyjfunctional-guava</artifactId>
-	<version>0.5-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 </dependency>
 ```
 
