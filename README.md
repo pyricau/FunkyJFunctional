@@ -96,7 +96,7 @@ Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau
 
 Any question? Please ask them on the dedicated [Google Group](https://groups.google.com/group/funkyjfunctional).
 
-The latest release is the 1.0 version, see the [release notes}(https://github.com/pyricau/FunkyJFunctional/wiki/Release-Notes) for more information.
+The latest release is the 1.0 version, see the [release notes](https://github.com/pyricau/FunkyJFunctional/wiki/Release-Notes) for more information.
 
 # Quality
 
@@ -165,7 +165,7 @@ Here is a list:
 * **funkyjfunctional-fest-assert** for Funky FEST-Assert
 * **funkyjfunctional-core** FunkyJFunctional's core, if you want to create your own Funky implementation.
 
-Don't forget to read the [release notes}(https://github.com/pyricau/FunkyJFunctional/wiki/Release-Notes)!
+Don't forget to read the [release notes](https://github.com/pyricau/FunkyJFunctional/wiki/Release-Notes)!
 
 The following configuration examples are for **funkyjfunctional-guava**. You should just switch the **artifactId** to use other modules.
 
