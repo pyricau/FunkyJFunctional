@@ -111,7 +111,7 @@ Note that **all modules** have **100% code coverage**.
 
 # Detailed example
 
-With Guava:
+The classical way to use a Guava [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html):
 
 ``` java
 List<Integer> values = Arrays.asList(16, 21);
@@ -125,7 +125,7 @@ Iterable<Integer> minors = Iterables.filter(values, minorPredicate);
 System.out.println(minors); // prints [16]
 ```
 	
-With FunkyJFunctional our [predicate](https://github.com/pyricau/FunkyJFunctional/blob/master/funkyjfunctional-demo/src/test/java/info/piwai/funkyjfunctional/demo/guava/PredDemo.java) is much shorter:
+With FunkyJFunctional our predicate is [much shorter](https://github.com/pyricau/FunkyJFunctional/blob/master/funkyjfunctional-demo/src/test/java/info/piwai/funkyjfunctional/demo/guava/PredDemo.java):
 
 ``` java
 List<Integer> values = Arrays.asList(16, 21);
@@ -139,14 +139,17 @@ With static imports, it's even shorter:
 ``` java
 import static info.piwai.funkyjfunctional.FunkyGuava.*;
 import static com.google.common.collect.Iterables.*;
+import static java.util.Arrays.*;
 // [...]
-Iterable<Integer> minors = filter(values, withPred(Minor.class));
+class Minor extends Pred<Integer> {{ out = in < 18; }}
+Iterable<Integer> minors = filter(asList(16, 21), withPred(Minor.class));
+System.out.println(minors); // prints [16]
 ```
-	
+
+And... [much more](http://pyricau.github.com/FunkyJFunctional/javadoc/releases/0.4/index.html?info/piwai/funkyjfunctional/Funky.html)!
+
 Sounds funky? We think it is ;-). 
 	
-And... [much more](http://pyricau.github.com/FunkyJFunctional/javadoc/releases/0.4/index.html?info/piwai/funkyjfunctional/Funky.html)!
-    
 # Maven funky artifacts
 
 There are several artifacts that you may want to use, depending on your needs.
