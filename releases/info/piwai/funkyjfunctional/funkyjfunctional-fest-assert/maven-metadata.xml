@@ -3,10 +3,11 @@
   <groupId>info.piwai.funkyjfunctional</groupId>
   <artifactId>funkyjfunctional-fest-assert</artifactId>
   <versioning>
-    <release>0.4</release>
+    <release>1.0</release>
     <versions>
       <version>0.4</version>
+      <version>1.0</version>
     </versions>
-    <lastUpdated>20110510142018</lastUpdated>
+    <lastUpdated>20110529105608</lastUpdated>
   </versioning>
 </metadata>
