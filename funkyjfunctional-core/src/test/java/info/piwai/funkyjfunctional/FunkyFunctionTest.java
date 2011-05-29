@@ -31,7 +31,7 @@ import org.junit.Test;
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class FunkyExecutorTest {
+public class FunkyFunctionTest {
 
     private static final Object[] NULL_PARAM_ARRAY = new Object[] { null };
 
@@ -97,7 +97,7 @@ public class FunkyExecutorTest {
     public void multipleConstructors() {
         @SuppressWarnings("unused")
         class Instantiated {
-            Instantiated(FunkyExecutorTest obj) {
+            Instantiated(FunkyFunctionTest obj) {
             }
 
             Instantiated() {

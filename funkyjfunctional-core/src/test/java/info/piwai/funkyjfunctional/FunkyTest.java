@@ -15,9 +15,14 @@
  */
 package info.piwai.funkyjfunctional;
 
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
+import org.junit.After;
 import org.junit.Test;
 
 /**
@@ -35,5 +40,83 @@ public class FunkyTest {
             throw e.getCause();
         }
     }
+    
+    @Test
+    public void defaultIsThreadSafeFactory() throws Exception {
+        FunctionFactory factory = getFactory();
+        
+        InputHolder inputHolder = factory.getInputHolder();
+        
+        assertTrue(inputHolder instanceof ThreadSafeInputHolder);
+    }
+    
+    private FunctionFactory getFactory() throws Exception {
+        Field factoryField = getFactoryField();
+        return (FunctionFactory) factoryField.get(null);
+    }
+
+    private Field getFactoryField() throws NoSuchFieldException {
+        Field factoryField = Funky.class.getDeclaredField("factory");
+        factoryField.setAccessible(true);
+        return factoryField;
+    }
+    
+    @Test
+    public void switchToSingleThreadFactory() throws Exception {
+        Funky.setThreadSafeInput(false);
+        
+        FunctionFactory factory = getFactory();
+        
+        InputHolder inputHolder = factory.getInputHolder();
+        
+        assertTrue(inputHolder instanceof SingleThreadInputHolder);
+    }
+    
+    @Test
+    public void doubleSwitchToThreadSafeFactory() throws Exception {
+        Funky.setThreadSafeInput(false);
+        Funky.setThreadSafeInput(true);
+        
+        FunctionFactory factory = getFactory();
+        
+        InputHolder inputHolder = factory.getInputHolder();
+        
+        assertTrue(inputHolder instanceof ThreadSafeInputHolder);
+    }
+    
+    @Test
+    public void getInputDelegatesToFactoryInputHolder() throws Exception {
+        FunctionFactory factory = getFactory();
+        
+        Object input = new Object();
+        factory.getInputHolder().set(input);
+        
+        assertSame(input, Funky.getInput());
+    }
+    
+    @Test
+    public void newFunctionDelegatesToFactory() {
+        class Instantiated {}
+        
+        ClassFunction<Instantiated> classFunction = Funky.newFunction(Instantiated.class);
+
+        assertTrue(classFunction instanceof FunkyFunction);
+    }
+
+    @Test
+    public void newFunctionWithInputReturnsFunkyFunctionWithInput() {
+        class Instantiated {}
+
+        ClassFunctionWithInput<Instantiated> classFunction = Funky.newFunctionWithInput(Instantiated.class);
+
+        assertTrue(classFunction instanceof FunkyFunctionWithInput);
+    }
+    
+    
+    @After
+    public void cleanup() {
+        Funky.setThreadSafeInput(true);
+    }
+    
 
 }

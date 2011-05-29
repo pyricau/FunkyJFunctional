@@ -26,64 +26,64 @@ import org.mockito.stubbing.Answer;
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class FunkyExecutorWithInputTest {
+public class FunkyFunctionWithInputTest {
 
-    private ClassFunction<Object> executor;
-    private ClassFunctionWithInput<Object> executorWithInput;
+    private ClassFunction<Object> function;
+    private ClassFunctionWithInput<Object> functionWithInput;
     
     private InputHolder inputHolder = new SingleThreadInputHolder();
 
     @SuppressWarnings("unchecked")
     @Before
     public void setup() {
-        executor = mock(ClassFunction.class);
-        executorWithInput = new FunkyFunctionWithInput<Object>(executor, inputHolder);
+        function = mock(ClassFunction.class);
+        functionWithInput = new FunkyFunctionWithInput<Object>(function, inputHolder);
     }
 
     @Test
     public void delegatesCall() {
-        executorWithInput.execute(null);
-        verify(executor).execute();
+        functionWithInput.execute(null);
+        verify(function).execute();
     }
 
     @Test
-    public void inputStoredInThreadLocal() {
+    public void inputStoredInInputHolder() {
         final Object parameter = new Object();
-        when(executor.execute()).thenAnswer(new Answer<Object>() {
+        when(function.execute()).thenAnswer(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
                 assertSame(parameter, inputHolder.get());
                 return null;
             }
         });
-        executorWithInput.execute(parameter);
+        functionWithInput.execute(parameter);
     }
 
     @Test
-    public void threadLocalCleaned() {
+    public void inputHolderCleaned() {
         assertNull(inputHolder.get());
-        when(executor.execute()).thenAnswer(new Answer<Object>() {
+        when(function.execute()).thenAnswer(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
                 assertNotNull(inputHolder.get());
                 return null;
             }
         });
-        executorWithInput.execute(new Object());
+        functionWithInput.execute(new Object());
         assertNull(inputHolder.get());
     }
 
     @Test
     public void simpleExecutorWithInputDoesNotThrow() {
-        new FunkyFunctionWithInput<Object>(executor, inputHolder);
+        new FunkyFunctionWithInput<Object>(function, inputHolder);
     }
 
     @Test
     public void getClassSimpleNameDelegatesToClassExecutor() {
         String classSimpleName = "classSimpleName";
-        when(executor.getClassSimpleName()).thenReturn(classSimpleName);
-        assertSame(classSimpleName, executorWithInput.getClassSimpleName());
-        verify(executor).getClassSimpleName();
+        when(function.getClassSimpleName()).thenReturn(classSimpleName);
+        assertSame(classSimpleName, functionWithInput.getClassSimpleName());
+        verify(function).getClassSimpleName();
     }
 
 }

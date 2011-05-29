@@ -15,36 +15,45 @@
  */
 package info.piwai.funkyjfunctional;
 
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 import org.junit.Test;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class FunkyFactoryTest {
+public class FunctionFactoryTest {
 
     @Test
-    public void classExecutorReturnsFunkyExecutor() {
+    public void newFunctionReturnsFunkyFunction() {
 
         FunctionFactory funkyFactory = new FunctionFactory(null);
 
         class Instantiated {}
         
-        ClassFunction<Instantiated> classExecutor = funkyFactory.newFunction(Instantiated.class);
+        ClassFunction<Instantiated> classFunction = funkyFactory.newFunction(Instantiated.class);
 
-        assertTrue(classExecutor instanceof FunkyFunction);
+        assertTrue(classFunction instanceof FunkyFunction);
     }
 
     @Test
-    public void classExecutorWithInputReturnsFunkyExecutorWithInput() {
+    public void newFunctionWithInputReturnsFunkyFunctionWithInput() {
 
         FunctionFactory funkyFactory = new FunctionFactory(null);
 
         class Instantiated {}
 
-        ClassFunctionWithInput<Instantiated> classExecutor = funkyFactory.newFunctionWithInput(Instantiated.class);
+        ClassFunctionWithInput<Instantiated> classFunction = funkyFactory.newFunctionWithInput(Instantiated.class);
 
-        assertTrue(classExecutor instanceof FunkyFunctionWithInput);
+        assertTrue(classFunction instanceof FunkyFunctionWithInput);
+    }
+    
+    @Test
+    public void getInputHolderReturnsGivenInputHolder() {
+        InputHolder inputHolder = mock(InputHolder.class);
+        FunctionFactory funkyFactory = new FunctionFactory(inputHolder);
+        assertSame(inputHolder, funkyFactory.getInputHolder());
     }
 }
