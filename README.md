@@ -53,17 +53,16 @@ jButton.addActionListener(withActL(BtonClick.class));
 
 Sounds funky? We think it is ;-). 
 
-## Informations
+# Informations
 
 * It's **pure Java**, no magic involved. See [How it works](https://github.com/pyricau/FunkyJFunctional/wiki/How-it-works) for details.
-* **All modules** have **100% code coverage**
+* **All modules** have **100% code coverage**.
 * To use FJF, [Download](https://github.com/pyricau/FunkyJFunctional/wiki/Maven) the **Maven** artifacts.
 * See the [Detailed example](https://github.com/pyricau/FunkyJFunctional/wiki/Detailed-example) to get into details.
 * The latest release is the **1.0** version, see the [release notes](https://github.com/pyricau/FunkyJFunctional/wiki/Release-Notes) for more information.
-* Licensed under the [Apache License, v2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
+* Licensed under the [Apache License, v2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
 
-
-## Help
+# Help
 
 [![Javadoc](https://github.com/pyricau/FunkyJFunctional/raw/master/javadoc_screenshot.png)](http://pyricau.github.com/FunkyJFunctional/javadoc/releases/1.0/index.html?info/piwai/funkyjfunctional/Funky.html)
 [![Google Group](http://global742.org/sites/default/files/google-groups-logo.png)](https://groups.google.com/group/funkyjfunctional)
