@@ -15,6 +15,8 @@
  */
 package info.piwai.funkyjfunctional;
 
+import java.io.ObjectStreamException;
+
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
@@ -24,7 +26,7 @@ public final class ThreadSafeInputHolder extends AbstractInputHolder implements 
     
     private static final long serialVersionUID = 1L;
 
-    private final ThreadLocal<Object> holder = new ThreadLocal<Object>();
+    private transient final ThreadLocal<Object> holder = new ThreadLocal<Object>();
     
     private ThreadSafeInputHolder() {}
     
@@ -37,4 +39,9 @@ public final class ThreadSafeInputHolder extends AbstractInputHolder implements 
     public <T> T get() {
         return this.<T>cast(holder.get());
     }
+    
+    private Object readResolve() throws ObjectStreamException {
+        return INSTANCE;
+    }
+
 }

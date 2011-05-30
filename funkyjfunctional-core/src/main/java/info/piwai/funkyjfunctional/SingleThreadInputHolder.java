@@ -22,7 +22,7 @@ public final class SingleThreadInputHolder extends AbstractInputHolder implement
 
     private static final long serialVersionUID = 1L;
 
-    private Object input;
+    private transient Object input;
 
     @Override
     public void set(Object input) {
