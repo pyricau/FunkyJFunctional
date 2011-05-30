@@ -53,43 +53,7 @@ jButton.addActionListener(withActL(BtonClick.class));
 
 ## Informations
 
-* It's pure Java, no magic involved! See [[How it works]] for details.
-
-## It's pure Java!
-
-No extra [compilation step](http://download.oracle.com/javase/1.5.0/docs/guide/apt/GettingStarted.html), no bytecode [instrumentation](http://www.eclipse.org/aspectj/), no Java [proxy](http://download.oracle.com/javase/1.3/docs/guide/reflection/proxy.html). You can use it straight away, anywhere!
-
-We use good old Java features:
-
-* [local classes](http://stackoverflow.com/questions/3247654/when-should-you-use-a-local-class-in-java),
-
-``` java
-public class SomeClass {
-    public void myMethod() {
-        class MyMethodLocalClass { // This is a local class
-        }
-        new MyMethodLocalClass(); // It can only be instantiated in myMethod()
-    }
-}
-```
-* [init blocks](http://download.oracle.com/javase/tutorial/java/javaOO/initial.html),
-
-``` java
-public class SomeClass {
-    public SomeClass() { // a good old constructor
-        super();
-        doSomething();
-    }
-    
-    {
-        // This is an init block
-        // It is executed in the constructor, after super() and before doSomething();
-    }
-}
-```
-
-* a bit of [reflection](http://java.sun.com/developer/technicalArticles/ALT/Reflection/)  (``` constructor.newInstance()```),
-* a [ThreadLocal](http://download.oracle.com/javase/6/docs/api/java/lang/ThreadLocal.html) for input parameters.
+* It's pure Java, no magic involved! See [How it works](https://github.com/pyricau/FunkyJFunctional/wiki/How-it-works) for details.
 
 ## Help
 
