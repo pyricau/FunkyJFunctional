@@ -53,7 +53,9 @@ jButton.addActionListener(withActL(BtonClick.class));
 
 ## Informations
 
-* It's pure Java, no magic involved! See [How it works](https://github.com/pyricau/FunkyJFunctional/wiki/How-it-works) for details.
+* It's **pure Java**, no magic involved. See [How it works](https://github.com/pyricau/FunkyJFunctional/wiki/How-it-works) for details.
+* **All modules** have **100% code coverage**
+* To use FJF, [Download](https://github.com/pyricau/FunkyJFunctional/wiki/Maven) the **Maven** artifacts.
 
 ## Help
 
@@ -75,9 +77,6 @@ FunkyJFunctional has continuous integration thanks to **CloudBees** DEV@Cloud [f
 ## Build time trend & Test Result Trend
 [![Build Trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/buildTimeGraph/png?width=400&height=200)](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/)
 [![Test result trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/test/trend?width=400&height=200)](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/)
-
-Note that **all modules** have **100% code coverage**.
-
 
 # Detailed example
 
@@ -119,69 +118,6 @@ System.out.println(minors); // prints [16]
 And... [much more](http://pyricau.github.com/FunkyJFunctional/javadoc/releases/1.0/index.html?info/piwai/funkyjfunctional/Funky.html)!
 
 Sounds funky? We think it is ;-). 
-	
-# Maven funky artifacts
-
-There are several artifacts that you may want to use, depending on your needs.
-
-Here is a list:
-
-* **funkyjfunctional-guava** for Funky Guava
-* **funkyjfunctional-wicket** for Funky Wicket
-* **funkyjfunctional-java** for Funky Java
-* **funkyjfunctional-swing** for Funky Swing
-* **funkyjfunctional-fest-assert** for Funky FEST-Assert
-* **funkyjfunctional-core** FunkyJFunctional's core, if you want to create your own Funky implementation.
-
-Don't forget to read the [release notes](https://github.com/pyricau/FunkyJFunctional/wiki/Release-Notes)!
-
-The following configuration examples are for **funkyjfunctional-guava**. You should just switch the **artifactId** to use other modules.
-
-## FJF-Guava releases, for the serious funky guys
-
-You will need the following repository in your Maven project:
-
-``` xml
-<repositories>
-	<repository>
-		<id>funkyjfunctional-releases</id>
-		<url>https://github.com/pyricau/FunkyJFunctional/raw/master/releases</url>
-	</repository>
-</repositories>
-```
-	
-As well as the following dependency:
-
-``` xml
-<dependency>
-	<groupId>info.piwai.funkyjfunctional</groupId>
-	<artifactId>funkyjfunctional-guava</artifactId>
-	<version>1.0</version>
-</dependency>
-```
-	
-## FJF-Guava snapshots, for Chuck Norris and his funky friends
-
-You will need the following repository in your Maven project:
-
-``` xml
-<repositories>
-	<repository>
-		<id>funkyjfunctional-snapshots</id>
-		<url>https://github.com/pyricau/FunkyJFunctional/raw/master/snapshots</url>
-	</repository>
-</repositories>
-```
-
-As well as the following dependency:
-
-``` xml
-<dependency>
-	<groupId>info.piwai.funkyjfunctional</groupId>
-	<artifactId>funkyjfunctional-guava</artifactId>
-	<version>1.1-SNAPSHOT</version>
-</dependency>
-```
 
 #License
 
