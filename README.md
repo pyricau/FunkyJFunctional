@@ -2,9 +2,9 @@
 
 There is no such thing as functional programming in Java, but sometimes we emulate it using anonymous classes.
 
-FunkyJFunctional provides a **new** way to do **functional** programming in Java, using some Java syntactic sugar: **method local class** declarations and **init blocks**.
+**FunkyJFunctional** (aka **FJF**) provides a **new** way to do **functional** programming in Java, using some Java syntactic sugar: **method local class** declarations and **init blocks**.
 
-FunkyJFunctional **integrates** with many different **frameworks**. If not already available, feel free to implement a new funky module for the framework you love!
+FJF **integrates** with many different **frameworks**. If not already available, feel free to implement a new funky module for the framework you love!
 
 A few examples with different frameworks:
 
@@ -51,11 +51,15 @@ class BtonClick extends ActL {{ doSomething(e); }}
 jButton.addActionListener(withActL(BtonClick.class));
 ```
 
+Sounds funky? We think it is ;-). 
+
 ## Informations
 
 * It's **pure Java**, no magic involved. See [How it works](https://github.com/pyricau/FunkyJFunctional/wiki/How-it-works) for details.
 * **All modules** have **100% code coverage**
 * To use FJF, [Download](https://github.com/pyricau/FunkyJFunctional/wiki/Maven) the **Maven** artifacts.
+* See the [Detailed example](https://github.com/pyricau/FunkyJFunctional/wiki/Detailed-example) to get into details.
+* The latest release is the 1.0 version, see the [release notes](https://github.com/pyricau/FunkyJFunctional/wiki/Release-Notes) for more information.
 
 ## Help
 
@@ -66,58 +70,15 @@ Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau
 
 Any question? Please ask them on the dedicated [Google Group](https://groups.google.com/group/funkyjfunctional).
 
-The latest release is the 1.0 version, see the [release notes](https://github.com/pyricau/FunkyJFunctional/wiki/Release-Notes) for more information.
-
 # Quality
 
-FunkyJFunctional has continuous integration thanks to **CloudBees** DEV@Cloud [free plan](http://www.cloudbees.com/foss/foss-dev.cb) for [FOSS](http://en.wikipedia.org/wiki/Free_and_open_source_software) projects.
+FJF has continuous integration thanks to **CloudBees** DEV@Cloud [free plan](http://www.cloudbees.com/foss/foss-dev.cb) for [FOSS](http://en.wikipedia.org/wiki/Free_and_open_source_software) projects.
 
 [![Built on CloudBees](http://static-www.cloudbees.com/images/badges/CBbadge_builton_125.png)](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/)
 
 ## Build time trend & Test Result Trend
 [![Build Trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/buildTimeGraph/png?width=400&height=200)](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/)
 [![Test result trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/test/trend?width=400&height=200)](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/)
-
-# Detailed example
-
-The classical way to use a Guava [Predicate](http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/base/Predicate.html):
-
-``` java
-List<Integer> values = Arrays.asList(16, 21);
-Predicate<Integer> minorPredicate = new Predicate<Integer>() {
-	@Override
-	public boolean apply(Integer input) {
-		return input < 18;
-	}
-};
-Iterable<Integer> minors = Iterables.filter(values, minorPredicate);
-System.out.println(minors); // prints [16]
-```
-	
-With FunkyJFunctional our predicate is [much shorter](https://github.com/pyricau/FunkyJFunctional/blob/master/funkyjfunctional-demo/src/test/java/info/piwai/funkyjfunctional/demo/guava/PredDemo.java):
-
-``` java
-List<Integer> values = Arrays.asList(16, 21);
-class Minor extends Pred<Integer> {{ out = in < 18; }}
-Iterable<Integer> minors = Iterables.filter(values, FunkyGuava.withPred(Minor.class));
-System.out.println(minors); // prints [16]
-```
-
-With static imports, it's even shorter:
-
-``` java
-import static info.piwai.funkyjfunctional.FunkyGuava.*;
-import static com.google.common.collect.Iterables.*;
-import static java.util.Arrays.*;
-// [...]
-class Minor extends Pred<Integer> {{ out = in < 18; }}
-Iterable<Integer> minors = filter(asList(16, 21), withPred(Minor.class));
-System.out.println(minors); // prints [16]
-```
-
-And... [much more](http://pyricau.github.com/FunkyJFunctional/javadoc/releases/1.0/index.html?info/piwai/funkyjfunctional/Funky.html)!
-
-Sounds funky? We think it is ;-). 
 
 #License
 
