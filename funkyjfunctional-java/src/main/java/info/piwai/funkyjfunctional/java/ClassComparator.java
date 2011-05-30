@@ -17,6 +17,7 @@ package info.piwai.funkyjfunctional.java;
 
 import info.piwai.funkyjfunctional.ClassFunctionWithInput;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -26,7 +27,9 @@ import java.util.Comparator;
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-final class ClassComparator<T, U extends Comp<T>> implements Comparator<T> {
+final class ClassComparator<T, U extends Comp<T>> implements Comparator<T>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final ClassFunctionWithInput<U> executor;
 
