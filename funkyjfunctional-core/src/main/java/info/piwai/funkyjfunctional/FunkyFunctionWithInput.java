@@ -15,8 +15,6 @@
  */
 package info.piwai.funkyjfunctional;
 
-import java.io.IOException;
-
 /**
  * <p>
  * {@link ClassFunctionWithInput} Funky implementation 
