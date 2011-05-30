@@ -72,7 +72,7 @@ Looking for the documentation? Have a look at the [Funky javadoc](http://pyricau
 
 Any question? Please ask them on the dedicated [Google Group](https://groups.google.com/group/funkyjfunctional).
 
-# Quality
+# Continuous Integration
 
 FJF has continuous integration thanks to **CloudBees** DEV@Cloud [free plan](http://www.cloudbees.com/foss/foss-dev.cb) for [FOSS](http://en.wikipedia.org/wiki/Free_and_open_source_software) projects.
 
