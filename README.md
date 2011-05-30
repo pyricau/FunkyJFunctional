@@ -59,7 +59,9 @@ Sounds funky? We think it is ;-).
 * **All modules** have **100% code coverage**
 * To use FJF, [Download](https://github.com/pyricau/FunkyJFunctional/wiki/Maven) the **Maven** artifacts.
 * See the [Detailed example](https://github.com/pyricau/FunkyJFunctional/wiki/Detailed-example) to get into details.
-* The latest release is the 1.0 version, see the [release notes](https://github.com/pyricau/FunkyJFunctional/wiki/Release-Notes) for more information.
+* The latest release is the **1.0** version, see the [release notes](https://github.com/pyricau/FunkyJFunctional/wiki/Release-Notes) for more information.
+* Licensed under the [Apache License, v2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
+
 
 ## Help
 
@@ -79,13 +81,3 @@ FJF has continuous integration thanks to **CloudBees** DEV@Cloud [free plan](htt
 ## Build time trend & Test Result Trend
 [![Build Trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/buildTimeGraph/png?width=400&height=200)](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/)
 [![Test result trend](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/test/trend?width=400&height=200)](https://pyricau.ci.cloudbees.com/job/FunkyJFunctional-CI/)
-
-#License
-
-* [Apache License, v2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
-
-
-# Other funky ways 
-
-* [jcurry](http://code.google.com/p/jcurry/) uses the awesome [projectlombok](http://projectlombok.org/) funkyness power.
-* [lambdaj](http://code.google.com/p/lambdaj/) is a funky alernative to [Guava](http://code.google.com/p/guava-libraries/).
