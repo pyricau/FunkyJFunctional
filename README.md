@@ -26,6 +26,15 @@ public Iterable<User> filterMinors(Iterable<User> users) {
 }
 ```
 
+* [Functional Java](http://functionaljava.org), with a funky [F](http://functionaljava.googlecode.com/svn/artifacts/3.0/javadoc/index.html?fj/F.html)
+
+``` java
+public static List<Integer> factors(final int number) {
+    class Factor extends FF<Integer, Boolean> {{ out = number % in == 0; }}
+    return range(1, number + 1).filter(withF(Factor.class, number));
+}
+```
+
 * [FEST-Assert](http://docs.codehaus.org/display/FEST/Fluent+Assertions+Module), with a funky [Condition](http://docs.codehaus.org/display/FEST/Extending+FEST-Assert+with+Custom+Conditions)
 
 ``` java

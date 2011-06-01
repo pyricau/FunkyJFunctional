@@ -41,7 +41,7 @@ public class ConstDemo {
         // @on
 
         List<String> no42List = constrainedList(new ArrayList<String>(), withConst(NotFortyTwo.class));
-        
+
         no42List.add("42");
     }
 
@@ -52,44 +52,44 @@ public class ConstDemo {
         // @on
 
         List<String> no42List = constrainedList(new ArrayList<String>(), withConst(NotFortyTwo.class));
-        
+
         no42List.add("43");
-        
+
         assertTrue(no42List.contains("43"));
     }
-    
+
     @Test
     public void defaultReturnsSame() {
         // @off
         class Void extends Const<String> {{}}
         // @on
-        
+
         String input = "43";
         String returned = withConst(Void.class).checkElement(input);
         assertSame(input, returned);
     }
-    
+
     @Test
     public void changesInput() {
         // @off
         class AddSlash extends Const<String> {{ out = in.startsWith("/") ? in : "/" + in; }}
         // @on
-        
+
         Constraint<String> euroConstraint = withConst(AddSlash.class);
-        
+
         assertEquals("/path", euroConstraint.checkElement("path"));
-        
+
     }
-    
+
     @Test
     public void constraintIsNamed() {
         // @off
         class SomeName extends Const<String> {{}}
         // @on
-        
+
         String toStringValue = withConst(SomeName.class).toString();
-        
+
         assertEquals("SomeName constraint", toStringValue);
     }
-    
+
 }
