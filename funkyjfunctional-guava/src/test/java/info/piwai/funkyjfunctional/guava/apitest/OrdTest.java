@@ -15,28 +15,30 @@
  */
 package info.piwai.funkyjfunctional.guava.apitest;
 
-import com.google.common.base.Predicate;
-import info.piwai.funkyjfunctional.guava.Pred;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
+import info.piwai.funkyjfunctional.guava.Ord;
 import org.junit.Test;
 
-import static info.piwai.funkyjfunctional.guava.FunkyGuava.withPred;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static info.piwai.funkyjfunctional.guava.FunkyGuava.withOrd;
+import static org.junit.Assert.assertEquals;
 
 /**
- * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ * @author Nicolas Francois (nicolas.franc at gmail.com)
  */
-public class PredTest {
+public class OrdTest {
 
     @Test
     public void filtering() {
         // @off
-		class Adult extends Pred<Integer> {{ out = in > 18; }}
+		class AscOrder extends Ord<Integer> {{ out = left.compareTo(right); }}
 		// @on
 
-        Predicate<Integer> predicate = withPred(Adult.class);
-        
-        assertFalse(predicate.apply(16));
-        assertTrue(predicate.apply(19));
+        Ordering<Integer> ordering = withOrd(AscOrder.class);
+
+        Iterable<Integer> numbers = Lists.newArrayList(2, 3, 1, 5, 10, 8);
+
+        assertEquals(new Integer(1), ordering.min(numbers)) ;
+        assertEquals(new Integer(10), ordering.max(numbers)) ;
     }
 }
