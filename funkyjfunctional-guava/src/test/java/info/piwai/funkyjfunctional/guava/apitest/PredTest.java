@@ -15,13 +15,14 @@
  */
 package info.piwai.funkyjfunctional.guava.apitest;
 
-import com.google.common.base.Predicate;
-import info.piwai.funkyjfunctional.guava.Pred;
-import org.junit.Test;
-
 import static info.piwai.funkyjfunctional.guava.FunkyGuava.withPred;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import info.piwai.funkyjfunctional.guava.Pred;
+
+import org.junit.Test;
+
+import com.google.common.base.Predicate;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
