@@ -34,7 +34,7 @@ public class ClassOrdering <T, U extends Ord<T>> extends Ordering<T> {
 
     @Override
     public int compare(T left, T right) {
-        U instance = function.execute(new Ordered(left, right));
+        U instance = function.execute(new Ordered<T>(left, right));
         return instance.out;
     }
 }
