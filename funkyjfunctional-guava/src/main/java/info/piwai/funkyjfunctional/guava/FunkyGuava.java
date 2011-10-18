@@ -15,14 +15,15 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
-import static info.piwai.funkyjfunctional.Funky.newFunction;
-import static info.piwai.funkyjfunctional.Funky.newFunctionWithInput;
-import info.piwai.funkyjfunctional.Funky;
-
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Supplier;
 import com.google.common.collect.Constraint;
+import com.google.common.collect.Ordering;
+import info.piwai.funkyjfunctional.Funky;
+
+import static info.piwai.funkyjfunctional.Funky.newFunction;
+import static info.piwai.funkyjfunctional.Funky.newFunctionWithInput;
 
 /**
  * FunkyJFunctional enables Java functional programming using method local class
@@ -41,6 +42,7 @@ import com.google.common.collect.Constraint;
  * <li> Guava {@link Predicate} with {@link Pred} and {@link #withPred(Class, Object...)}
  * <li> Guava {@link Supplier} with {@link Supp} and {@link #withSupp(Class, Object...)}
  * <li> Guava {@link Constraint} with {@link Const} and {@link #withConst(Class, Object...)}
+ * <li> Guava {@link Ordering} with {@link Ord} and {@link #withConst(Class, Object...)}
  * </ul>
  * 
  * <p>
@@ -76,6 +78,13 @@ public final class FunkyGuava {
      */
     public static <T, U extends Const<T>> Constraint<T> withConst(Class<U> applyingClass, Object... constructorArguments) {
         return new ClassConstraint<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
+    }
+
+    /**
+     * @see FunkyGuava FunkyGuava documentation
+     */
+    public static <T, U extends Ord<T>> Ordering<T> withOrd(Class<U> applyingClass, Object... constructorArguments){
+        return new ClassOrdering<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
     }
 
     private FunkyGuava() {
