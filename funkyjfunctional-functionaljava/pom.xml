@@ -6,7 +6,7 @@
     <parent>
         <artifactId>funkyjfunctional-parent</artifactId>
         <groupId>info.piwai.funkyjfunctional</groupId>
-        <version>1.1</version>
+        <version>1.2-SNAPSHOT</version>
     </parent>
 
     <groupId>info.piwai.funkyjfunctional</groupId>
@@ -16,7 +16,7 @@
     <name>FunkyJFunctional Functional Java</name>
     <description>This project contains the Functional Java funky functions.</description>
 
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
