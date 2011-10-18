@@ -15,13 +15,14 @@
  */
 package info.piwai.funkyjfunctional.guava.apitest;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
-import info.piwai.funkyjfunctional.guava.Ord;
-import org.junit.Test;
-
+import static com.google.common.collect.Lists.newArrayList;
 import static info.piwai.funkyjfunctional.guava.FunkyGuava.withOrd;
 import static org.junit.Assert.assertEquals;
+import info.piwai.funkyjfunctional.guava.Ord;
+
+import org.junit.Test;
+
+import com.google.common.collect.Ordering;
 
 /**
  * @author Nicolas Francois (nicolas.franc at gmail.com)
@@ -31,12 +32,12 @@ public class OrdTest {
     @Test
     public void filtering() {
         // @off
-		class AscOrder extends Ord<Integer> {{ out = left.compareTo(right); }}
-		// @on
+        class AscOrder extends Ord<Integer> {{ out = left.compareTo(right); }}
+        // @on
 
         Ordering<Integer> ordering = withOrd(AscOrder.class);
 
-        Iterable<Integer> numbers = Lists.newArrayList(2, 3, 1, 5, 10, 8);
+        Iterable<Integer> numbers = newArrayList(2, 3, 1, 5, 10, 8);
 
         assertEquals(new Integer(1), ordering.min(numbers)) ;
         assertEquals(new Integer(10), ordering.max(numbers)) ;

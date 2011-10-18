@@ -25,7 +25,7 @@ import info.piwai.funkyjfunctional.Funky;
  *
  * @author Nicolas Francois (nicolas.franc at gmail.com)
  */
-public class Ord<T> {
+public abstract class Ord<T> {
 
     protected final T left;
     protected final T right;
