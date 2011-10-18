@@ -1,4 +1,4 @@
-package info.piwai.unfkyjfunctional.functionaljava;
+package info.piwai.funkyjfunctional.functionaljava;
 /**
  * Copyright (C) 2011 Pierre-Yves Ricau (py.ricau at gmail.com)
  *

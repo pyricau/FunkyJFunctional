@@ -13,19 +13,19 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.unfkyjfunctional.functionaljava.apitest;
+package info.piwai.funkyjfunctional.functionaljava.apitest;
 
 import static info.piwai.funkyjfunctional.functionaljava.FunkyFunctionalJava.*;
 import static org.junit.Assert.*;
-import fj.F2;
-import info.piwai.funkyjfunctional.functionaljava.FF2;
+import fj.F;
+import info.piwai.funkyjfunctional.functionaljava.FF;
 
 import org.junit.Test;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class FF2Test {
+public class FFTest {
 
     static class Person {
         final String firstName;
@@ -40,26 +40,23 @@ public class FF2Test {
     @Test
     public void returnsResult() {
         // @off
-        class ReturnsResult extends FF2<Object, Object, Integer> {{ out = 42; }}
+        class ReturnsResult extends FF<Object, Integer> {{ out = 42; }}
         // @on
 
-        F2<Object, Object, Integer> function = withF2(ReturnsResult.class);
+        F<Object, Integer> function = withF(ReturnsResult.class);
 
-        assertEquals((Integer) 42, function.f(null, null));
+        assertEquals((Integer) 42, function.f(null));
     }
 
     public void returnsInput() {
         // @off
-        class IdentityA extends FF2<Object, Object, Object> {{ out = inA; }}
-        class IdentityB extends FF2<Object, Object, Object> {{ out = inB; }}
+        class Identity extends FF<Object, Object> {{ out = in; }}
         // @on
 
-        F2<Object, Object, Object> identityA = withF2(IdentityA.class);
-        F2<Object, Object, Object> identityB = withF2(IdentityB.class);
+        F<Object, Object> function = withF(Identity.class);
 
         Object input = new Object();
 
-        assertSame(input, identityA.f(input, null));
-        assertSame(input, identityB.f(null, input));
+        assertSame(input, function.f(input));
     }
 }
