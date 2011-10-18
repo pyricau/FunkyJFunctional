@@ -4,7 +4,7 @@
 
     <groupId>info.piwai.funkyjfunctional</groupId>
     <artifactId>funkyjfunctional-parent</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
 
     <name>FunkyJFunctional Parent</name>
