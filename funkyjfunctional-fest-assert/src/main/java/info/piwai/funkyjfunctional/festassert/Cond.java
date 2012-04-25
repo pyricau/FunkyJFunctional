@@ -17,7 +17,7 @@ package info.piwai.funkyjfunctional.festassert;
 
 import info.piwai.funkyjfunctional.Funky;
 
-import org.fest.assertions.Condition;
+import org.fest.assertions.core.Condition;
 
 /**
  * Funky {@link Condition} to be met by an Object.

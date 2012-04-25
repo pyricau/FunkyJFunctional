@@ -19,8 +19,8 @@ import static info.piwai.funkyjfunctional.Funky.newFunction;
 import static info.piwai.funkyjfunctional.Funky.newFunctionWithInput;
 import info.piwai.funkyjfunctional.Funky;
 
-import org.fest.assertions.Condition;
-import org.fest.assertions.Description;
+import org.fest.assertions.core.Condition;
+import org.fest.assertions.description.Description;
 
 /**
  * FunkyJFunctional enables Java functional programming using method local class

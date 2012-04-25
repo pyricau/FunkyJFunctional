@@ -18,11 +18,10 @@ package info.piwai.funkyjfunctional.festassert.apitest;
 import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.withCond;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import info.piwai.funkyjfunctional.festassert.Cond;
 
-import org.fest.assertions.Condition;
+import org.fest.assertions.core.Condition;
 import org.junit.Test;
 
 /**
@@ -52,7 +51,7 @@ public class CondTest {
 
         Condition<Object> condition = withCond(AlwaysFalse.class);
         
-        assertNull(condition.description());
+        assertEquals("ClassCondition",condition.description().value());
     }
 
     @Test
@@ -65,7 +64,7 @@ public class CondTest {
         
         condition.matches(null);
 
-        assertEquals("AlwaysFalse", condition.description());
+        assertEquals("AlwaysFalse", condition.description().value());
     }
 
     @Test
@@ -79,7 +78,7 @@ public class CondTest {
         
         condition.matches(null);
 
-        assertEquals("I'm always false!", condition.description());
+        assertEquals("I'm always false!", condition.description().value());
     }
     
     @Test
@@ -94,7 +93,7 @@ public class CondTest {
         
         condition.as("Overrides");
 
-        assertEquals("Overrides", condition.description());
+        assertEquals("Overrides", condition.description().value());
     }
 
     @Test
@@ -109,7 +108,7 @@ public class CondTest {
         
         condition.as("Overrides");
 
-        assertEquals("Overrides", condition.description());
+        assertEquals("Overrides", condition.description().value());
     }
     
 }

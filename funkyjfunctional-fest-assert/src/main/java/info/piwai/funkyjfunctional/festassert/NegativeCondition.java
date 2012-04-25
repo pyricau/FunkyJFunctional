@@ -15,7 +15,7 @@
  */
 package info.piwai.funkyjfunctional.festassert;
 
-import org.fest.assertions.Condition;
+import org.fest.assertions.core.Condition;
 
 /**
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
