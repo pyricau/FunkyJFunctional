@@ -15,8 +15,7 @@
  */
 package info.piwai.funkyjfunctional.demo.festassert;
 
-import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.withDesc;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static info.piwai.funkyjfunctional.festassert.api.FunkyAssertions.assertThat;
 import static org.junit.Assert.assertTrue;
 import info.piwai.funkyjfunctional.festassert.Desc;
 
@@ -27,17 +26,17 @@ import org.junit.Test;
  */
 public class DescDemo {
 
-    @Test
-    public void values(){
-        // @off
+	@Test
+	public void values() {
+		// @off
         class NotEquals extends Desc {{ out = "We're not equals";}};
         // @on
-        try{
-           assertThat(1).as(withDesc(NotEquals.class)).isEqualTo(2);
-        } catch (AssertionError error){
-             String message = error.getMessage();
-             assertTrue(message.startsWith("[We're not equals]"));
-        }
-    };
+		try {
+			assertThat(1).as(NotEquals.class).isEqualTo(2);
+		} catch (AssertionError error) {
+			String message = error.getMessage();
+			assertTrue(message.startsWith("[We're not equals]"));
+		}
+	};
 
 }

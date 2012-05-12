@@ -16,8 +16,8 @@
 package info.piwai.funkyjfunctional.demo.festassert;
 
 import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.withCond;
+import static info.piwai.funkyjfunctional.festassert.api.FunkyAssertions.assertThat;
 import static java.util.Arrays.asList;
-import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Fail.fail;
 import static org.junit.Assert.assertTrue;
 import info.piwai.funkyjfunctional.festassert.Cond;
@@ -31,69 +31,68 @@ import org.junit.Test;
  * @author Nicolas Francois (nicolas.franc at gmail.com)
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public class CondDemo{
+public class CondDemo {
 
-    @Test
-    public void majorAssertion() {
+	@Test
+	public void majorAssertion() {
 
-        // @off
+		// @off
         class Major extends Cond<Integer> {{ out = in >= 18; }}
         // @on
 
-        assertThat(20).is(withCond(Major.class));
+		assertThat(20).is(Major.class);
 
-        assertThat(5).isNot(withCond(Major.class));
-    }
+		assertThat(5).isNot(Major.class);
+	}
 
+	@Test
+	public void evenListAssertion() {
 
-    @Test
-    public void evenListAssertion() {
-        
-        List<Integer> evenList = asList(16, 21);
-        List<Integer> oddList = asList(16, 21, 38);
-        
-        // @off
+		List<Integer> evenList = asList(16, 21);
+		List<Integer> oddList = asList(16, 21, 38);
+
+		// @off
         class EvenSize extends Cond<List<?>> {{ out = in != null && in.size() %2 == 0; }};
         // @on
-        
-        Condition<List<?>> even = withCond(EvenSize.class);
-        
-        assertThat(evenList).is(even);
-        
-        assertThat(oddList).isNot(even);
-    }
-    
-    @Test
-    public void defaultDescription() {
-        // @off
+
+		Condition<List<?>> even = withCond(EvenSize.class);
+
+		assertThat(evenList).is(even);
+
+		assertThat(oddList).isNot(even);
+	}
+
+	@Test
+	public void defaultDescription() {
+		// @off
         class AlwaysFalse extends Cond<Object> {{ out = false; }};
         // @on
-        
-        try {
-            assertThat(new Object()).is(withCond(AlwaysFalse.class));
-        } catch (AssertionError e) {
-            String message = e.getMessage();
-            assertTrue(message.contains("<AlwaysFalse>"));
-            return;
-        }
-        fail("Assertion should have throw an AssertionError");
-    }
-    
-    @Test
-    public void customDescription() {
-        
-        // @off
+
+		try {
+			assertThat(new Object()).is(AlwaysFalse.class);
+		} catch (AssertionError e) {
+			String message = e.getMessage();
+			assertTrue(message.contains("<AlwaysFalse>"));
+			return;
+		}
+		fail("Assertion should have throw an AssertionError");
+	}
+
+	@Test
+	public void customDescription() {
+
+		// @off
         class AlwaysFalse extends Cond<Object> {{ as="I'm always false!"; out = false; }};
         // @on
-        
-        try {
-            assertThat(new Object()).is(withCond(AlwaysFalse.class));
-        } catch (AssertionError e) {
-            String message = e.getMessage();
-            assertTrue(message.contains("<I'm always false!>"));
-            return;
-        }
-        fail("Assertion should have throw an AssertionError");
-    }
+
+		try {
+			assertThat(new Object()).is(AlwaysFalse.class);
+		} catch (AssertionError e) {
+			String message = e.getMessage();
+			assertTrue(message.contains("<I'm always false!>"));
+			return;
+		}
+		fail("Assertion should have throw an AssertionError");
+	}
 
 }
