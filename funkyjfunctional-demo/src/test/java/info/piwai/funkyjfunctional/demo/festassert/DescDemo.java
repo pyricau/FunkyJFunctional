@@ -15,9 +15,9 @@
  */
 package info.piwai.funkyjfunctional.demo.festassert;
 
-import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.*;
-import static org.fest.assertions.Assertions.*;
-import static org.junit.Assert.*;
+import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.withDesc;
+import static org.fest.assertions.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 import info.piwai.funkyjfunctional.festassert.Desc;
 
 import org.junit.Test;

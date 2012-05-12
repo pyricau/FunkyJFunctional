@@ -16,15 +16,15 @@
 package info.piwai.funkyjfunctional.demo.festassert;
 
 import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.withCond;
-import static java.util.Arrays.*;
-import static org.fest.assertions.Assertions.*;
-import static org.junit.Assert.*;
-
+import static java.util.Arrays.asList;
+import static org.fest.assertions.api.Assertions.assertThat;
+import static org.fest.assertions.api.Fail.fail;
+import static org.junit.Assert.assertTrue;
 import info.piwai.funkyjfunctional.festassert.Cond;
 
 import java.util.List;
 
-import org.fest.assertions.Condition;
+import org.fest.assertions.core.Condition;
 import org.junit.Test;
 
 /**
@@ -40,9 +40,9 @@ public class CondDemo{
         class Major extends Cond<Integer> {{ out = in >= 18; }}
         // @on
 
-        assertThat(20).satisfies(withCond(Major.class));
+        assertThat(20).is(withCond(Major.class));
 
-        assertThat(5).doesNotSatisfy(withCond(Major.class));
+        assertThat(5).isNot(withCond(Major.class));
     }
 
 
@@ -70,7 +70,7 @@ public class CondDemo{
         // @on
         
         try {
-            assertThat(new Object()).satisfies(withCond(AlwaysFalse.class));
+            assertThat(new Object()).is(withCond(AlwaysFalse.class));
         } catch (AssertionError e) {
             String message = e.getMessage();
             assertTrue(message.contains("<AlwaysFalse>"));
@@ -87,7 +87,7 @@ public class CondDemo{
         // @on
         
         try {
-            assertThat(new Object()).satisfies(withCond(AlwaysFalse.class));
+            assertThat(new Object()).is(withCond(AlwaysFalse.class));
         } catch (AssertionError e) {
             String message = e.getMessage();
             assertTrue(message.contains("<I'm always false!>"));

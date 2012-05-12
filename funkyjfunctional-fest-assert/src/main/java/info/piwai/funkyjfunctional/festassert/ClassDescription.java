@@ -17,7 +17,7 @@ package info.piwai.funkyjfunctional.festassert;
 
 import info.piwai.funkyjfunctional.ClassFunction;
 
-import org.fest.assertions.Description;
+import org.fest.assertions.description.Description;
 
 /**
  * <p>
@@ -25,7 +25,7 @@ import org.fest.assertions.Description;
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-final class ClassDescription<T extends Desc> implements Description {
+final class ClassDescription<T extends Desc> extends Description {
 
     private final ClassFunction<T> function;
 
