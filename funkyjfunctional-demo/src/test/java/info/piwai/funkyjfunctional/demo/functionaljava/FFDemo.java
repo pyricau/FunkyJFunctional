@@ -15,20 +15,20 @@
  */
 package info.piwai.funkyjfunctional.demo.functionaljava;
 
-import static fj.Function.*;
+import static com.google.common.collect.Lists.newArrayList;
+import static fj.Function.compose;
 import static fj.data.Array.array;
-import static fj.data.List.*;
-import static info.piwai.funkyjfunctional.functionaljava.FunkyFunctionalJava.*;
-import static java.lang.Character.*;
-import static org.junit.Assert.*;
+import static fj.data.List.fromString;
+import static fj.data.List.range;
+import static info.piwai.funkyjfunctional.functionaljava.FunkyFunctionalJava.withF;
+import static java.lang.Character.isLowerCase;
+import static java.util.Arrays.asList;
+import static org.fest.assertions.api.Assertions.assertThat;
 import fj.F;
 import fj.data.Array;
 import fj.data.List;
 import fj.function.Integers;
 import info.piwai.funkyjfunctional.functionaljava.FF;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -37,46 +37,53 @@ import org.junit.Test;
  */
 public class FFDemo {
 
-    @Test
-    public void lowercaseCompositionDemo() {
+	@Test
+	public void lowercaseCompositionDemo() {
 
-        // @off
+		// @off
         class IsLowerCase extends FF<Character, Boolean> {{ out = isLowerCase(in); }};
         // @on
 
-        // @off
+		// @off
         class IsStringLowerCase extends FF<String, Boolean> {{ out = fromString(in).forall(withF(IsLowerCase.class)); }};
         // @on
 
-        final Array<String> a = array("Hello", "There", "what", "DAY", "iS", "iT");
-        
-        boolean arrayContainsALowerCaseString = a.exists(withF(IsStringLowerCase.class));
+		/*
+		 * "what" is the only lowercase entry, try removing it
+		 */
 
-        assertTrue("true ( [what] provides the only example; try removing it)", arrayContainsALowerCaseString);
-        
-    }
-    
-    @Test
-    public void numbers() {
-        
-        F<Integer, Integer> plusOne = Integers.add.f(1);
-        
+		final Array<String> a = array("Hello", "There", "what", "DAY", "iS", "iT");
+
+		boolean arrayContainsALowerCaseString = a.exists(withF(IsStringLowerCase.class));
+
+		assertThat(arrayContainsALowerCaseString).isTrue();
+	}
+
+	@Test
+	public void numbers() {
+
+		F<Integer, Integer> plusOne = Integers.add.f(1);
+
+		// @off
         class TimesTwo extends FF<Integer, Integer> {{ out = in * 2; }};
-        
-        F<Integer, Integer> timesTwoPlusOne = compose(plusOne, withF(TimesTwo.class));
-        
-        assertEquals(5, (int) timesTwoPlusOne.f(2));
-        
-    }
-    
-    @Test
-    public void testFactors() {
-        assertEquals(Arrays.asList(1, 2, 3, 4, 6, 12), new ArrayList<Integer>(factors(12).toCollection()));
-    }
-    
-    public static List<Integer> factors(final int number) {
-        class Factor extends FF<Integer, Boolean> {{ out = number % in == 0; }}
-        return range(1, number + 1).filter(withF(Factor.class, number));
-    }
+        // @on
+
+		F<Integer, Integer> timesTwoPlusOne = compose(plusOne, withF(TimesTwo.class));
+
+		assertThat(timesTwoPlusOne.f(2)).isEqualTo(5);
+
+	}
+
+	@Test
+	public void testFactors() {
+		assertThat(newArrayList(factors(12).toCollection())).isEqualTo(asList(1, 2, 3, 4, 6, 12));
+	}
+
+	public static List<Integer> factors(final int number) {
+		// @off
+		class Factor extends FF<Integer, Boolean> {{ out = number % in == 0; }}
+		// on
+		return range(1, number + 1).filter(withF(Factor.class, number));
+	}
 
 }

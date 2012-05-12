@@ -17,6 +17,7 @@ package info.piwai.funkyjfunctional.wicket;
 
 import static info.piwai.funkyjfunctional.Funky.newFunction;
 import info.piwai.funkyjfunctional.Funky;
+import info.piwai.funkyjfunctional.java.FunkyJava;
 
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -33,8 +34,10 @@ import org.apache.wicket.model.LoadableDetachableModel;
  * 
  * <h1>Content</h1>
  * <ul>
- * <li> Wicket {@link LoadableDetachableModel} with {@link LDM} and {@link #withLDM(Class, Object...)}
- * <li> Wicket {@link AbstractReadOnlyModel} with {@link AROM} and {@link #withAROM(Class, Object...)}
+ * <li>Wicket {@link LoadableDetachableModel} with {@link LDM} and
+ * {@link #withLDM(Class, Object...)}
+ * <li>Wicket {@link AbstractReadOnlyModel} with {@link AROM} and
+ * {@link #withAROM(Class, Object...)}
  * </ul>
  * 
  * <p>
@@ -42,24 +45,23 @@ import org.apache.wicket.model.LoadableDetachableModel;
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public final class FunkyWicket {
+public class FunkyWicket extends FunkyJava {
 
-    /**
-     * @see FunkyWicket FunkyWicket documentation
-     */
-    public static <T, U extends LDM<T>> LoadableDetachableModel<T> withLDM(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassLoadableDetachableModel<T, U>(newFunction(applyingClass, constructorArguments));
-    }
-    
-    /**
-     * @see FunkyWicket FunkyWicket documentation
-     */
-    public static <T, U extends AROM<T>> AbstractReadOnlyModel<T> withAROM(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassAbstractReadOnlyModel<T, U>(newFunction(applyingClass, constructorArguments));
-    }
+	/**
+	 * @see FunkyWicket FunkyWicket documentation
+	 */
+	public static <T, U extends LDM<T>> LoadableDetachableModel<T> withLDM(Class<U> applyingClass, Object... constructorArguments) {
+		return new ClassLoadableDetachableModel<T, U>(newFunction(applyingClass, constructorArguments));
+	}
 
-    private FunkyWicket() {
-        throw new UnsupportedOperationException();
-    }
+	/**
+	 * @see FunkyWicket FunkyWicket documentation
+	 */
+	public static <T, U extends AROM<T>> AbstractReadOnlyModel<T> withAROM(Class<U> applyingClass, Object... constructorArguments) {
+		return new ClassAbstractReadOnlyModel<T, U>(newFunction(applyingClass, constructorArguments));
+	}
+
+	protected FunkyWicket() {
+	}
 
 }

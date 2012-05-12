@@ -29,10 +29,6 @@
         </dependency>
         <dependency>
             <groupId>info.piwai.funkyjfunctional</groupId>
-            <artifactId>funkyjfunctional-swing</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>info.piwai.funkyjfunctional</groupId>
             <artifactId>funkyjfunctional-wicket</artifactId>
         </dependency>
         <dependency>

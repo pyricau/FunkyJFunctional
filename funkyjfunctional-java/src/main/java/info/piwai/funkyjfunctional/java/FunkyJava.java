@@ -19,6 +19,7 @@ import static info.piwai.funkyjfunctional.Funky.newFunction;
 import static info.piwai.funkyjfunctional.Funky.newFunctionWithInput;
 import info.piwai.funkyjfunctional.Funky;
 
+import java.awt.event.ActionListener;
 import java.util.Comparator;
 import java.util.concurrent.Callable;
 
@@ -33,9 +34,13 @@ import java.util.concurrent.Callable;
  * 
  * <h1>Content</h1>
  * <ul>
- * <li> Java {@link Runnable} using {@link #withRun(Class, Object...)}
- * <li> Java {@link Comparator} with {@link Comp} and {@link #withComp(Class, Object...)}
- * <li> Java {@link Callable} with {@link Call} and {@link #withCall(Class, Object...)}
+ * <li>Java {@link Runnable} using {@link #withRun(Class, Object...)}
+ * <li>Java {@link Comparator} with {@link Comp} and
+ * {@link #withComp(Class, Object...)}
+ * <li>Java {@link Callable} with {@link Call} and
+ * {@link #withCall(Class, Object...)} *
+ * <li>Swing {@link ActionListener} with {@link ActL} and
+ * {@link #withActL(Class, Object...)}
  * </ul>
  * 
  * <p>
@@ -43,62 +48,68 @@ import java.util.concurrent.Callable;
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public final class FunkyJava {
+public class FunkyJava {
 
-    /**
-     * <p>
-     * Creates a {@link Comparator} instance from a {@link Comp} class.
-     * 
-     * <p>
-     * If the init block of the applyingClass references an instance member or a
-     * local variable, you should give it the instance as the first
-     * constructorParameter.
-     * 
-     * <p>
-     * If the init block of the applyingClass does not reference an instance
-     * member or a local variable, you should not give any object to the
-     * constructorParameter vararg.
-     * 
-     * @param applyingClass
-     *            the local class that represents a {@link Comparator}.
-     * @param <T>
-     *            The type that is compared.
-     * @param <U>
-     *            The local class type. Must extend {@link Comp}.
-     * 
-     * @param constructorArguments
-     *            The constructor arguments to give to the created instance. The
-     *            first argument will usually be 'this' or 'null' if the
-     *            applyingClass has been declared in an instance method, and the
-     *            other arguments will be the local variables that you use from
-     *            the local class.
-     * @throws IllegalArgumentException
-     *             if the applyingClass does not provide a default constructor
-     *             <b>or</b> if the instance argument does not have the expected
-     *             type
-     * 
-     * @return A {@link Comparator} based on the applyingClass parameter.
-     */
-    public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass, Object... constructorArguments) throws IllegalArgumentException {
-        return new ClassComparator<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
-    }
+	/**
+	 * <p>
+	 * Creates a {@link Comparator} instance from a {@link Comp} class.
+	 * 
+	 * <p>
+	 * If the init block of the applyingClass references an instance member or a
+	 * local variable, you should give it the instance as the first
+	 * constructorParameter.
+	 * 
+	 * <p>
+	 * If the init block of the applyingClass does not reference an instance
+	 * member or a local variable, you should not give any object to the
+	 * constructorParameter vararg.
+	 * 
+	 * @param applyingClass
+	 *            the local class that represents a {@link Comparator}.
+	 * @param <T>
+	 *            The type that is compared.
+	 * @param <U>
+	 *            The local class type. Must extend {@link Comp}.
+	 * 
+	 * @param constructorArguments
+	 *            The constructor arguments to give to the created instance. The
+	 *            first argument will usually be 'this' or 'null' if the
+	 *            applyingClass has been declared in an instance method, and the
+	 *            other arguments will be the local variables that you use from
+	 *            the local class.
+	 * @throws IllegalArgumentException
+	 *             if the applyingClass does not provide a default constructor
+	 *             <b>or</b> if the instance argument does not have the expected
+	 *             type
+	 * 
+	 * @return A {@link Comparator} based on the applyingClass parameter.
+	 */
+	public static <T, U extends Comp<T>> Comparator<T> withComp(Class<U> applyingClass, Object... constructorArguments) throws IllegalArgumentException {
+		return new ClassComparator<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
+	}
 
-    /**
-     * @see FunkyJava FunkyJava documentation
-     */
-    public static <U> Runnable withRun(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassRunnable<U>(newFunction(applyingClass, constructorArguments));
-    }
+	/**
+	 * @see FunkyJava FunkyJava documentation
+	 */
+	public static <U> Runnable withRun(Class<U> applyingClass, Object... constructorArguments) {
+		return new ClassRunnable<U>(newFunction(applyingClass, constructorArguments));
+	}
 
-    /**
-     * @see FunkyJava FunkyJava documentation
-     */
-    public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassCallable<T, U>(newFunction(applyingClass, constructorArguments));
-    }
+	/**
+	 * @see FunkyJava FunkyJava documentation
+	 */
+	public static <T, U extends Call<T>> Callable<T> withCall(Class<U> applyingClass, Object... constructorArguments) {
+		return new ClassCallable<T, U>(newFunction(applyingClass, constructorArguments));
+	}
 
-    private FunkyJava() {
-        throw new UnsupportedOperationException();
-    }
+	/**
+	 * @see FunkyJava FunkyJava documentation
+	 */
+	public static <U extends ActL> ActionListener withActL(Class<U> applyingClass, Object... constructorArguments) {
+		return new ClassActionListener<U>(newFunctionWithInput(applyingClass, constructorArguments));
+	}
+
+	protected FunkyJava() {
+	}
 
 }

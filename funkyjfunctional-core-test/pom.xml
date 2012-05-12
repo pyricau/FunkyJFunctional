@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>info.piwai.funkyjfunctional</groupId>
+        <artifactId>funkyjfunctional-parent</artifactId>
+        <version>1.2-SNAPSHOT</version>
+    </parent>
+
+    <groupId>info.piwai.funkyjfunctional</groupId>
+    <artifactId>funkyjfunctional-core-test</artifactId>
+
+    <name>FunkyJFunctional Core Test</name>
+    <description>This project contains test utilities for FunkyJFunctional internals.</description>
+    
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert-core</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+</project>

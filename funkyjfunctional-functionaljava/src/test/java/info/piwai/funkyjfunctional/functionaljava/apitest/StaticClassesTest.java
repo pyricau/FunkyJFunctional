@@ -1,4 +1,3 @@
-package info.piwai.funkyjfunctional.functionaljava;
 /**
  * Copyright (C) 2011 Pierre-Yves Ricau (py.ricau at gmail.com)
  *
@@ -14,29 +13,33 @@ package info.piwai.funkyjfunctional.functionaljava;
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+package info.piwai.funkyjfunctional.functionaljava.apitest;
 
-
+import static java.util.Arrays.asList;
+import info.piwai.funkyjfunctional.AbstractStaticClassTest;
 import info.piwai.funkyjfunctional.functionaljava.FunkyFunctionalJava;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 
-import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
-/**
- * @author Pierre-Yves Ricau (py.ricau at gmail.com)
- */
-public class FunkyFunctionalJavaTest {
+@RunWith(Parameterized.class)
+public class StaticClassesTest extends AbstractStaticClassTest {
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void cannotBeInstanciated() throws Throwable {
-        Constructor<?> constructor = FunkyFunctionalJava.class.getDeclaredConstructors()[0];
-        constructor.setAccessible(true);
-        try {
-            constructor.newInstance();
-        } catch (InvocationTargetException e) {
-            throw e.getCause();
-        }
-    }
+	@Parameters
+	public static Collection<Object[]> generateTestCases() {
+		Object[][] testCases = { //
+		//
+		{ FunkyFunctionalJava.class }, //
+		};
+
+		return asList(testCases);
+	}
+
+	public StaticClassesTest(Class<?> classToTest) {
+		super(classToTest);
+	}
 
 }

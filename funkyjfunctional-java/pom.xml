@@ -20,6 +20,10 @@
             <groupId>info.piwai.funkyjfunctional</groupId>
             <artifactId>funkyjfunctional-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>info.piwai.funkyjfunctional</groupId>
+            <artifactId>funkyjfunctional-core-test</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

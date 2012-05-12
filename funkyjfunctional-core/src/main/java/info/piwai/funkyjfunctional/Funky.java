@@ -129,90 +129,89 @@ import java.io.Serializable;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  * @author Florent Rami&egrave;re
  */
-public final class Funky {
+public class Funky {
 
-    private static FunctionFactory factory = createThreadSafeFactory();
+	private static FunctionFactory factory = createThreadSafeFactory();
 
-    /**
-     * Creates a new function instance from an applyingClass. This function
-     * cannot have any input argument.
-     * 
-     * @param applyingClass
-     *            the class that holds the functional behavior in its init block
-     *            declaration
-     * @param constructorArguments
-     *            if you want the {@link ClassFunction} to be serialized, all
-     *            constructorArguments elements should be {@link Serializable}.
-     */
-    public static <T> ClassFunction<T> newFunction(Class<T> applyingClass, Object... constructorArguments) {
-        return factory.newFunction(applyingClass, constructorArguments);
-    }
+	/**
+	 * Creates a new function instance from an applyingClass. This function
+	 * cannot have any input argument.
+	 * 
+	 * @param applyingClass
+	 *            the class that holds the functional behavior in its init block
+	 *            declaration
+	 * @param constructorArguments
+	 *            if you want the {@link ClassFunction} to be serialized, all
+	 *            constructorArguments elements should be {@link Serializable}.
+	 */
+	public static <T> ClassFunction<T> newFunction(Class<T> applyingClass, Object... constructorArguments) {
+		return factory.newFunction(applyingClass, constructorArguments);
+	}
 
-    /**
-     * Creates a new function instance from an applyingClass. This function may
-     * have input arguments.
-     * 
-     * @param applyingClass
-     *            the class that holds the functional behavior in its init block
-     *            declaration
-     * 
-     * @param constructorArguments
-     *            if you want the {@link ClassFunction} to be serialized, all
-     *            constructorArguments elements should be {@link Serializable}.
-     */
-    public static <T> ClassFunctionWithInput<T> newFunctionWithInput(Class<T> applyingClass, Object... constructorArguments) {
-        return factory.newFunctionWithInput(applyingClass, constructorArguments);
-    }
+	/**
+	 * Creates a new function instance from an applyingClass. This function may
+	 * have input arguments.
+	 * 
+	 * @param applyingClass
+	 *            the class that holds the functional behavior in its init block
+	 *            declaration
+	 * 
+	 * @param constructorArguments
+	 *            if you want the {@link ClassFunction} to be serialized, all
+	 *            constructorArguments elements should be {@link Serializable}.
+	 */
+	public static <T> ClassFunctionWithInput<T> newFunctionWithInput(Class<T> applyingClass, Object... constructorArguments) {
+		return factory.newFunctionWithInput(applyingClass, constructorArguments);
+	}
 
-    /**
-     * <p>
-     * Switches the holder used for input arguments. If true, a
-     * {@link ThreadSafeInputHolder} will be used, otherwise a
-     * {@link SingleThreadInputHolder} will be used. The default is a
-     * {@link ThreadSafeInputHolder}.
-     * 
-     * <p>
-     * Use with caution. Do not call this method unless you know what you are
-     * doing. A {@link SingleThreadInputHolder} may be used only if you are
-     * certain that FJF usage will happen on one and only one thread.
-     * 
-     * <p>
-     * This method is not thread safe. Should be called prior to using any FJF
-     * functionality.
-     */
-    public static void setThreadSafeInput(boolean threadSafe) {
-        if (threadSafe) {
-            factory = createThreadSafeFactory();
-        } else {
-            factory = createSingleThreadFactory();
-        }
-    }
+	/**
+	 * <p>
+	 * Switches the holder used for input arguments. If true, a
+	 * {@link ThreadSafeInputHolder} will be used, otherwise a
+	 * {@link SingleThreadInputHolder} will be used. The default is a
+	 * {@link ThreadSafeInputHolder}.
+	 * 
+	 * <p>
+	 * Use with caution. Do not call this method unless you know what you are
+	 * doing. A {@link SingleThreadInputHolder} may be used only if you are
+	 * certain that FJF usage will happen on one and only one thread.
+	 * 
+	 * <p>
+	 * This method is not thread safe. Should be called prior to using any FJF
+	 * functionality.
+	 */
+	public static void setThreadSafeInput(boolean threadSafe) {
+		if (threadSafe) {
+			factory = createThreadSafeFactory();
+		} else {
+			factory = createSingleThreadFactory();
+		}
+	}
 
-    /**
-     * This method is used by the various FJF modules to retrieve the input
-     * function parameter which is set prior to creating the instance. Should
-     * only be called from a FJF module.
-     * 
-     * @param <T>
-     *            any type you wish. The returned value will be cast to T. This
-     *            is a convenient feature to avoid polluting code with
-     *            unnecessary castings
-     * @return the input value set by the applyingClass
-     */
-    public static <T> T getInput() {
-        return factory.getInputHolder().<T> get();
-    }
+	/**
+	 * This method is used by the various FJF modules to retrieve the input
+	 * function parameter which is set prior to creating the instance. Should
+	 * only be called from a FJF module.
+	 * 
+	 * @param <T>
+	 *            any type you wish. The returned value will be cast to T. This
+	 *            is a convenient feature to avoid polluting code with
+	 *            unnecessary castings
+	 * @return the input value set by the applyingClass
+	 */
+	public static <T> T getInput() {
+		return factory.getInputHolder().<T> get();
+	}
 
-    private static FunctionFactory createThreadSafeFactory() {
-        return new FunctionFactory(ThreadSafeInputHolder.INSTANCE);
-    }
+	private static FunctionFactory createThreadSafeFactory() {
+		return new FunctionFactory(ThreadSafeInputHolder.INSTANCE);
+	}
 
-    private static FunctionFactory createSingleThreadFactory() {
-        return new FunctionFactory(new SingleThreadInputHolder());
-    }
+	private static FunctionFactory createSingleThreadFactory() {
+		return new FunctionFactory(new SingleThreadInputHolder());
+	}
 
-    private Funky() {
-        throw new UnsupportedOperationException();
-    }
+	protected Funky() {
+	}
 
 }

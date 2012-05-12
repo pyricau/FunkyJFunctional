@@ -13,17 +13,16 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.swing.apitest;
+package info.piwai.funkyjfunctional.java.apitest;
 
+import static info.piwai.funkyjfunctional.java.FunkyJava.withActL;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static info.piwai.funkyjfunctional.swing.FunkySwing.withActL;
+import info.piwai.funkyjfunctional.java.ActL;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import info.piwai.funkyjfunctional.swing.ActL;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,39 +31,38 @@ import org.junit.Test;
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
 public class ActLTest {
-	
-    static int counter;
 
-    @Before
-    public void setup() {
-        counter = 0;
-    }
+	static int counter;
 
-    @Test
-    public void executed() {
-        // @off
+	@Before
+	public void setup() {
+		counter = 0;
+	}
+
+	@Test
+	public void executed() {
+		// @off
         class Increment extends ActL{{ counter++; }}
         // @on
 
-       ActionListener listener = withActL(Increment.class);
+		ActionListener listener = withActL(Increment.class);
 
-        assertEquals(0, counter);
-        listener.actionPerformed(null);
-        assertEquals(1, counter);
-    }
+		assertEquals(0, counter);
+		listener.actionPerformed(null);
+		assertEquals(1, counter);
+	}
 
-    @Test
-    public void paramTransmitted() {
-    	ActionEvent event = mock(ActionEvent.class);
-    	
-        // @off
+	@Test
+	public void paramTransmitted() {
+		ActionEvent event = mock(ActionEvent.class);
+
+		// @off
         class Increment extends ActL{{ in.getActionCommand(); }}
         // @on
 
-        withActL(Increment.class).actionPerformed(event);
+		withActL(Increment.class).actionPerformed(event);
 
-        verify(event).getActionCommand();
-    }
+		verify(event).getActionCommand();
+	}
 
-    
 }

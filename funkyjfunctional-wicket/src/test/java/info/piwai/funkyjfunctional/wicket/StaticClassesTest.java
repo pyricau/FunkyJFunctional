@@ -13,27 +13,32 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.swing;
+package info.piwai.funkyjfunctional.wicket;
 
-import info.piwai.funkyjfunctional.ClassFunctionWithInput;
+import static java.util.Arrays.asList;
+import info.piwai.funkyjfunctional.AbstractStaticClassTest;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Collection;
 
-/**
- * <p>
- * {@link ClassActionListener}
- */
-final class ClassActionListener<T extends ActL> implements ActionListener {
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
-    private final ClassFunctionWithInput<T> function;
+@RunWith(Parameterized.class)
+public class StaticClassesTest extends AbstractStaticClassTest {
 
-    ClassActionListener(ClassFunctionWithInput<T> function) {
-        this.function = function;
-    }
+	@Parameters
+	public static Collection<Object[]> generateTestCases() {
+		Object[][] testCases = { //
+		//
+		{ FunkyWicket.class }, //
+		};
 
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		function.execute(event);
+		return asList(testCases);
 	}
+
+	public StaticClassesTest(Class<?> classToTest) {
+		super(classToTest);
+	}
+
 }

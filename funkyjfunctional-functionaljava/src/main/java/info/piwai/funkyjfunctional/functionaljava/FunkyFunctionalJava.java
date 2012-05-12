@@ -15,10 +15,11 @@
  */
 package info.piwai.funkyjfunctional.functionaljava;
 
-import static info.piwai.funkyjfunctional.Funky.*;
+import static info.piwai.funkyjfunctional.Funky.newFunctionWithInput;
 import fj.F;
 import fj.F2;
 import info.piwai.funkyjfunctional.Funky;
+import info.piwai.funkyjfunctional.java.FunkyJava;
 
 /**
  * FunkyJFunctional enables Java functional programming using method local class
@@ -32,7 +33,8 @@ import info.piwai.funkyjfunctional.Funky;
  * 
  * <h1>Content</h1>
  * <ul>
- * <li> Functional Java {@link F} with {@link FF} and {@link #withF(Class, Object...)}
+ * <li>Functional Java {@link F} with {@link FF} and
+ * {@link #withF(Class, Object...)}
  * </ul>
  * 
  * <p>
@@ -40,24 +42,23 @@ import info.piwai.funkyjfunctional.Funky;
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public final class FunkyFunctionalJava {
+public class FunkyFunctionalJava extends FunkyJava {
 
-    /**
-     * @see FunkyFunctionalJava FunkyFunctionalJava documentation
-     */
-    public static <A, B, T extends FF<A, B>> F<A, B> withF(Class<T> applyingClass, Object... constructorArguments) {
-        return new ClassF<A, B, T>(newFunctionWithInput(applyingClass, constructorArguments));
-    }
-    
-    /**
-     * @see FunkyFunctionalJava FunkyFunctionalJava documentation
-     */
-    public static <A, B, C, T extends FF2<A, B, C>> F2<A, B, C> withF2(Class<T> applyingClass, Object... constructorArguments) {
-        return new ClassF2<A, B, C, T>(newFunctionWithInput(applyingClass, constructorArguments));
-    }
+	/**
+	 * @see FunkyFunctionalJava FunkyFunctionalJava documentation
+	 */
+	public static <A, B, T extends FF<A, B>> F<A, B> withF(Class<T> applyingClass, Object... constructorArguments) {
+		return new ClassF<A, B, T>(newFunctionWithInput(applyingClass, constructorArguments));
+	}
 
-    private FunkyFunctionalJava() {
-        throw new UnsupportedOperationException();
-    }
+	/**
+	 * @see FunkyFunctionalJava FunkyFunctionalJava documentation
+	 */
+	public static <A, B, C, T extends FF2<A, B, C>> F2<A, B, C> withF2(Class<T> applyingClass, Object... constructorArguments) {
+		return new ClassF2<A, B, C, T>(newFunctionWithInput(applyingClass, constructorArguments));
+	}
+
+	protected FunkyFunctionalJava() {
+	}
 
 }

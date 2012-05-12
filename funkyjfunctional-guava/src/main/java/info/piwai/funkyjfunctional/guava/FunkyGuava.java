@@ -15,15 +15,16 @@
  */
 package info.piwai.funkyjfunctional.guava;
 
+import static info.piwai.funkyjfunctional.Funky.newFunction;
+import static info.piwai.funkyjfunctional.Funky.newFunctionWithInput;
+import info.piwai.funkyjfunctional.Funky;
+import info.piwai.funkyjfunctional.java.FunkyJava;
+
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Supplier;
 import com.google.common.collect.Constraint;
 import com.google.common.collect.Ordering;
-import info.piwai.funkyjfunctional.Funky;
-
-import static info.piwai.funkyjfunctional.Funky.newFunction;
-import static info.piwai.funkyjfunctional.Funky.newFunctionWithInput;
 
 /**
  * FunkyJFunctional enables Java functional programming using method local class
@@ -38,11 +39,16 @@ import static info.piwai.funkyjfunctional.Funky.newFunctionWithInput;
  * 
  * <h1>Content</h1>
  * <ul>
- * <li> Guava {@link Function} with {@link Func} and {@link #withFunc(Class, Object...)}
- * <li> Guava {@link Predicate} with {@link Pred} and {@link #withPred(Class, Object...)}
- * <li> Guava {@link Supplier} with {@link Supp} and {@link #withSupp(Class, Object...)}
- * <li> Guava {@link Constraint} with {@link Const} and {@link #withConst(Class, Object...)}
- * <li> Guava {@link Ordering} with {@link Ord} and {@link #withConst(Class, Object...)}
+ * <li>Guava {@link Function} with {@link Func} and
+ * {@link #withFunc(Class, Object...)}
+ * <li>Guava {@link Predicate} with {@link Pred} and
+ * {@link #withPred(Class, Object...)}
+ * <li>Guava {@link Supplier} with {@link Supp} and
+ * {@link #withSupp(Class, Object...)}
+ * <li>Guava {@link Constraint} with {@link Const} and
+ * {@link #withConst(Class, Object...)}
+ * <li>Guava {@link Ordering} with {@link Ord} and
+ * {@link #withConst(Class, Object...)}
  * </ul>
  * 
  * <p>
@@ -50,45 +56,44 @@ import static info.piwai.funkyjfunctional.Funky.newFunctionWithInput;
  * 
  * @author Pierre-Yves Ricau (py.ricau at gmail.com)
  */
-public final class FunkyGuava {
+public class FunkyGuava extends FunkyJava {
 
-    /**
-     * @see FunkyGuava FunkyGuava documentation
-     */
-    public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassFunction<From, To, U>(newFunctionWithInput(applyingClass, constructorArguments));
-    }
+	/**
+	 * @see FunkyGuava FunkyGuava documentation
+	 */
+	public static <From, To, U extends Func<From, To>> Function<From, To> withFunc(Class<U> applyingClass, Object... constructorArguments) {
+		return new ClassFunction<From, To, U>(newFunctionWithInput(applyingClass, constructorArguments));
+	}
 
-    /**
-     * @see FunkyGuava FunkyGuava documentation
-     */
-    public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassPredicate<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
-    }
+	/**
+	 * @see FunkyGuava FunkyGuava documentation
+	 */
+	public static <T, U extends Pred<T>> Predicate<T> withPred(Class<U> applyingClass, Object... constructorArguments) {
+		return new ClassPredicate<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
+	}
 
-    /**
-     * @see FunkyGuava FunkyGuava documentation
-     */
-    public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassSupplier<T, U>(newFunction(applyingClass, constructorArguments));
-    }
+	/**
+	 * @see FunkyGuava FunkyGuava documentation
+	 */
+	public static <T, U extends Supp<T>> Supplier<T> withSupp(Class<U> applyingClass, Object... constructorArguments) {
+		return new ClassSupplier<T, U>(newFunction(applyingClass, constructorArguments));
+	}
 
-    /**
-     * @see FunkyGuava FunkyGuava documentation
-     */
-    public static <T, U extends Const<T>> Constraint<T> withConst(Class<U> applyingClass, Object... constructorArguments) {
-        return new ClassConstraint<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
-    }
+	/**
+	 * @see FunkyGuava FunkyGuava documentation
+	 */
+	public static <T, U extends Const<T>> Constraint<T> withConst(Class<U> applyingClass, Object... constructorArguments) {
+		return new ClassConstraint<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
+	}
 
-    /**
-     * @see FunkyGuava FunkyGuava documentation
-     */
-    public static <T, U extends Ord<T>> Ordering<T> withOrd(Class<U> applyingClass, Object... constructorArguments){
-        return new ClassOrdering<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
-    }
+	/**
+	 * @see FunkyGuava FunkyGuava documentation
+	 */
+	public static <T, U extends Ord<T>> Ordering<T> withOrd(Class<U> applyingClass, Object... constructorArguments) {
+		return new ClassOrdering<T, U>(newFunctionWithInput(applyingClass, constructorArguments));
+	}
 
-    private FunkyGuava() {
-        throw new UnsupportedOperationException();
-    }
+	protected FunkyGuava() {
+	}
 
 }

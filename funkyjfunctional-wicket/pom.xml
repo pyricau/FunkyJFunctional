@@ -38,6 +38,14 @@
             <scope>test</scope>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>info.piwai.funkyjfunctional</groupId>
+            <artifactId>funkyjfunctional-core-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.piwai.funkyjfunctional</groupId>
+            <artifactId>funkyjfunctional-java</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -15,25 +15,25 @@
  */
 package info.piwai.funkyjfunctional.java;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import info.piwai.funkyjfunctional.ClassFunctionWithInput;
 
-import org.junit.Test;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
- * @author Pierre-Yves Ricau (py.ricau at gmail.com)
+ * <p>
+ * {@link ClassActionListener}
  */
-public class FunkyJavaTest {
+final class ClassActionListener<T extends ActL> implements ActionListener {
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void cannotBeInstanciated() throws Throwable {
-        Constructor<?> constructor = FunkyJava.class.getDeclaredConstructors()[0];
-        constructor.setAccessible(true);
-        try {
-            constructor.newInstance();
-        } catch (InvocationTargetException e) {
-            throw e.getCause();
-        }
+    private final ClassFunctionWithInput<T> function;
+
+    ClassActionListener(ClassFunctionWithInput<T> function) {
+        this.function = function;
     }
 
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		function.execute(event);
+	}
 }

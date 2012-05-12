@@ -13,25 +13,31 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package info.piwai.funkyjfunctional.swing;
+package info.piwai.funkyjfunctional;
 
-import info.piwai.funkyjfunctional.Funky;
+import static java.util.Arrays.asList;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Collection;
 
-/**
- * A Funky {@link ActionListener}
- * 
- * @see FunkySwing FunkySwing documentation
- * 
- * @author Pierre-Yves Ricau (py.ricau at gmail.com)
- */
-public abstract class ActL {
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
-    protected final ActionEvent in;
+@RunWith(Parameterized.class)
+public class StaticClassesTest extends AbstractStaticClassTest {
 
-    public ActL() {
-        in = Funky.getInput();
-    }
+	@Parameters
+	public static Collection<Object[]> generateTestCases() {
+		Object[][] testCases = { //
+		//
+		{ Funky.class }, //
+		};
+
+		return asList(testCases);
+	}
+
+	public StaticClassesTest(Class<?> classToTest) {
+		super(classToTest);
+	}
+
 }

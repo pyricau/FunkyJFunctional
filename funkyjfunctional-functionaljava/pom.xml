@@ -28,6 +28,14 @@
             <artifactId>fj</artifactId>
             <version>2.19</version>
         </dependency>
+        <dependency>
+            <groupId>info.piwai.funkyjfunctional</groupId>
+            <artifactId>funkyjfunctional-core-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.piwai.funkyjfunctional</groupId>
+            <artifactId>funkyjfunctional-java</artifactId>
+        </dependency>
     </dependencies>
 
     <repositories>
