@@ -33,16 +33,24 @@ import org.junit.Test;
  */
 public class CondDemo {
 
+	// @off
+    class Major extends Cond<Integer> {{ out = in >= 18; }}
+    // @on
+
 	@Test
 	public void majorAssertion() {
-
-		// @off
-        class Major extends Cond<Integer> {{ out = in >= 18; }}
-        // @on
-
 		assertThat(20).is(Major.class);
 
 		assertThat(5).isNot(Major.class);
+	}
+
+	@Test
+	public void allMajorAssertion() {
+		assertThat(asList(18, 30, 50)).are(Major.class);
+
+		assertThat(asList(1, 5, 17)).areNot(Major.class);
+
+		assertThat(asList(1, 5, 19)).areAtLeast(1, Major.class);
 	}
 
 	@Test

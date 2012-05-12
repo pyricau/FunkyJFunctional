@@ -24,10 +24,10 @@ import org.fest.assertions.api.IterableAssert;
 /**
  * @see IterableAssert
  */
-public class FunkyIterableAssert extends IterableAssert {
+public class FunkyIterableAssert extends FunkyAbstractIterableAssert<FunkyIterableAssert, Iterable<?>> {
 
 	protected FunkyIterableAssert(Iterable<?> actual) {
-		super(actual);
+		super(actual, FunkyIterableAssert.class);
 	}
 
 	public final FunkyIterableAssert as(Class<? extends Desc> description, Object... constructorArguments) {
