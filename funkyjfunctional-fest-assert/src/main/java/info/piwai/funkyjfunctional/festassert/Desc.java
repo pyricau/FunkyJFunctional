@@ -15,7 +15,7 @@
  */
 package info.piwai.funkyjfunctional.festassert;
 
-import org.fest.assertions.Description;
+import org.fest.assertions.description.Description;
 
 /**
  * A Funky {@link Description} of something.

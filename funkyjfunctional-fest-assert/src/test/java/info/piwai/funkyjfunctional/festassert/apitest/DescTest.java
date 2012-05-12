@@ -19,7 +19,7 @@ import static info.piwai.funkyjfunctional.festassert.FunkyFestAssert.withDesc;
 import static org.junit.Assert.assertEquals;
 import info.piwai.funkyjfunctional.festassert.Desc;
 
-import org.fest.assertions.Description;
+import org.fest.assertions.description.Description;
 import org.junit.Test;
 
 /**

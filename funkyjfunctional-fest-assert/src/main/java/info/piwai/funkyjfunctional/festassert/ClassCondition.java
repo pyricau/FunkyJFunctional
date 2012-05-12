@@ -17,7 +17,7 @@ package info.piwai.funkyjfunctional.festassert;
 
 import info.piwai.funkyjfunctional.ClassFunctionWithInput;
 
-import org.fest.assertions.Condition;
+import org.fest.assertions.core.Condition;
 
 /**
  * <p>
